@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Place Selection</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#2b6cee",
+                    "background-light": "#f6f6f8",
+                    "background-dark": "#101622",
+                    "text-main": "#0d121b",
+                    "text-muted": "#4c669a",
+                    "surface-white": "#ffffff",
+                },
+                fontFamily: {
+                    "display": ["Work Sans", "Noto Sans", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+            },
+        },
+    }
+</script>
+<style>.no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }.no-scrollbar {
+        -ms-overflow-style: none;scrollbar-width: none;}
+    body {
+        min-height: max(884px, 100dvh);
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+<header class="pt-12 px-6 pb-2 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md sticky top-0 z-20 transition-all duration-300">
+<div class="flex items-center justify-between mb-6">
+<button class="group flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-105 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined text-text-main dark:text-white group-hover:text-primary transition-colors">arrow_back</span>
+</button>
+<div class="flex items-center gap-2 bg-white dark:bg-gray-800 py-1.5 px-3 rounded-full border border-gray-100 dark:border-gray-700 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-xs font-bold text-text-main dark:text-white tracking-wide uppercase">Day 3</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h1 class="text-text-main dark:text-white tracking-tighter text-4xl font-extrabold leading-none">Kyoto</h1>
+<p class="text-text-muted dark:text-gray-400 font-medium text-base">Select places to visit</p>
+</div>
+<div class="flex gap-3 mt-6 overflow-x-auto no-scrollbar pb-2 mask-linear">
+<button class="whitespace-nowrap px-5 py-2.5 rounded-full bg-text-main text-white text-sm font-bold shadow-lg shadow-gray-200 dark:shadow-none hover:shadow-xl transition-shadow">All Places</button>
+<button class="whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 text-text-muted dark:text-gray-300 border border-gray-200 dark:border-gray-700 text-sm font-semibold hover:border-primary hover:text-primary transition-colors">Sights</button>
+<button class="whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 text-text-muted dark:text-gray-300 border border-gray-200 dark:border-gray-700 text-sm font-semibold hover:border-primary hover:text-primary transition-colors">Dining</button>
+<button class="whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 text-text-muted dark:text-gray-300 border border-gray-200 dark:border-gray-700 text-sm font-semibold hover:border-primary hover:text-primary transition-colors">Nature</button>
+</div>
+</header>
+<main class="flex flex-col px-6 gap-4 pb-40 pt-2">
+<article class="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none ring-2 ring-primary cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+<div class="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+<img alt="Fushimi Inari Taisha" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7GynONUtpDelZRViHVZq75NWYaRHHEIbakWW7mA12iGpKdaGN3Hig4mpCRsgeG9AA9CX8KBpCd8wLXVWw3GEYKZgLtvHx2AC8Frmu0hVdCwdr_woX-1me24N6gcJx0GIlmIFUFRMZJri0p6FDQpoGOI0m0ighGGrYml-CvSldUnN3Cc8g_4NE3ULa4hZTUV8xPImSS8Ol02nlKG0VW2uL7Jk7qJynMRpP6Jbnbn95Q78kTOHwMcq1usQ7ch57wE7XMM6ktFAjPDw"/>
+</div>
+<div class="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+<h3 class="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Fushimi Inari Taisha</h3>
+<span class="text-primary text-xs font-bold tracking-widest uppercase">Shrine</span>
+<span class="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Iconic torii gates • 2h visit</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 shrink-0 rounded-full bg-primary text-white shadow-sm transition-transform duration-200 scale-100">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</article>
+<article class="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-transparent hover:border-gray-200 dark:hover:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+<div class="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+<img alt="Kinkaku-ji" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADtk1sj_1Yj0-2fI7Wqbp2pXnOtM8hK6316wRh7wfOdX8IskFVM6KcgrLmExU0WKJJ_I-JA5a7L8rhCcglFMwTIkjNh6Ya_iNrB9kYbYoKe-c-1LfVwcj0I65kYS9xgFcqBuZsCGQY_ljIg2Ymu9RuxfeaxpqfRldIlOjaGOEPrA6-mUzkLjk86PxoIufJ99fHIhfb4BtkR79NWDoG-vnaLcS1eVuuOfMqs0I7fWu_xapPS-omOc1QmYzEIiC0YXcuf4142EU04rM"/>
+</div>
+<div class="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+<h3 class="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Kinkaku-ji</h3>
+<span class="text-text-muted dark:text-gray-400 text-xs font-bold tracking-widest uppercase group-hover:text-primary transition-colors">Temple</span>
+<span class="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Golden Pavilion • 1h visit</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-primary transition-colors">
+</div>
+</article>
+<article class="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none ring-2 ring-primary cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+<div class="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+<img alt="Bamboo Grove" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpFHxi5Mx-MDuGAR-g-PLRaMBnSLfqoQadAoRjFuns8GTgxizsT8cz-QreIA_gCmGe5vcxETMI3xqOYNQJyK64i_71TV2CrMm2sHOGdJgIxZIdPGmiJLm_85YctI0T_hPGgzVneLRc6ec7mCQQtpjV-fRUOb0K0N4dI6WP-AADG33QxBLpXQ2zhxQkp0NJVZoRMW9e3xLqEJYgSiQRHpskeWVxQaxuaT8SicRd-y0G3hXvnZuz9JoQYWbFk09K2l5IBxwhm7oir5U"/>
+</div>
+<div class="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+<h3 class="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Arashiyama Bamboo</h3>
+<span class="text-primary text-xs font-bold tracking-widest uppercase">Nature</span>
+<span class="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Scenic walking path • 1.5h visit</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 shrink-0 rounded-full bg-primary text-white shadow-sm transition-transform duration-200 scale-100">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+</article>
+<article class="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-transparent hover:border-gray-200 dark:hover:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+<div class="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+<img alt="Ramen Street" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkWSOX-UnI4I0a7zIy76HubY5jR8enNvC6cI-jBAGt7XH0eJv_nPUjRQTGFRa461rE2kcDl_KY8nyVYFqGoOt1Xg9RkJpCGZ2fEl_4_y8Q-XtNdAYO8_sAinWG_UsNHwxj2C_Y-ImATcY1CW5xxnJFUm9XFy6fzEvL7kx4isTcHdiSlEK1CG-0gRd92o2DLQsdk2HBM57ItgO49F--pRH__GFIA89tCj3X18CN9MuqgY_2CVsYDypstBzuzmU-X8lYVdY20gZNLoY"/>
+</div>
+<div class="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+<h3 class="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Kyoto Ramen Koji</h3>
+<span class="text-text-muted dark:text-gray-400 text-xs font-bold tracking-widest uppercase group-hover:text-primary transition-colors">Dining</span>
+<span class="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Famous noodle street • 45m</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-primary transition-colors">
+</div>
+</article>
+<article class="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-transparent hover:border-gray-200 dark:hover:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+<div class="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+<img alt="Gion District" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe1ElTJO7sAZwNgenAEZ8qmHTx_fozzTi6diIc93M2O0p_K3CHN7ueIrvkUk5K82OWiCyeVfU1akFVHNmlpqfVF-UJi24HlB-eAgbGNVUDGqjkGVx6MoI5QjDz5qLiTnHRvI3NPppu6G6ATwhyV-xgJSoK6wgGESbqr1NAUM-Bln6Bc-N2SVXCtCZDN7xbh9UCsjuUXBSDQZEilFUV1hTxe0OwJ0600IhjcZwZHiPvVieCUlytsVgPPTIg0b7KVa9aaxyM1gX-VnY"/>
+</div>
+<div class="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+<h3 class="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Gion District</h3>
+<span class="text-text-muted dark:text-gray-400 text-xs font-bold tracking-widest uppercase group-hover:text-primary transition-colors">Culture</span>
+<span class="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Geisha district • Evening</span>
+</div>
+<div class="flex items-center justify-center w-6 h-6 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-primary transition-colors">
+</div>
+</article>
+</main>
+<div class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none w-full max-w-md mx-auto">
+<div class="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/90 dark:via-background-dark/90 to-transparent"></div>
+<div class="pointer-events-auto relative p-6 pb-10">
+<button class="w-full bg-primary text-white font-bold text-lg tracking-wide py-4 rounded-full shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transform transition-all active:scale-95 flex items-center justify-between px-8 group">
+<span class="flex items-center gap-2">
+<span class="flex items-center justify-center bg-white/20 w-6 h-6 rounded-full text-xs font-bold">2</span>
+<span class="opacity-95 text-base">Selected</span>
+</span>
+<span class="flex items-center gap-2 text-base">
+                        Add to Itinerary
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</span>
+</button>
+</div>
+</div>
+</div>
+
+</body></html>

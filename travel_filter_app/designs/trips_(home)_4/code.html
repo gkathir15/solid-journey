@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>City Selection</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "text-main": "#0d121b",
+                        "text-muted": "#4c669a",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body { min-height: max(884px, 100dvh); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+<header class="pt-14 pb-2 px-6 sticky top-0 z-20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md transition-colors duration-300 flex justify-between items-center border-b border-gray-100 dark:border-gray-800/50">
+<button class="w-10 h-10 -ml-2 flex items-center justify-center rounded-full text-text-main dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined font-medium">arrow_back</span>
+</button>
+<div class="text-xs font-bold tracking-widest text-text-muted uppercase">Step 2 of 4</div>
+<button class="w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-text-main dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors opacity-0 pointer-events-none">
+<span class="material-symbols-outlined font-medium">more_horiz</span>
+</button>
+</header>
+<main class="flex flex-col px-6 pb-40 pt-6">
+<div class="flex flex-col gap-6 mb-8">
+<div class="relative w-full aspect-[2.2/1] overflow-hidden rounded-2xl bg-gray-200 shadow-sm">
+<div class="w-full h-full bg-center bg-cover transform scale-105" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBziM37if2RBJjL3eMb9KrOnRO9GeYr2DkqN_eYwm7s1Ugi4kMB8RZeXo00T4WfnZ0-UxOIFqHD7q5KUgflOBBB-Zg4AbMaeOaMe-GDxCc0frynEx37mTKuuCb1h2PoMnDYSXM2ITjC_MJArUGDCdb780MDVbExhD-KtQGJOyIZIOLfKwk-wITAF-4F3Weu50b5E_dC4zdsBGFMZNshsMICImWlC6ywqbAFnK3XdtXbKlR0NykovxtamDx9sLwuslzRSi3Eil1th7Y');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<div class="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest bg-white/20 px-2 py-1 rounded backdrop-blur-md border border-white/10">
+<span class="material-symbols-outlined text-[12px]">public</span>
+                            Europe
+                         </div>
+</div>
+</div>
+<div class="flex flex-col">
+<h1 class="text-text-main dark:text-white tracking-tighter text-[42px] font-extrabold leading-[1.1]">Italy</h1>
+<p class="text-text-muted text-lg mt-3 leading-relaxed font-light">Select the cities you plan to visit to generate your personalized itinerary.</p>
+</div>
+</div>
+<div class="flex flex-col border-t border-gray-100 dark:border-gray-800">
+<label class="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Rome</h3>
+<span class="text-xs font-semibold text-text-muted uppercase tracking-wider">Lazio Region</span>
+</div>
+</div>
+<div class="relative">
+<input checked="" class="peer sr-only" type="checkbox"/>
+<div class="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+<span class="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+</div>
+</div>
+</label>
+<label class="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Florence</h3>
+<span class="text-xs font-semibold text-text-muted uppercase tracking-wider">Tuscany</span>
+</div>
+</div>
+<div class="relative">
+<input checked="" class="peer sr-only" type="checkbox"/>
+<div class="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+<span class="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+</div>
+</div>
+</label>
+<label class="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Venice</h3>
+<span class="text-xs font-semibold text-text-muted uppercase tracking-wider">Veneto</span>
+</div>
+</div>
+<div class="relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+<span class="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+</div>
+</div>
+</label>
+<label class="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Milan</h3>
+<span class="text-xs font-semibold text-text-muted uppercase tracking-wider">Lombardy</span>
+</div>
+</div>
+<div class="relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+<span class="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+</div>
+</div>
+</label>
+<label class="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+<div class="flex items-center gap-4">
+<div class="flex flex-col gap-1">
+<h3 class="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Naples</h3>
+<span class="text-xs font-semibold text-text-muted uppercase tracking-wider">Campania</span>
+</div>
+</div>
+<div class="relative">
+<input class="peer sr-only" type="checkbox"/>
+<div class="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+<span class="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+</div>
+</div>
+</label>
+</div>
+</main>
+<div class="fixed bottom-0 left-0 right-0 z-30 p-6 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark pt-16 max-w-md mx-auto pointer-events-none">
+<button class="pointer-events-auto w-full bg-primary text-white font-bold text-base tracking-wide h-14 rounded-full shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+<span>Add 2 Destinations</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+
+</body></html>

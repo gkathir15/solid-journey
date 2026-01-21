@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trip Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "primary-dark": "#1a4bbd",
+                        "background-light": "#ffffff",
+                        "background-dark": "#101622",
+                        "surface-light": "#f6f6f8",
+                        "surface-dark": "#1a2130",
+                        "text-main-light": "#0d121b",
+                        "text-main-dark": "#ffffff",
+                        "text-muted-light": "#4c669a",
+                        "text-muted-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'float': '0 10px 30px -4px rgba(43, 108, 238, 0.25)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Smooth transitions */
+        .transition-smooth {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main-light dark:text-text-main-dark overflow-x-hidden min-h-screen flex flex-col antialiased selection:bg-primary/20">
+<!-- Header Section -->
+<header class="sticky top-0 z-40 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 pt-6 pb-2 transition-smooth">
+<div class="flex items-center justify-between mb-8">
+<button class="flex items-center justify-center size-10 -ml-2 rounded-full hover:bg-surface-light dark:hover:bg-surface-dark transition-colors group">
+<span class="material-symbols-outlined text-[28px] text-text-main-light dark:text-text-main-dark group-hover:scale-105 transition-transform">arrow_back</span>
+</button>
+<button class="text-primary hover:text-primary-dark font-semibold text-sm tracking-wide uppercase transition-colors px-3 py-1 rounded hover:bg-primary/5">
+                Edit
+            </button>
+</div>
+<div class="flex flex-col gap-1">
+<h1 class="text-4xl font-bold tracking-tight text-text-main-light dark:text-text-main-dark leading-tight">
+                Tokyo &amp; Kyoto
+            </h1>
+<div class="flex items-center gap-2 text-text-muted-light dark:text-text-muted-dark text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>Oct 12 — Oct 24, 2024</span>
+</div>
+</div>
+</header>
+<!-- Day Selector -->
+<nav class="sticky top-[140px] z-30 bg-background-light dark:bg-background-dark pt-2 pb-6 px-6 border-b border-transparent shadow-[0_10px_20px_-10px_rgba(0,0,0,0.02)] transition-smooth">
+<div class="flex gap-4 overflow-x-auto no-scrollbar pb-1 snap-x">
+<!-- Active Day -->
+<button class="snap-start shrink-0 flex flex-col items-center justify-center min-w-[72px] h-[76px] rounded-xl bg-primary text-white shadow-lg shadow-primary/20 transition-transform active:scale-95">
+<span class="text-xs font-medium opacity-80 uppercase tracking-widest">Day</span>
+<span class="text-2xl font-bold leading-none mt-1">01</span>
+</button>
+<!-- Inactive Days -->
+<button class="snap-start shrink-0 flex flex-col items-center justify-center min-w-[72px] h-[76px] rounded-xl bg-surface-light dark:bg-surface-dark text-text-muted-light dark:text-text-muted-dark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors active:scale-95">
+<span class="text-xs font-medium uppercase tracking-widest">Day</span>
+<span class="text-2xl font-bold leading-none mt-1">02</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-center justify-center min-w-[72px] h-[76px] rounded-xl bg-surface-light dark:bg-surface-dark text-text-muted-light dark:text-text-muted-dark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors active:scale-95">
+<span class="text-xs font-medium uppercase tracking-widest">Day</span>
+<span class="text-2xl font-bold leading-none mt-1">03</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-center justify-center min-w-[72px] h-[76px] rounded-xl bg-surface-light dark:bg-surface-dark text-text-muted-light dark:text-text-muted-dark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors active:scale-95">
+<span class="text-xs font-medium uppercase tracking-widest">Day</span>
+<span class="text-2xl font-bold leading-none mt-1">04</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-center justify-center min-w-[72px] h-[76px] rounded-xl bg-surface-light dark:bg-surface-dark text-text-muted-light dark:text-text-muted-dark hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors active:scale-95">
+<span class="text-xs font-medium uppercase tracking-widest">Day</span>
+<span class="text-2xl font-bold leading-none mt-1">05</span>
+</button>
+</div>
+</nav>
+<!-- Itinerary List -->
+<main class="flex-1 px-6 pt-6 pb-32 flex flex-col gap-6">
+<!-- List Item 1 -->
+<div class="group relative flex items-center bg-white dark:bg-surface-dark rounded-2xl p-4 pr-2 shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300">
+<div class="flex-1 flex flex-col gap-1 pr-4">
+<span class="text-sm font-medium text-primary tracking-wide">09:00 AM</span>
+<h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark leading-tight">Tsukiji Outer Market</h3>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">Famous for fresh seafood breakfast</p>
+</div>
+<div class="h-12 w-[1px] bg-gray-100 dark:bg-gray-700 mx-2"></div>
+<button class="cursor-grab active:cursor-grabbing p-3 text-text-muted-light/40 dark:text-text-muted-dark/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+<!-- List Item 2 -->
+<div class="group relative flex items-center bg-white dark:bg-surface-dark rounded-2xl p-4 pr-2 shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300">
+<div class="flex-1 flex flex-col gap-1 pr-4">
+<span class="text-sm font-medium text-primary tracking-wide">11:30 AM</span>
+<h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark leading-tight">teamLab Planets</h3>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">Immersive digital art museum</p>
+</div>
+<div class="h-12 w-[1px] bg-gray-100 dark:bg-gray-700 mx-2"></div>
+<button class="cursor-grab active:cursor-grabbing p-3 text-text-muted-light/40 dark:text-text-muted-dark/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+<!-- List Item 3 -->
+<div class="group relative flex items-center bg-white dark:bg-surface-dark rounded-2xl p-4 pr-2 shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300">
+<div class="flex-1 flex flex-col gap-1 pr-4">
+<span class="text-sm font-medium text-primary tracking-wide">02:00 PM</span>
+<h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark leading-tight">Ginza Six Shopping</h3>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">Luxury shopping complex &amp; rooftop garden</p>
+</div>
+<div class="h-12 w-[1px] bg-gray-100 dark:bg-gray-700 mx-2"></div>
+<button class="cursor-grab active:cursor-grabbing p-3 text-text-muted-light/40 dark:text-text-muted-dark/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+<!-- List Item 4 -->
+<div class="group relative flex items-center bg-white dark:bg-surface-dark rounded-2xl p-4 pr-2 shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300">
+<div class="flex-1 flex flex-col gap-1 pr-4">
+<span class="text-sm font-medium text-primary tracking-wide">07:00 PM</span>
+<h3 class="text-lg font-medium text-text-main-light dark:text-text-main-dark leading-tight">Dinner at Gonpachi</h3>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">The "Kill Bill" inspired izakaya</p>
+</div>
+<div class="h-12 w-[1px] bg-gray-100 dark:bg-gray-700 mx-2"></div>
+<button class="cursor-grab active:cursor-grabbing p-3 text-text-muted-light/40 dark:text-text-muted-dark/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</button>
+</div>
+<!-- Empty State / Add Hint -->
+<div class="flex justify-center pt-8 pb-4 opacity-40">
+<div class="h-1 w-12 rounded-full bg-gray-300 dark:bg-gray-600"></div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<div class="fixed bottom-24 right-6 z-40">
+<button class="flex items-center justify-center size-14 bg-background-dark dark:bg-white text-white dark:text-background-dark rounded-full shadow-float hover:scale-110 active:scale-95 transition-all duration-300 group">
+<span class="material-symbols-outlined text-[28px] group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+</div>
+<!-- Sticky Bottom Navigation -->
+<div class="fixed bottom-0 left-0 w-full z-50 p-6 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark pointer-events-none flex justify-center pb-8">
+<button class="pointer-events-auto flex items-center gap-3 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full shadow-float hover:shadow-lg hover:-translate-y-1 active:translate-y-0 transition-all duration-300 w-full max-w-[200px] justify-center group">
+<span class="text-base font-semibold tracking-wide">View Map</span>
+<span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">map</span>
+</button>
+</div>
+</body></html>

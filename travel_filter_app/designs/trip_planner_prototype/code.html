@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Trip Planner Prototype</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "text-main": "#0d121b",
+                        "text-muted": "#4c669a",
+                        "border-light": "#e2e4ea", // Normalized variant
+                        "border-dark": "#2a3241",
+                        "input-bg": "#ffffff",
+                        "input-bg-dark": "#1a2234",
+                        "surface-white": "#ffffff",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+
+    <!-- React Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(600px, 100dvh);
+        }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        /* Mask utility for scrolling lists */
+        .mask-linear {
+            -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+            mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        }
+        /* Custom animation for fade in */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // --- Setup & Utilities ---
+        const { useState, useEffect } = React;
+        const { createRoot } = ReactDOM;
+        const { MemoryRouter, Routes, Route, Link, useNavigate } = ReactRouterDOM;
+
+        // --- Components ---
+
+        // Screen 6: Trip Type Selection
+        // Acts as the "Home" screen for this flow
+        const TripTypeSelection = () => {
+            const navigate = useNavigate();
+
+            return (
+                <div className="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+                    <header className="pt-14 pb-2 px-6 flex items-center sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm">
+                        <button className="flex items-center justify-center p-3 -ml-3 rounded-full text-text-main dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors active:scale-95 duration-200">
+                            <span className="material-symbols-outlined text-[28px]">arrow_back</span>
+                        </button>
+                    </header>
+                    <main className="flex flex-col flex-1 px-6 pb-12">
+                        <div className="mt-4 mb-10">
+                            <h1 className="text-text-main dark:text-white tracking-tighter text-[36px] font-extrabold leading-[1.1]">
+                                Where are you<br/>headed?
+                            </h1>
+                            <p className="mt-4 text-text-muted dark:text-slate-400 text-lg font-medium leading-relaxed max-w-[90%]">
+                                Select your trip type to begin planning your itinerary.
+                            </p>
+                        </div>
+                        <div className="flex flex-col gap-6 w-full">
+                            <button 
+                                onClick={() => navigate('/start-location')}
+                                className="group relative flex flex-col w-full text-left bg-white dark:bg-[#1A2230] p-8 rounded-[32px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-none border border-transparent hover:border-primary/20 transition-all duration-300 active:scale-[0.98]"
+                            >
+                                <div className="flex items-start justify-between w-full mb-6">
+                                    <div className="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
+                                        <span className="material-symbols-outlined text-[32px]">directions_car</span>
+                                    </div>
+                                    <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+                                        <span className="material-symbols-outlined text-text-muted/40 text-2xl">arrow_forward</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2 className="text-text-main dark:text-white text-2xl font-bold tracking-tight mb-2 group-hover:text-primary transition-colors">Domestic Trip</h2>
+                                    <p className="text-text-muted dark:text-slate-400 font-medium leading-relaxed text-[15px]">
+                                        Planning a local getaway, road trip, or city break within the country.
+                                    </p>
+                                </div>
+                            </button>
+                            <button 
+                                onClick={() => navigate('/region-selection')}
+                                className="group relative flex flex-col w-full text-left bg-white dark:bg-[#1A2230] p-8 rounded-[32px] shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-none border border-transparent hover:border-primary/20 transition-all duration-300 active:scale-[0.98]"
+                            >
+                                <div className="flex items-start justify-between w-full mb-6">
+                                    <div className="w-16 h-16 rounded-2xl bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                                        <span className="material-symbols-outlined text-[32px]">public</span>
+                                    </div>
+                                    <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+                                        <span className="material-symbols-outlined text-text-muted/40 text-2xl">arrow_forward</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2 className="text-text-main dark:text-white text-2xl font-bold tracking-tight mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">International Trip</h2>
+                                    <p className="text-text-muted dark:text-slate-400 font-medium leading-relaxed text-[15px]">
+                                        Traveling abroad to explore new countries, cultures, and landscapes.
+                                    </p>
+                                </div>
+                            </button>
+                        </div>
+                    </main>
+                    <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent pointer-events-none z-0 max-w-md mx-auto"></div>
+                </div>
+            );
+        };
+
+        // Screen 7: Starting Location Input
+        const StartingLocationInput = () => {
+            const navigate = useNavigate();
+
+            return (
+                <div className="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-hidden max-w-md mx-auto shadow-2xl">
+                    <header className="flex items-center justify-between pt-14 pb-2 px-6 sticky top-0 z-10">
+                        <button onClick={() => navigate(-1)} className="p-2 -ml-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors text-text-main dark:text-white">
+                            <span className="material-symbols-outlined text-2xl">arrow_back</span>
+                        </button>
+                        <div className="text-sm font-semibold tracking-widest uppercase text-text-muted">Step 1 of 4</div>
+                        <div className="w-10"></div> 
+                    </header>
+                    <main className="flex-1 flex flex-col px-6 pt-8 pb-10">
+                        <div className="mb-10 animate-fade-in-up">
+                            <h1 className="text-text-main dark:text-white tracking-tighter text-[32px] font-extrabold leading-[1.1] text-left mb-3">
+                                Where does your journey begin?
+                            </h1>
+                            <p className="text-text-muted text-lg font-normal leading-relaxed">
+                                Enter a city, airport, or address to start planning.
+                            </p>
+                        </div>
+                        <div className="flex flex-col gap-6 w-full">
+                            <div className="relative group">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <span className="material-symbols-outlined text-text-muted text-xl">search</span>
+                                </div>
+                                <input className="block w-full pl-12 pr-4 py-5 bg-input-bg dark:bg-input-bg-dark border-0 rounded-2xl text-text-main dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-primary/50 text-lg shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none transition-all" placeholder="Search for a location" type="text"/>
+                            </div>
+                            <div className="relative flex py-2 items-center">
+                                <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+                                <span className="flex-shrink-0 mx-4 text-text-muted text-xs uppercase tracking-widest font-semibold">Or</span>
+                                <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+                            </div>
+                            <button className="flex items-center gap-4 w-full p-5 bg-input-bg dark:bg-input-bg-dark rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none hover:bg-white dark:hover:bg-[#1f293a] transition-all group border border-transparent hover:border-primary/20 active:scale-[0.98]">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                                    <span className="material-symbols-outlined text-xl">near_me</span>
+                                </div>
+                                <div className="flex flex-col items-start">
+                                    <span className="text-text-main dark:text-white font-bold text-lg">Use current location</span>
+                                    <span className="text-text-muted text-sm font-medium">Approximate location via GPS</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div className="mt-12 flex flex-col gap-4 opacity-50 pointer-events-none blur-[1px]">
+                            <div className="text-xs font-bold uppercase tracking-widest text-text-muted mb-2">Recent Searches</div>
+                            <div className="flex items-center gap-3 py-2 border-b border-gray-100 dark:border-gray-800">
+                                <span className="material-symbols-outlined text-gray-400 text-lg">history</span>
+                                <span className="text-text-main dark:text-gray-300 font-medium">New York, NY</span>
+                            </div>
+                            <div className="flex items-center gap-3 py-2 border-b border-gray-100 dark:border-gray-800">
+                                <span className="material-symbols-outlined text-gray-400 text-lg">history</span>
+                                <span className="text-text-main dark:text-gray-300 font-medium">San Francisco, CA</span>
+                            </div>
+                        </div>
+                    </main>
+                    <div className="p-6 pb-10 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark sticky bottom-0 z-20">
+                        <button 
+                            onClick={() => navigate('/region-selection')}
+                            className="w-full bg-primary text-white font-bold text-base tracking-wide py-4 rounded-xl shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transition-all transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                            <span>Continue</span>
+                            <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Screen 2: Region Selection
+        const RegionSelection = () => {
+            const navigate = useNavigate();
+
+            return (
+                <div className="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+                    <header className="pt-14 pb-4 px-6 sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm transition-colors duration-300">
+                        <div className="flex items-center gap-4 mb-4">
+                            <button onClick={() => navigate(-1)} className="flex items-center justify-center w-10 h-10 -ml-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+                                <span className="material-symbols-outlined text-text-main dark:text-white text-2xl">arrow_back</span>
+                            </button>
+                        </div>
+                        <h1 className="text-text-main dark:text-white tracking-tighter text-[32px] font-extrabold leading-tight text-left">Where are you going?</h1>
+                        <p className="text-text-muted mt-2 text-base font-medium">Select a region or country</p>
+                    </header>
+                    <main className="flex flex-col px-6 pb-40">
+                        <div className="flex flex-col gap-1 mb-8">
+                            <h3 className="text-text-muted text-xs font-bold tracking-widest uppercase mb-3 ml-1">Popular Destinations</h3>
+                            {/* Italy - Links to City Selection */}
+                            <label className="group relative flex items-center justify-between p-5 rounded-xl border border-border-light dark:border-border-dark bg-white dark:bg-[#1a202e] cursor-pointer transition-all duration-200 hover:border-primary/30 dark:hover:border-primary/30 hover:shadow-sm">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xl overflow-hidden shrink-0">
+                                        🇮🇹
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Italy</span>
+                                        <span className="text-sm text-text-muted">Europe</span>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-center">
+                                    <input className="peer h-6 w-6 border-2 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-0 rounded-full cursor-pointer transition-all checked:border-primary" name="region" type="radio"/>
+                                </div>
+                            </label>
+                            <label className="group relative flex items-center justify-between p-5 mt-3 rounded-xl border border-border-light dark:border-border-dark bg-white dark:bg-[#1a202e] cursor-pointer transition-all duration-200 hover:border-primary/30 dark:hover:border-primary/30 hover:shadow-sm">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xl overflow-hidden shrink-0">
+                                        🇯🇵
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Japan</span>
+                                        <span className="text-sm text-text-muted">Asia</span>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-center">
+                                    <input className="peer h-6 w-6 border-2 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-0 rounded-full cursor-pointer transition-all checked:border-primary" name="region" type="radio"/>
+                                </div>
+                            </label>
+                        </div>
+                        <div className="flex flex-col gap-1 mb-8">
+                            <h3 className="text-text-muted text-xs font-bold tracking-widest uppercase mb-3 ml-1">The Americas</h3>
+                            <label className="group relative flex items-center justify-between p-5 rounded-xl border border-border-light dark:border-border-dark bg-white dark:bg-[#1a202e] cursor-pointer transition-all duration-200 hover:border-primary/30 dark:hover:border-primary/30 hover:shadow-sm">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-primary dark:text-indigo-300 shrink-0">
+                                        <span className="material-symbols-outlined">landscape</span>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">California</span>
+                                        <span className="text-sm text-text-muted">United States</span>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-center">
+                                    <input defaultChecked className="peer h-6 w-6 border-2 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-0 rounded-full cursor-pointer transition-all checked:border-primary" name="region" type="radio"/>
+                                </div>
+                            </label>
+                            <label className="group relative flex items-center justify-between p-5 mt-3 rounded-xl border border-border-light dark:border-border-dark bg-white dark:bg-[#1a202e] cursor-pointer transition-all duration-200 hover:border-primary/30 dark:hover:border-primary/30 hover:shadow-sm">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-primary dark:text-indigo-300 shrink-0">
+                                        <span className="material-symbols-outlined">public</span>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Patagonia</span>
+                                        <span className="text-sm text-text-muted">Argentina / Chile</span>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-center">
+                                    <input className="peer h-6 w-6 border-2 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-0 rounded-full cursor-pointer transition-all checked:border-primary" name="region" type="radio"/>
+                                </div>
+                            </label>
+                            <label className="group relative flex items-center justify-between p-5 mt-3 rounded-xl border border-border-light dark:border-border-dark bg-white dark:bg-[#1a202e] cursor-pointer transition-all duration-200 hover:border-primary/30 dark:hover:border-primary/30 hover:shadow-sm">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xl overflow-hidden shrink-0">
+                                        🇲🇽
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Mexico</span>
+                                        <span className="text-sm text-text-muted">North America</span>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-center">
+                                    <input className="peer h-6 w-6 border-2 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-0 rounded-full cursor-pointer transition-all checked:border-primary" name="region" type="radio"/>
+                                </div>
+                            </label>
+                        </div>
+                        <div className="flex flex-col gap-1 mb-4">
+                            <h3 className="text-text-muted text-xs font-bold tracking-widest uppercase mb-3 ml-1">Other Regions</h3>
+                            <label className="group relative flex items-center justify-between p-5 rounded-xl border border-border-light dark:border-border-dark bg-white dark:bg-[#1a202e] cursor-pointer transition-all duration-200 hover:border-primary/30 dark:hover:border-primary/30 hover:shadow-sm">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xl overflow-hidden shrink-0">
+                                        🇫🇷
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">France</span>
+                                        <span className="text-sm text-text-muted">Europe</span>
+                                    </div>
+                                </div>
+                                <div className="relative flex items-center">
+                                    <input className="peer h-6 w-6 border-2 border-gray-300 dark:border-gray-600 text-primary focus:ring-primary focus:ring-offset-0 rounded-full cursor-pointer transition-all checked:border-primary" name="region" type="radio"/>
+                                </div>
+                            </label>
+                        </div>
+                    </main>
+                    <div className="fixed bottom-0 left-0 right-0 z-30 flex flex-col items-center justify-end pointer-events-none w-full max-w-md mx-auto h-32 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark pb-10 px-6">
+                        <button 
+                            onClick={() => navigate('/city-selection')}
+                            className="pointer-events-auto w-full bg-primary text-white font-bold text-base tracking-wide py-4 rounded-xl shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                        >
+                            Continue
+                            <span className="material-symbols-outlined text-lg font-bold">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Screen 4: City Selection
+        const CitySelection = () => {
+            const navigate = useNavigate();
+
+            return (
+                <div className="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+                    <header className="pt-14 pb-2 px-6 sticky top-0 z-20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md transition-colors duration-300 flex justify-between items-center border-b border-gray-100 dark:border-gray-800/50">
+                        <button onClick={() => navigate(-1)} className="w-10 h-10 -ml-2 flex items-center justify-center rounded-full text-text-main dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                            <span className="material-symbols-outlined font-medium">arrow_back</span>
+                        </button>
+                        <div className="text-xs font-bold tracking-widest text-text-muted uppercase">Step 2 of 4</div>
+                        <button className="w-10 h-10 -mr-2 flex items-center justify-center rounded-full text-text-main dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors opacity-0 pointer-events-none">
+                            <span className="material-symbols-outlined font-medium">more_horiz</span>
+                        </button>
+                    </header>
+                    <main className="flex flex-col px-6 pb-40 pt-6">
+                        <div className="flex flex-col gap-6 mb-8">
+                            <div className="relative w-full aspect-[2.2/1] overflow-hidden rounded-2xl bg-gray-200 shadow-sm">
+                                <div className="w-full h-full bg-center bg-cover transform scale-105" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBziM37if2RBJjL3eMb9KrOnRO9GeYr2DkqN_eYwm7s1Ugi4kMB8RZeXo00T4WfnZ0-UxOIFqHD7q5KUgflOBBB-Zg4AbMaeOaMe-GDxCc0frynEx37mTKuuCb1h2PoMnDYSXM2ITjC_MJArUGDCdb780MDVbExhD-KtQGJOyIZIOLfKwk-wITAF-4F3Weu50b5E_dC4zdsBGFMZNshsMICImWlC6ywqbAFnK3XdtXbKlR0NykovxtamDx9sLwuslzRSi3Eil1th7Y')"}}></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <div className="absolute bottom-4 left-4 text-white">
+                                    <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest bg-white/20 px-2 py-1 rounded backdrop-blur-md border border-white/10">
+                                        <span className="material-symbols-outlined text-[12px]">public</span>
+                                        Europe
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-col">
+                                <h1 className="text-text-main dark:text-white tracking-tighter text-[42px] font-extrabold leading-[1.1]">Italy</h1>
+                                <p className="text-text-muted text-lg mt-3 leading-relaxed font-light">Select the cities you plan to visit to generate your personalized itinerary.</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col border-t border-gray-100 dark:border-gray-800">
+                            <label className="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex flex-col gap-1">
+                                        <h3 className="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Rome</h3>
+                                        <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">Lazio Region</span>
+                                    </div>
+                                </div>
+                                <div className="relative">
+                                    <input defaultChecked className="peer sr-only" type="checkbox"/>
+                                    <div className="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+                                        <span className="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+                                    </div>
+                                </div>
+                            </label>
+                            <label className="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex flex-col gap-1">
+                                        <h3 className="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Florence</h3>
+                                        <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">Tuscany</span>
+                                    </div>
+                                </div>
+                                <div className="relative">
+                                    <input defaultChecked className="peer sr-only" type="checkbox"/>
+                                    <div className="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+                                        <span className="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+                                    </div>
+                                </div>
+                            </label>
+                            <label className="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex flex-col gap-1">
+                                        <h3 className="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Venice</h3>
+                                        <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">Veneto</span>
+                                    </div>
+                                </div>
+                                <div className="relative">
+                                    <input className="peer sr-only" type="checkbox"/>
+                                    <div className="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+                                        <span className="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+                                    </div>
+                                </div>
+                            </label>
+                            <label className="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex flex-col gap-1">
+                                        <h3 className="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Milan</h3>
+                                        <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">Lombardy</span>
+                                    </div>
+                                </div>
+                                <div className="relative">
+                                    <input className="peer sr-only" type="checkbox"/>
+                                    <div className="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+                                        <span className="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+                                    </div>
+                                </div>
+                            </label>
+                            <label className="group relative flex items-center justify-between py-6 border-b border-gray-100 dark:border-gray-800 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-800/30 -mx-6 px-6 transition-colors">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex flex-col gap-1">
+                                        <h3 className="text-xl font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">Naples</h3>
+                                        <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">Campania</span>
+                                    </div>
+                                </div>
+                                <div className="relative">
+                                    <input className="peer sr-only" type="checkbox"/>
+                                    <div className="w-7 h-7 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center bg-white dark:bg-background-dark">
+                                        <span className="material-symbols-outlined text-white text-[18px] opacity-0 peer-checked:opacity-100 transform scale-50 peer-checked:scale-100 transition-all duration-200">check</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </main>
+                    <div className="fixed bottom-0 left-0 right-0 z-30 p-6 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark pt-16 max-w-md mx-auto pointer-events-none">
+                        <button 
+                            onClick={() => navigate('/trip-duration')}
+                            className="pointer-events-auto w-full bg-primary text-white font-bold text-base tracking-wide h-14 rounded-full shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                        >
+                            <span>Add 2 Destinations</span>
+                            <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Screen 5: Trip Duration
+        const TripDuration = () => {
+            const navigate = useNavigate();
+            const [days, setDays] = useState(5);
+
+            return (
+                <div className="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+                    <header className="pt-14 pb-4 px-6 sticky top-0 z-10 bg-transparent flex items-center justify-between">
+                        <button onClick={() => navigate(-1)} className="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-text-main dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+                            <span className="material-symbols-outlined text-2xl font-light">arrow_back</span>
+                        </button>
+                        <div className="w-10"></div> 
+                    </header>
+                    <main className="flex flex-col flex-1 px-8 pt-6 pb-32 items-center justify-start text-center">
+                        <div className="mb-10 flex gap-2">
+                            <div className="h-1 w-8 rounded-full bg-primary"></div>
+                            <div className="h-1 w-8 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                            <div className="h-1 w-8 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                        </div>
+                        <h1 className="text-text-main dark:text-white tracking-tight text-3xl font-bold leading-tight mb-4">
+                            How many days?
+                        </h1>
+                        <p className="text-text-muted dark:text-slate-400 text-lg leading-relaxed max-w-[280px] mb-16">
+                            Set the duration for your trip to help us plan your itinerary.
+                        </p>
+                        <div className="relative flex items-center justify-center gap-8 w-full max-w-[320px]">
+                            <button 
+                                onClick={() => setDays(d => Math.max(1, d - 1))}
+                                disabled={days <= 1}
+                                className="w-16 h-16 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-input-bg-dark text-text-main dark:text-white flex items-center justify-center shadow-sm hover:border-primary hover:text-primary transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span className="material-symbols-outlined text-3xl">remove</span>
+                            </button>
+                            <div className="flex flex-col items-center">
+                                <div className="relative">
+                                    <input 
+                                        className="w-32 text-center bg-transparent text-text-main dark:text-white text-7xl font-bold p-0 border-none focus:ring-0 focus:outline-none placeholder-gray-300 dark:placeholder-gray-700 selection:bg-primary/20" 
+                                        max="90" 
+                                        min="1" 
+                                        type="number" 
+                                        value={days}
+                                        onChange={(e) => setDays(parseInt(e.target.value) || 0)}
+                                    />
+                                    <span className="absolute -right-4 top-2 text-xl font-medium text-text-muted dark:text-slate-500 hidden">days</span>
+                                </div>
+                                <span className="text-text-muted dark:text-slate-500 font-medium text-lg mt-2">Days</span>
+                            </div>
+                            <button 
+                                onClick={() => setDays(d => d + 1)}
+                                className="w-16 h-16 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-input-bg-dark text-text-main dark:text-white flex items-center justify-center shadow-sm hover:border-primary hover:text-primary transition-all active:scale-95"
+                            >
+                                <span className="material-symbols-outlined text-3xl">add</span>
+                            </button>
+                        </div>
+                        <div className="mt-16 flex flex-wrap justify-center gap-3">
+                            <button className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-text-muted dark:text-slate-400 hover:border-primary hover:text-primary transition-colors">Weekend</button>
+                            <button className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-text-muted dark:text-slate-400 hover:border-primary hover:text-primary transition-colors">1 Week</button>
+                            <button className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-text-muted dark:text-slate-400 hover:border-primary hover:text-primary transition-colors">2 Weeks</button>
+                        </div>
+                    </main>
+                    <div className="fixed bottom-10 left-0 right-0 z-30 flex justify-center w-full max-w-md mx-auto px-6">
+                        <button 
+                            onClick={() => navigate('/review-reorder')}
+                            className="w-full bg-primary text-white font-bold text-base tracking-wide py-4 rounded-xl shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                        >
+                            <span>Continue</span>
+                            <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                        </button>
+                    </div>
+                    <div className="fixed bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent pointer-events-none z-20 max-w-md mx-auto"></div>
+                </div>
+            );
+        };
+
+        // Screen 1: Trip Review & Reorder
+        const ReviewReorder = () => {
+            const navigate = useNavigate();
+
+            return (
+                <div className="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+                    <header className="pt-14 pb-4 px-6 sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm border-b border-transparent transition-colors duration-300">
+                        <div className="flex items-center gap-4 mb-2">
+                            <button onClick={() => navigate(-1)} className="text-text-main dark:text-white p-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <span className="material-symbols-outlined text-2xl">arrow_back</span>
+                            </button>
+                            <div className="flex flex-col">
+                                <span className="text-xs font-bold tracking-widest uppercase text-text-muted dark:text-slate-400">Step 3 of 4</span>
+                                <h1 className="text-text-main dark:text-white tracking-tight text-xl font-bold leading-tight">Review &amp; Reorder</h1>
+                            </div>
+                        </div>
+                        <p className="text-text-muted dark:text-slate-400 text-sm leading-relaxed">
+                            Review your trip hierarchy. Drag items to reorder your itinerary.
+                        </p>
+                    </header>
+                    <main className="flex flex-col px-6 pb-40">
+                        <section className="mb-10">
+                            <div className="flex items-center justify-between mb-4 group cursor-grab active:cursor-grabbing">
+                                <div className="flex items-center gap-3">
+                                    <span className="material-symbols-outlined text-text-muted/50 text-xl cursor-grab">drag_indicator</span>
+                                    <h2 className="text-text-main dark:text-white text-2xl font-bold tracking-tight">Chilean Patagonia</h2>
+                                </div>
+                                <button className="text-primary text-sm font-semibold hover:text-primary/80 transition-colors">Edit</button>
+                            </div>
+                            <div className="pl-5 border-l-2 border-border-light dark:border-border-dark ml-2.5 flex flex-col gap-6">
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex items-center justify-between group cursor-grab active:cursor-grabbing">
+                                        <div className="flex items-center gap-3">
+                                            <span className="material-symbols-outlined text-text-muted/40 text-lg">drag_indicator</span>
+                                            <h3 className="text-text-main dark:text-white text-lg font-semibold">Puerto Natales</h3>
+                                        </div>
+                                        <span className="text-xs font-medium text-text-muted bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">2 Days</span>
+                                    </div>
+                                    <div className="pl-8 flex flex-col gap-3">
+                                        <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-xl shadow-sm border border-border-light dark:border-border-dark cursor-grab active:cursor-grabbing">
+                                            <span className="material-symbols-outlined text-text-muted/30 text-base">drag_handle</span>
+                                            <div className="w-10 h-10 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+                                                <div className="w-full h-full bg-cover bg-center" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCh00S9gUi-l0f0UfiHOGf5rwnN4Ydg_XN7xvo7G4ivq85xP4dpMxq2VUH9YKGp7bbrgsEnWfXvmufsVljrYqVdeg5faY46b0su28m5Z35GDkzGQFEFQJyDql_88xJUqaJkaEe-VLhAw6J0hE-N4ux7HjPw9bn8EpcX1MtOK4dKKe0d58Ru7eBZ0v2ucsYReLw7UM0pxBJbXcyt4-2pSE6BXTd_GNcdrtvJ8DB9pyEkL6RgviNufcxpeqCVGc1Vgfdsi1Khk1Sog5g')"}}></div>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-text-main dark:text-white text-sm font-medium truncate">The Singular Patagonia</p>
+                                                <p className="text-text-muted text-xs truncate">Hotel • 3 Nights</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-xl shadow-sm border border-border-light dark:border-border-dark cursor-grab active:cursor-grabbing">
+                                            <span className="material-symbols-outlined text-text-muted/30 text-base">drag_handle</span>
+                                            <div className="w-10 h-10 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+                                                <div className="w-full h-full bg-cover bg-center" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBziM37if2RBJjL3eMb9KrOnRO9GeYr2DkqN_eYwm7s1Ugi4kMB8RZeXo00T4WfnZ0-UxOIFqHD7q5KUgflOBBB-Zg4AbMaeOaMe-GDxCc0frynEx37mTKuuCb1h2PoMnDYSXM2ITjC_MJArUGDCdb780MDVbExhD-KtQGJOyIZIOLfKwk-wITAF-4F3Weu50b5E_dC4zdsBGFMZNshsMICImWlC6ywqbAFnK3XdtXbKlR0NykovxtamDx9sLwuslzRSi3Eil1th7Y')"}}></div>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-text-main dark:text-white text-sm font-medium truncate">Muelle Histórico</p>
+                                                <p className="text-text-muted text-xs truncate">Sightseeing</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex items-center justify-between group cursor-grab active:cursor-grabbing">
+                                        <div className="flex items-center gap-3">
+                                            <span className="material-symbols-outlined text-text-muted/40 text-lg">drag_indicator</span>
+                                            <h3 className="text-text-main dark:text-white text-lg font-semibold">Torres del Paine</h3>
+                                        </div>
+                                        <span className="text-xs font-medium text-text-muted bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">4 Days</span>
+                                    </div>
+                                    <div className="pl-8 flex flex-col gap-3">
+                                        <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-xl shadow-sm border border-border-light dark:border-border-dark cursor-grab active:cursor-grabbing">
+                                            <span className="material-symbols-outlined text-text-muted/30 text-base">drag_handle</span>
+                                            <div className="w-10 h-10 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
+                                                <div className="w-full h-full bg-cover bg-center" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxbaVnhLlfQJw0ha-p3CVpA_uUETNNwWCVKdc4UYStcEws4Phw3HJ46m_1pj7_KcBaJYnNkirToARnu33ONdaqQc46hUNMpP7ph-FvEsJh-t3qSSyJ9KRwRvSP_bxuV7iHZ_o3Mce0SvkweCccntAkuX7b77zHGW_Horm6mqQt_JbWO2dyeYRuvbaDGiXP-w9E72g9JMuohvZN-lDuB_NROrzVjEgqB9rRff_IcDEZTvT0F2XOmioVKB1ASwgXUDpzz1mxMws9oqE')"}}></div>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-text-main dark:text-white text-sm font-medium truncate">Base Torres Hike</p>
+                                                <p className="text-text-muted text-xs truncate">Activity • 8 hours</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800/50 rounded-xl shadow-sm border border-border-light dark:border-border-dark cursor-grab active:cursor-grabbing">
+                                            <span className="material-symbols-outlined text-text-muted/30 text-base">drag_handle</span>
+                                            <div className="w-10 h-10 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0 bg-blue-100 flex items-center justify-center text-blue-500">
+                                                <span className="material-symbols-outlined text-lg">restaurant</span>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-text-main dark:text-white text-sm font-medium truncate">Hotel Las Torres</p>
+                                                <p className="text-text-muted text-xs truncate">Dinner</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section className="mb-8 opacity-80">
+                            <div className="flex items-center justify-between mb-4 group cursor-grab active:cursor-grabbing">
+                                <div className="flex items-center gap-3">
+                                    <span className="material-symbols-outlined text-text-muted/50 text-xl cursor-grab">drag_indicator</span>
+                                    <h2 className="text-text-main dark:text-white text-2xl font-bold tracking-tight">Argentine Patagonia</h2>
+                                </div>
+                                <button className="text-primary text-sm font-semibold hover:text-primary/80 transition-colors">Edit</button>
+                            </div>
+                            <div className="pl-5 border-l-2 border-border-light dark:border-border-dark ml-2.5 flex flex-col gap-6">
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex items-center justify-between group cursor-grab active:cursor-grabbing">
+                                        <div className="flex items-center gap-3">
+                                            <span className="material-symbols-outlined text-text-muted/40 text-lg">drag_indicator</span>
+                                            <h3 className="text-text-main dark:text-white text-lg font-semibold">El Calafate</h3>
+                                        </div>
+                                        <span className="text-xs font-medium text-text-muted bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">2 Days</span>
+                                    </div>
+                                    <div className="pl-8">
+                                        <div className="flex items-center gap-2 p-3 border-2 border-dashed border-border-light dark:border-border-dark rounded-xl text-text-muted text-sm justify-center hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors cursor-pointer">
+                                            <span className="material-symbols-outlined text-lg">add</span>
+                                            <span>Add places to El Calafate</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+                    <div className="fixed bottom-0 left-0 right-0 z-30 flex flex-col items-center w-full max-w-md mx-auto bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark pt-12 pb-10 px-6">
+                        <button 
+                            onClick={() => navigate('/place-selection')}
+                            className="w-full bg-primary text-white font-bold text-base tracking-wide py-4 rounded-xl shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                        >
+                            <span>Finalize Trip</span>
+                            <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                        </button>
+                        <button className="mt-4 text-text-muted dark:text-slate-400 font-semibold text-sm hover:text-text-main dark:hover:text-white transition-colors">
+                            View on Map
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Screen 3: Place Selection (Kyoto detail example)
+        // Treated as the final destination in this prototype flow
+        const PlaceSelection = () => {
+            const navigate = useNavigate();
+
+            return (
+                <div className="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+                    <header className="pt-12 px-6 pb-2 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md sticky top-0 z-20 transition-all duration-300">
+                        <div className="flex items-center justify-between mb-6">
+                            <button onClick={() => navigate(-1)} className="group flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-105 active:scale-95 transition-all duration-200">
+                                <span className="material-symbols-outlined text-text-main dark:text-white group-hover:text-primary transition-colors">arrow_back</span>
+                            </button>
+                            <div className="flex items-center gap-2 bg-white dark:bg-gray-800 py-1.5 px-3 rounded-full border border-gray-100 dark:border-gray-700 shadow-sm">
+                                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                                <span className="text-xs font-bold text-text-main dark:text-white tracking-wide uppercase">Day 3</span>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <h1 className="text-text-main dark:text-white tracking-tighter text-4xl font-extrabold leading-none">Kyoto</h1>
+                            <p className="text-text-muted dark:text-gray-400 font-medium text-base">Select places to visit</p>
+                        </div>
+                        <div className="flex gap-3 mt-6 overflow-x-auto no-scrollbar pb-2 mask-linear">
+                            <button className="whitespace-nowrap px-5 py-2.5 rounded-full bg-text-main text-white text-sm font-bold shadow-lg shadow-gray-200 dark:shadow-none hover:shadow-xl transition-shadow">All Places</button>
+                            <button className="whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 text-text-muted dark:text-gray-300 border border-gray-200 dark:border-gray-700 text-sm font-semibold hover:border-primary hover:text-primary transition-colors">Sights</button>
+                            <button className="whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 text-text-muted dark:text-gray-300 border border-gray-200 dark:border-gray-700 text-sm font-semibold hover:border-primary hover:text-primary transition-colors">Dining</button>
+                            <button className="whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 text-text-muted dark:text-gray-300 border border-gray-200 dark:border-gray-700 text-sm font-semibold hover:border-primary hover:text-primary transition-colors">Nature</button>
+                        </div>
+                    </header>
+                    <main className="flex flex-col px-6 gap-4 pb-40 pt-2">
+                        <article className="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none ring-2 ring-primary cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+                            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+                                <img alt="Fushimi Inari Taisha" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7GynONUtpDelZRViHVZq75NWYaRHHEIbakWW7mA12iGpKdaGN3Hig4mpCRsgeG9AA9CX8KBpCd8wLXVWw3GEYKZgLtvHx2AC8Frmu0hVdCwdr_woX-1me24N6gcJx0GIlmIFUFRMZJri0p6FDQpoGOI0m0ighGGrYml-CvSldUnN3Cc8g_4NE3ULa4hZTUV8xPImSS8Ol02nlKG0VW2uL7Jk7qJynMRpP6Jbnbn95Q78kTOHwMcq1usQ7ch57wE7XMM6ktFAjPDw"/>
+                            </div>
+                            <div className="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+                                <h3 className="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Fushimi Inari Taisha</h3>
+                                <span className="text-primary text-xs font-bold tracking-widest uppercase">Shrine</span>
+                                <span className="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Iconic torii gates • 2h visit</span>
+                            </div>
+                            <div className="flex items-center justify-center w-6 h-6 shrink-0 rounded-full bg-primary text-white shadow-sm transition-transform duration-200 scale-100">
+                                <span className="material-symbols-outlined text-sm font-bold">check</span>
+                            </div>
+                        </article>
+                        <article className="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-transparent hover:border-gray-200 dark:hover:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+                            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+                                <img alt="Kinkaku-ji" className="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADtk1sj_1Yj0-2fI7Wqbp2pXnOtM8hK6316wRh7wfOdX8IskFVM6KcgrLmExU0WKJJ_I-JA5a7L8rhCcglFMwTIkjNh6Ya_iNrB9kYbYoKe-c-1LfVwcj0I65kYS9xgFcqBuZsCGQY_ljIg2Ymu9RuxfeaxpqfRldIlOjaGOEPrA6-mUzkLjk86PxoIufJ99fHIhfb4BtkR79NWDoG-vnaLcS1eVuuOfMqs0I7fWu_xapPS-omOc1QmYzEIiC0YXcuf4142EU04rM"/>
+                            </div>
+                            <div className="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+                                <h3 className="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Kinkaku-ji</h3>
+                                <span className="text-text-muted dark:text-gray-400 text-xs font-bold tracking-widest uppercase group-hover:text-primary transition-colors">Temple</span>
+                                <span className="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Golden Pavilion • 1h visit</span>
+                            </div>
+                            <div className="flex items-center justify-center w-6 h-6 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-primary transition-colors">
+                            </div>
+                        </article>
+                        <article className="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none ring-2 ring-primary cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+                            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+                                <img alt="Bamboo Grove" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpFHxi5Mx-MDuGAR-g-PLRaMBnSLfqoQadAoRjFuns8GTgxizsT8cz-QreIA_gCmGe5vcxETMI3xqOYNQJyK64i_71TV2CrMm2sHOGdJgIxZIdPGmiJLm_85YctI0T_hPGgzVneLRc6ec7mCQQtpjV-fRUOb0K0N4dI6WP-AADG33QxBLpXQ2zhxQkp0NJVZoRMW9e3xLqEJYgSiQRHpskeWVxQaxuaT8SicRd-y0G3hXvnZuz9JoQYWbFk09K2l5IBxwhm7oir5U"/>
+                            </div>
+                            <div className="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+                                <h3 className="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Arashiyama Bamboo</h3>
+                                <span className="text-primary text-xs font-bold tracking-widest uppercase">Nature</span>
+                                <span className="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Scenic walking path • 1.5h visit</span>
+                            </div>
+                            <div className="flex items-center justify-center w-6 h-6 shrink-0 rounded-full bg-primary text-white shadow-sm transition-transform duration-200 scale-100">
+                                <span className="material-symbols-outlined text-sm font-bold">check</span>
+                            </div>
+                        </article>
+                        <article className="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-transparent hover:border-gray-200 dark:hover:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+                            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+                                <img alt="Ramen Street" className="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkWSOX-UnI4I0a7zIy76HubY5jR8enNvC6cI-jBAGt7XH0eJv_nPUjRQTGFRa461rE2kcDl_KY8nyVYFqGoOt1Xg9RkJpCGZ2fEl_4_y8Q-XtNdAYO8_sAinWG_UsNHwxj2C_Y-ImATcY1CW5xxnJFUm9XFy6fzEvL7kx4isTcHdiSlEK1CG-0gRd92o2DLQsdk2HBM57ItgO49F--pRH__GFIA89tCj3X18CN9MuqgY_2CVsYDypstBzuzmU-X8lYVdY20gZNLoY"/>
+                            </div>
+                            <div className="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+                                <h3 className="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Kyoto Ramen Koji</h3>
+                                <span className="text-text-muted dark:text-gray-400 text-xs font-bold tracking-widest uppercase group-hover:text-primary transition-colors">Dining</span>
+                                <span className="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Famous noodle street • 45m</span>
+                            </div>
+                            <div className="flex items-center justify-center w-6 h-6 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-primary transition-colors">
+                            </div>
+                        </article>
+                        <article className="group relative flex items-center p-2 pr-4 bg-white dark:bg-gray-800 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] dark:shadow-none border border-transparent hover:border-gray-200 dark:hover:border-gray-700 cursor-pointer transform transition-all duration-300 hover:scale-[1.01]">
+                            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-200">
+                                <img alt="Gion District" className="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe1ElTJO7sAZwNgenAEZ8qmHTx_fozzTi6diIc93M2O0p_K3CHN7ueIrvkUk5K82OWiCyeVfU1akFVHNmlpqfVF-UJi24HlB-eAgbGNVUDGqjkGVx6MoI5QjDz5qLiTnHRvI3NPppu6G6ATwhyV-xgJSoK6wgGESbqr1NAUM-Bln6Bc-N2SVXCtCZDN7xbh9UCsjuUXBSDQZEilFUV1hTxe0OwJ0600IhjcZwZHiPvVieCUlytsVgPPTIg0b7KVa9aaxyM1gX-VnY"/>
+                            </div>
+                            <div className="flex flex-col gap-0.5 ml-4 flex-1 min-w-0">
+                                <h3 className="text-text-main dark:text-white text-lg font-bold leading-tight truncate">Gion District</h3>
+                                <span className="text-text-muted dark:text-gray-400 text-xs font-bold tracking-widest uppercase group-hover:text-primary transition-colors">Culture</span>
+                                <span className="text-text-muted dark:text-gray-400 text-xs mt-1 font-medium truncate">Geisha district • Evening</span>
+                            </div>
+                            <div className="flex items-center justify-center w-6 h-6 shrink-0 rounded-full border-2 border-gray-300 dark:border-gray-600 group-hover:border-primary transition-colors">
+                            </div>
+                        </article>
+                    </main>
+                    <div className="fixed bottom-0 left-0 right-0 z-30 pointer-events-none w-full max-w-md mx-auto">
+                        <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/90 dark:via-background-dark/90 to-transparent"></div>
+                        <div className="pointer-events-auto relative p-6 pb-10">
+                            <button 
+                                onClick={() => navigate('/')} // Resets to start
+                                className="w-full bg-primary text-white font-bold text-lg tracking-wide py-4 rounded-full shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transform transition-all active:scale-95 flex items-center justify-between px-8 group"
+                            >
+                                <span className="flex items-center gap-2">
+                                    <span className="flex items-center justify-center bg-white/20 w-6 h-6 rounded-full text-xs font-bold">2</span>
+                                    <span className="opacity-95 text-base">Selected</span>
+                                </span>
+                                <span className="flex items-center gap-2 text-base">
+                                    Add to Itinerary
+                                    <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- App Shell & Routing ---
+        const App = () => {
+            return (
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<TripTypeSelection />} />
+                        <Route path="/start-location" element={<StartingLocationInput />} />
+                        <Route path="/region-selection" element={<RegionSelection />} />
+                        <Route path="/city-selection" element={<CitySelection />} />
+                        <Route path="/trip-duration" element={<TripDuration />} />
+                        <Route path="/review-reorder" element={<ReviewReorder />} />
+                        <Route path="/place-selection" element={<PlaceSelection />} />
+                    </Routes>
+                </MemoryRouter>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

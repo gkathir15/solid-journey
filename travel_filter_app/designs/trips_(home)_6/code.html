@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trip Duration</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "text-main": "#0d121b",
+                        "text-muted": "#4c669a",
+                        "input-bg": "#ffffff",
+                        "input-bg-dark": "#1a2233"
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased">
+<div class="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl">
+<header class="pt-14 pb-4 px-6 sticky top-0 z-10 bg-transparent flex items-center justify-between">
+<button class="w-10 h-10 -ml-2 rounded-full flex items-center justify-center text-text-main dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-2xl font-light">arrow_back</span>
+</button>
+<div class="w-10"></div> 
+</header>
+<main class="flex flex-col flex-1 px-8 pt-6 pb-32 items-center justify-start text-center">
+<div class="mb-10 flex gap-2">
+<div class="h-1 w-8 rounded-full bg-primary"></div>
+<div class="h-1 w-8 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+<div class="h-1 w-8 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+</div>
+<h1 class="text-text-main dark:text-white tracking-tight text-3xl font-bold leading-tight mb-4">
+            How many days?
+        </h1>
+<p class="text-text-muted dark:text-slate-400 text-lg leading-relaxed max-w-[280px] mb-16">
+            Set the duration for your trip to help us plan your itinerary.
+        </p>
+<div class="relative flex items-center justify-center gap-8 w-full max-w-[320px]">
+<button class="w-16 h-16 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-input-bg-dark text-text-main dark:text-white flex items-center justify-center shadow-sm hover:border-primary hover:text-primary transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+<span class="material-symbols-outlined text-3xl">remove</span>
+</button>
+<div class="flex flex-col items-center">
+<div class="relative">
+<input class="w-32 text-center bg-transparent text-text-main dark:text-white text-7xl font-bold p-0 border-none focus:ring-0 focus:outline-none placeholder-gray-300 dark:placeholder-gray-700 selection:bg-primary/20" max="90" min="1" type="number" value="5"/>
+<span class="absolute -right-4 top-2 text-xl font-medium text-text-muted dark:text-slate-500 hidden">days</span>
+</div>
+<span class="text-text-muted dark:text-slate-500 font-medium text-lg mt-2">Days</span>
+</div>
+<button class="w-16 h-16 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-input-bg-dark text-text-main dark:text-white flex items-center justify-center shadow-sm hover:border-primary hover:text-primary transition-all active:scale-95">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+<div class="mt-16 flex flex-wrap justify-center gap-3">
+<button class="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-text-muted dark:text-slate-400 hover:border-primary hover:text-primary transition-colors">Weekend</button>
+<button class="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-text-muted dark:text-slate-400 hover:border-primary hover:text-primary transition-colors">1 Week</button>
+<button class="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-text-muted dark:text-slate-400 hover:border-primary hover:text-primary transition-colors">2 Weeks</button>
+</div>
+</main>
+<div class="fixed bottom-10 left-0 right-0 z-30 flex justify-center w-full max-w-md mx-auto px-6">
+<button class="w-full bg-primary text-white font-bold text-base tracking-wide py-4 rounded-xl shadow-[0_8px_30px_rgb(43,108,238,0.3)] hover:shadow-[0_8px_30px_rgb(43,108,238,0.4)] hover:bg-[#205bc9] transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+<span>Continue</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+<div class="fixed bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent pointer-events-none z-20 max-w-md mx-auto"></div>
+</div>
+
+</body></html>

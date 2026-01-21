@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Italian Summer '24 - Map View</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding for horizontal scroll areas */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Soften the map image to look more like a background layer */
+        .map-layer {
+            filter: grayscale(15%) contrast(95%) brightness(105%) sepia(5%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased text-slate-900 dark:text-white h-screen w-screen overflow-hidden selection:bg-primary/30 relative">
+<!-- 1. Full Screen Map Canvas -->
+<!-- Using absolute positioning to ensure it covers the screen behind UI elements -->
+<div class="absolute inset-0 z-0 bg-[#eef0f5] overflow-hidden group/map">
+<!-- Map Background Image -->
+<!-- Simulating a Mapbox/Apple Maps style with a static image and CSS filters -->
+<div class="w-full h-full bg-cover bg-center map-layer transform scale-110 transition-transform duration-[2000ms] group-hover/map:scale-100" data-alt="Light colored vintage style map of Italy showing terrain and roads" data-location="Italy" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD3_DElpvrPC51cvqtLI6YkerkqdS3lysdjb8EECmWmZV8ZjchEJ1zg4BlWFd8RZPDKs_HYijY7-IczTgql_j773riB47euEKf7PkJPiOcxcxuEJZUDul10Fd-mINXhG62hw_H0SJJyW3HngEe3MvjxknQIQuUuSLKsxNqOrCCIKw6vn2XKEduALyBrPq6ZljqsNwJIjPmRO6q0r2nIYy4oHsBVXv3PUhFq4iLdfZ9hguQ0lDO3oXMnapSNKxVB8C8Pru3zUuW8jPY');">
+</div>
+<!-- 2. Polyline & Route Layer (SVG Overlay) -->
+<!-- Overlaying SVG to draw the custom route lines connecting cities -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" style="z-index: 1;" viewbox="0 0 100 100">
+<!-- Path connecting markers: Rome (30,70) -> Siena (40,50) -> Florence (48,40) -->
+<!-- Dashed line for travel, elegant stroke -->
+<path class="drop-shadow-sm opacity-80" d="M 30 70 C 32 65 38 55 40 50 S 46 42 48 40" fill="none" stroke="#2b6cee" stroke-dasharray="2 1" stroke-linecap="round" stroke-width="0.8"></path>
+</svg>
+<!-- 3. Interactive Map Markers -->
+<!-- Day 1: Rome (Active) -->
+<div class="absolute z-10 flex flex-col items-center gap-1 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform hover:scale-110" style="left: 30%; top: 70%;">
+<div class="relative group">
+<!-- Marker Pin -->
+<div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shadow-[0_4px_10px_rgba(43,108,238,0.4)] border-[3px] border-white dark:border-slate-800 text-sm font-bold z-20 relative">
+                    1
+                </div>
+<!-- Pulse Effect for Active Day -->
+<div class="absolute inset-0 rounded-full bg-primary animate-ping opacity-20"></div>
+<!-- Tooltip Label -->
+<div class="absolute left-1/2 -translate-x-1/2 -top-10 px-3 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-lg shadow-sm border border-slate-100 dark:border-slate-700 whitespace-nowrap">
+<span class="text-xs font-bold text-slate-800 dark:text-white tracking-wide">ROME</span>
+</div>
+</div>
+</div>
+<!-- Day 2: Siena (Inactive) -->
+<div class="absolute z-10 flex flex-col items-center gap-1 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform hover:scale-110" style="left: 40%; top: 50%;">
+<div class="relative group">
+<div class="w-8 h-8 rounded-full bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-200 flex items-center justify-center shadow-md border-2 border-white dark:border-slate-600 text-xs font-bold z-20 relative hover:bg-emerald-50 hover:text-emerald-600 transition-colors">
+                    2
+                </div>
+<!-- Tooltip appears on hover -->
+<div class="absolute left-1/2 -translate-x-1/2 -top-9 px-2 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-lg shadow-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<span class="text-[10px] font-bold uppercase text-slate-600 dark:text-slate-300">Siena</span>
+</div>
+</div>
+</div>
+<!-- Day 3: Florence (Inactive) -->
+<div class="absolute z-10 flex flex-col items-center gap-1 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform hover:scale-110" style="left: 48%; top: 40%;">
+<div class="relative group">
+<div class="w-8 h-8 rounded-full bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-200 flex items-center justify-center shadow-md border-2 border-white dark:border-slate-600 text-xs font-bold z-20 relative hover:bg-rose-50 hover:text-rose-600 transition-colors">
+                    3
+                </div>
+<div class="absolute left-1/2 -translate-x-1/2 -top-9 px-2 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm rounded-lg shadow-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<span class="text-[10px] font-bold uppercase text-slate-600 dark:text-slate-300">Florence</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Top Navigation Bar (Transparent) -->
+<div class="absolute top-0 left-0 w-full z-20 flex items-center justify-between px-4 pt-12 pb-6 bg-gradient-to-b from-white/80 via-white/40 to-transparent pointer-events-none">
+<button class="pointer-events-auto flex items-center justify-center w-10 h-10 rounded-full bg-white/60 dark:bg-black/20 shadow-sm backdrop-blur-md border border-white/40 text-slate-800 dark:text-white hover:bg-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</button>
+<div class="flex flex-col items-center pointer-events-auto">
+<h1 class="text-lg font-medium tracking-tight text-slate-900 dark:text-slate-900 mix-blend-multiply opacity-90">Italian Summer '24</h1>
+</div>
+<button class="pointer-events-auto flex items-center justify-center w-10 h-10 rounded-full bg-white/60 dark:bg-black/20 shadow-sm backdrop-blur-md border border-white/40 text-primary hover:bg-white transition-all active:scale-95">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+<!-- 5. Floating Legend -->
+<div class="absolute top-28 right-4 z-20 flex flex-col gap-1.5 p-3 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-lg shadow-sm border border-white/50 dark:border-slate-600/50">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary shadow-sm"></span>
+<span class="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Current</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-slate-400 shadow-sm"></span>
+<span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Upcoming</span>
+</div>
+</div>
+<!-- 6. Bottom Sheet Overlay -->
+<div class="absolute bottom-0 left-0 w-full z-30 flex flex-col justify-end">
+<!-- Main Sheet Container -->
+<div class="w-full bg-white/90 dark:bg-[#101622]/90 backdrop-blur-xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] rounded-t-xl border-t border-white/50 dark:border-slate-700/50 pb-8 pt-3 transition-transform duration-300">
+<!-- Drag Indicator -->
+<div class="w-full flex justify-center pb-4">
+<div class="w-10 h-1 bg-slate-300/50 dark:bg-slate-600/50 rounded-full"></div>
+</div>
+<div class="px-5 flex flex-col gap-5">
+<!-- Active Day Info Header -->
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-0.5 animate-fade-in">
+<span class="text-xs font-bold uppercase tracking-widest text-primary mb-1">July 14 • Sunday</span>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white leading-tight font-display tracking-tight">Day 1: Arrival in Rome</h2>
+<div class="flex items-center gap-3 mt-1 text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-1 text-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+                                Rome
+                             </div>
+<span class="text-slate-300 dark:text-slate-600">•</span>
+<div class="flex items-center gap-1 text-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                4.5 hrs active
+                             </div>
+</div>
+</div>
+<!-- View Toggle (All vs Single) -->
+<div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-lg flex items-center border border-slate-200 dark:border-slate-700">
+<button class="p-1.5 rounded bg-white dark:bg-slate-600 shadow-sm text-primary dark:text-white transition-all">
+<span class="material-symbols-outlined text-[20px] block">map</span>
+</button>
+<button class="p-1.5 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-all">
+<span class="material-symbols-outlined text-[20px] block">list</span>
+</button>
+</div>
+</div>
+<!-- Separator Line -->
+<div class="h-px w-full bg-slate-200/50 dark:bg-slate-700/50"></div>
+<!-- Horizontal Day Selector (Chips) -->
+<div class="relative w-full">
+<!-- Fade mask for right side of scroll -->
+<div class="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white/90 dark:from-[#101622]/90 to-transparent z-10 pointer-events-none"></div>
+<div class="flex gap-3 overflow-x-auto scrollbar-hide pb-2 snap-x items-center">
+<!-- Toggle: All Days -->
+<button class="snap-start shrink-0 flex flex-col items-center justify-center gap-2 group">
+<div class="h-14 w-14 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:bg-slate-200 dark:group-hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-2xl">grid_view</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Overview</span>
+</button>
+<div class="w-px h-8 bg-slate-200 dark:bg-slate-700 shrink-0 mx-1"></div>
+<!-- Day 1 (Active) -->
+<button class="snap-center shrink-0 flex flex-col items-center justify-center gap-2">
+<div class="h-14 w-14 rounded-lg bg-primary shadow-lg shadow-primary/25 flex items-center justify-center text-white border border-primary/50 relative overflow-hidden transition-transform active:scale-95">
+<span class="font-bold text-xl font-display">1</span>
+<!-- Active Indicator dot -->
+<div class="absolute bottom-1.5 w-1 h-1 bg-white rounded-full"></div>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-primary">Rome</span>
+</button>
+<!-- Day 2 -->
+<button class="snap-center shrink-0 flex flex-col items-center justify-center gap-2 group opacity-60 hover:opacity-100 transition-opacity">
+<div class="h-14 w-14 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 shadow-sm group-hover:border-primary/30 transition-colors">
+<span class="font-medium text-lg font-display">2</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Siena</span>
+</button>
+<!-- Day 3 -->
+<button class="snap-center shrink-0 flex flex-col items-center justify-center gap-2 group opacity-60 hover:opacity-100 transition-opacity">
+<div class="h-14 w-14 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 shadow-sm group-hover:border-primary/30 transition-colors">
+<span class="font-medium text-lg font-display">3</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Flor...</span>
+</button>
+<!-- Day 4 -->
+<button class="snap-center shrink-0 flex flex-col items-center justify-center gap-2 group opacity-60 hover:opacity-100 transition-opacity">
+<div class="h-14 w-14 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 shadow-sm group-hover:border-primary/30 transition-colors">
+<span class="font-medium text-lg font-display">4</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Venice</span>
+</button>
+<!-- Placeholder for scrolling spacing -->
+<div class="w-2 shrink-0"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Paris Place Selector</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#209fdf",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111c21",
+                        "paper": "#ffffff",
+                        "ink": "#1a1a1a",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "sans": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .image-muted {
+            filter: sepia(15%) saturate(80%);
+        }
+        .image-muted:hover {
+            filter: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-ink dark:text-gray-100 antialiased overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col pb-28">
+<div class="flex items-center p-4 sticky top-0 z-20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md justify-between">
+<div class="flex size-10 items-center justify-center rounded-full bg-white/50 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-ink dark:text-white group-hover:text-primary transition-colors" style="font-size: 24px;">arrow_back</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-ink/60 dark:text-white/60 cursor-pointer hover:text-primary transition-colors" style="font-size: 24px;">more_horiz</span>
+</div>
+</div>
+<div class="px-6 pt-2 pb-6">
+<h1 class="text-ink dark:text-white tracking-tight text-[36px] font-black leading-[1.1] mb-2">Paris, France</h1>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+<p class="text-gray-500 dark:text-gray-400 text-xl italic font-normal">Day 1: Exploring</p>
+</div>
+</div>
+<div class="w-full pl-6 pb-8 border-b border-gray-200 dark:border-gray-800">
+<div class="flex items-center justify-between pr-6 mb-5">
+<p class="text-[#507e95] text-xs font-bold tracking-widest uppercase">Available Places</p>
+<div class="flex gap-1">
+<span class="size-1.5 rounded-full bg-primary"></span>
+<span class="size-1.5 rounded-full bg-gray-300 dark:bg-gray-700"></span>
+<span class="size-1.5 rounded-full bg-gray-300 dark:bg-gray-700"></span>
+</div>
+</div>
+<div class="flex w-full overflow-x-auto no-scrollbar gap-5 pb-4 pr-6 snap-x snap-mandatory">
+<div class="snap-center shrink-0 w-[240px] group cursor-pointer relative">
+<div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden shadow-sm mb-3">
+<div class="absolute inset-0 bg-cover bg-center image-muted transition-all duration-700 group-hover:scale-105" data-alt="Eiffel Tower view with muted tones and overcast sky" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAGRKyr6nKN9OB9NeK7BxiRxqyc8yLG0jgjygjdbrHbGp44Neds6idJjCVHIwJDrIkqkQGibkssUWQf34KUly6xy5jw1avcGRTxP6n_QQ2JcSa5ZNt1d458VZ2XggobuI7Ebqgn3m2DeNzgaEqGnsc12prKrC0G2pHjTAFMl7AB7lA3XrY95-_0Ab64OcTujsWFIWcwk9Alt1OGsPuA94byN8Q5a-vWyj5zMpLn4STGi-K6tqnEqlDWyDfHFm1okIVSiEnXzFHPeIM');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<h3 class="text-xl font-bold leading-tight mb-1 drop-shadow-md">Eiffel Tower</h3>
+<p class="text-[13px] font-sans opacity-90 font-light leading-snug drop-shadow-md">The Iron Lady watching over the city.</p>
+</div>
+<div class="absolute top-3 right-3 size-9 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110 group-active:scale-90">
+<span class="material-symbols-outlined text-primary text-[22px]">add</span>
+</div>
+</div>
+</div>
+<div class="snap-center shrink-0 w-[240px] group cursor-pointer relative">
+<div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden shadow-sm mb-3">
+<div class="absolute inset-0 bg-cover bg-center image-muted transition-all duration-700 group-hover:scale-105" data-alt="Louvre Museum glass pyramid architecture detail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDmEXsnXGKwOYNbO9fTPKFxAQDpCTe4e94p4I7s08NzRxvW9XncNmyGmTIP9n0rbGcJRJ08YdXrBcEkVxOP8xSAYBAWc_yqeuGV2Cij-OxRtl0fooy5ciP8ziIFn2sGJhvRC6gUNv8A2ExcWjtRxcC3lTnNfSjyv7Yhyq2W_49-OtOCS6gfITzGKVsJXdUw1qh2186_cTmZrKQyEyNPjH0iCWxS_fxpzXl26k9O7wXLrlnNoKEcbI-XkeywULsU3KtgwVrRtOxB5aA');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<h3 class="text-xl font-bold leading-tight mb-1 drop-shadow-md">Louvre Museum</h3>
+<p class="text-[13px] font-sans opacity-90 font-light leading-snug drop-shadow-md">Home to the Mona Lisa and history.</p>
+</div>
+<div class="absolute top-3 right-3 size-9 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110 group-active:scale-90">
+<span class="material-symbols-outlined text-primary text-[22px]">add</span>
+</div>
+</div>
+</div>
+<div class="snap-center shrink-0 w-[240px] group cursor-pointer relative">
+<div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden shadow-sm mb-3">
+<div class="absolute inset-0 bg-cover bg-center image-muted transition-all duration-700 group-hover:scale-105" data-alt="Montmartre cobblestone street and white basilica" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChHBzY3Mk8HWeNpyL730OjlR0VqOpgCx5V5dXAiYp2x_xD1nDLJX9CALsRZXjjJrEleIi2BKC0k4S7ctiSKhJWmfnBrfeTHFHaZU3KpDr4KC3rWIaRDRYJpFvNTYteaGGfzjQhLf26LCZDT-jH6RzhGeDoDI7Y83jZMnrb_x6e5dKwRvHGetqQBn0hzfqr_-_WNHDbHA2ghlPcVUlaNeQBQTanyCAG0RYkIqDbuZ2l0t1W61aPDPiomCe-592l2LMa9CVYANGRrbo');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<h3 class="text-xl font-bold leading-tight mb-1 drop-shadow-md">Montmartre</h3>
+<p class="text-[13px] font-sans opacity-90 font-light leading-snug drop-shadow-md">Artists' hilltop village charm.</p>
+</div>
+<div class="absolute top-3 right-3 size-9 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110 group-active:scale-90">
+<span class="material-symbols-outlined text-primary text-[22px]">add</span>
+</div>
+</div>
+</div>
+<div class="snap-center shrink-0 w-[240px] group cursor-pointer relative">
+<div class="relative w-full aspect-[3/4] rounded-xl overflow-hidden shadow-sm mb-3">
+<div class="absolute inset-0 bg-cover bg-center image-muted transition-all duration-700 group-hover:scale-105" data-alt="Luxembourg Gardens trees and park chairs" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCc2Vj-hY7USsdBx1_y4KKfjmF6hfw7LhyS7z_4ZbZQsJt-_UIBaUcuOsb0UIkf9m4b9ZVY5RERwxZ4VEnXTt9uDqQ5gofesVfhvCFOx4lkU2Mwctn-ag3UbnfpL3SXubROiIPIJOKFwWJbFHuEeA7e-63S-ZJk04b1JEAd0zSbrRmyKdZ7e3hjNmPYmbICnJyuO5t6Ki7UPfxDSKDnj3gVfnU2xIY1GQYOhjtnNuFpAYV80egi1RvUlMxxW05dvZtHO6dBu7gCElU');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-3 left-3 right-3 text-white">
+<h3 class="text-xl font-bold leading-tight mb-1 drop-shadow-md">Luxembourg</h3>
+<p class="text-[13px] font-sans opacity-90 font-light leading-snug drop-shadow-md">Serene gardens and royal paths.</p>
+</div>
+<div class="absolute top-3 right-3 size-9 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110 group-active:scale-90">
+<span class="material-symbols-outlined text-primary text-[22px]">add</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex-1 bg-white dark:bg-gray-900 rounded-t-[2.5rem] shadow-[0_-10px_60px_-15px_rgba(0,0,0,0.1)] px-6 pt-10 pb-32 -mt-6 relative z-10">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-2xl font-bold text-ink dark:text-white tracking-tight">Your Itinerary</h2>
+<span class="text-xs font-sans font-semibold tracking-wide text-primary bg-primary/10 px-3 py-1.5 rounded-full uppercase">3 Selected</span>
+</div>
+<div class="flex flex-col gap-5">
+<div class="group relative flex items-center bg-background-light dark:bg-background-dark p-2 pr-4 rounded-xl border border-transparent hover:border-primary/20 hover:shadow-sm transition-all active:scale-[0.99] cursor-grab active:cursor-grabbing">
+<div class="w-10 flex justify-center text-gray-300 dark:text-gray-600 group-hover:text-primary/50 transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm border border-black/5 dark:border-white/5" data-alt="Notre Dame cathedral facade detail" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBVpokavQ02_AjU6BbJ0QKLnwV69weiwFdENvuTNLM48eTslprO0Z4XKjFX2Ppo7URBlTD2iJTdoVtq4ZFzyM67SoLboc6dh7VpnogrmHvw9Z8MjwZ3mW956aq6tpq0b6NlFEy8xTRVpd0Vp4pN-seoltuuYT86lthEwZXpGfmk9xfM_S-3Pg8a8PghID9uvOhRATFWur6CT6i2zlC3f7xFseDimA-5d0ytCv08oouoJFzyYtcbCgtrF_F80NnmrQ1JoN3TvcvkCes');"></div>
+<div class="flex-1 px-4">
+<h4 class="font-bold text-lg leading-none mb-1.5 text-ink dark:text-white">Notre Dame</h4>
+<div class="flex items-center gap-2 text-xs font-sans text-gray-500">
+<span class="bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded text-gray-600 dark:text-gray-300">10:00 AM</span>
+<span>•</span>
+<span>2h visit</span>
+</div>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full text-gray-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">do_not_disturb_on</span>
+</button>
+</div>
+<div class="group relative flex items-center bg-white dark:bg-gray-800 p-2 pr-4 rounded-xl shadow-lg ring-1 ring-primary/20 z-10 scale-[1.03] translate-x-1">
+<div class="w-10 flex justify-center text-primary">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm border border-black/5 dark:border-white/5" data-alt="Arc de Triomphe monument at sunset" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDgswLEy_PkQERZ8QeLWKTctulsb4NSWjGtI-w2d1j2FmLDzZt-m2Rcx6qmaTvo4F4dGMwq_hRqsWpSPpT6AG4tT_X68ooTsGTAi2DeSxi0_cHWD5BeDwvmTmfAR_8xIKXKqBvwyY2_sCe-xHvnT1GuS_k5cT6uPw4HuUnGVclZDEXAVlYiGdAv-1LY9lC8-MaSrxJmzaWogMz-UWRLJo0v_EFRQU900nhlVEr4gMajEyXmAdMTvuCZ9J9xbCUhyuJTNKiVpEVuOrE');"></div>
+<div class="flex-1 px-4">
+<h4 class="font-bold text-lg leading-none mb-1.5 text-primary">Arc de Triomphe</h4>
+<div class="flex items-center gap-2 text-xs font-sans text-gray-500">
+<span class="bg-primary/10 px-1.5 py-0.5 rounded text-primary">01:30 PM</span>
+<span>•</span>
+<span>1.5h visit</span>
+</div>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full text-gray-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">do_not_disturb_on</span>
+</button>
+</div>
+<div class="group relative flex items-center bg-background-light dark:bg-background-dark p-2 pr-4 rounded-xl border border-transparent hover:border-primary/20 hover:shadow-sm transition-all active:scale-[0.99] cursor-grab active:cursor-grabbing">
+<div class="w-10 flex justify-center text-gray-300 dark:text-gray-600 group-hover:text-primary/50 transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div class="size-16 rounded-lg bg-cover bg-center shrink-0 shadow-sm border border-black/5 dark:border-white/5" data-alt="Sainte-Chapelle stained glass windows interior" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC47RYQJzBSEDVtV_GbM1Pku32OwOhC_EyA4FZP6b_qgwsxR34-3vHf6q04g4uuwmFhMWPn9IYbi-zPWddNW4g6O3fj9EFvRtkcTmR-DKoReyEEHqBja0mpDzxRitrhFr04ejZoeQbl_fIOetYr4PrZTaKQ8lmFGvlcf6ZUZI0_PRSh-BXn_0cs5pmPcC-x8MgeoWQooJctBpIlJuO3Hav8AzeCzO1FAq6LLnn24Y0RQZjtzJijOQFfTGojrnARyYihKlm3xL4y_4Y');"></div>
+<div class="flex-1 px-4">
+<h4 class="font-bold text-lg leading-none mb-1.5 text-ink dark:text-white">Sainte-Chapelle</h4>
+<div class="flex items-center gap-2 text-xs font-sans text-gray-500">
+<span class="bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded text-gray-600 dark:text-gray-300">04:00 PM</span>
+<span>•</span>
+<span>1h visit</span>
+</div>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full text-gray-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">do_not_disturb_on</span>
+</button>
+</div>
+<div class="h-2 w-full rounded-full bg-primary/5 mx-auto mt-2"></div>
+</div>
+<button class="mt-8 flex w-full items-center justify-center gap-3 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 py-4 hover:bg-background-light dark:hover:bg-gray-800 hover:border-primary/50 transition-all group active:scale-[0.99]">
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">add_location_alt</span>
+<span class="text-sm font-medium font-sans text-gray-500 group-hover:text-primary transition-colors uppercase tracking-wide">Add Custom Place</span>
+</button>
+</div>
+<div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white/90 to-transparent dark:from-gray-900 dark:via-gray-900/90 dark:to-transparent pt-12 z-30 pointer-events-none">
+<button class="pointer-events-auto w-full bg-primary hover:bg-[#1a8bc5] text-white rounded-xl py-4 font-bold text-lg shadow-xl shadow-primary/30 flex items-center justify-center gap-2.5 transition-all active:scale-[0.98] ring-4 ring-white dark:ring-gray-900">
+<span>View Day's Map</span>
+<span class="material-symbols-outlined">map</span>
+</button>
+</div>
+</div>
+</body></html>

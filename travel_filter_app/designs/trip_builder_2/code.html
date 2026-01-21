@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trip Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "ink": "#1c1917", // warm black for text
+                        "ink-light": "#44403c", 
+                        "paper": "#fdfbf7", // warm off-white background
+                        "paper-dark": "#18181b", // dark mode bg
+                        "accent": "#a85f3f", // muted terracotta/rust
+                        "accent-hover": "#8a4a30",
+                        "surface": "#f5f2eb", // slightly darker paper for elements
+                        "surface-dark": "#27272a",
+                        "line": "#e7e5e0", // subtle borders
+                        "line-dark": "#3f3f46",
+                    },
+                    fontFamily: {
+                        "sans": ["Work Sans", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px", // sharper edges for print feel
+                        "sm": "2px",
+                        "md": "4px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 10px rgba(0, 0, 0, 0.03)',
+                        'sharp': '4px 4px 0px rgba(0,0,0,0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }.transition-smooth {
+            transition: all 0.3s ease;
+        }.print-kerning {
+            letter-spacing: -0.02em;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-paper dark:bg-paper-dark font-sans text-ink dark:text-gray-100 overflow-x-hidden min-h-screen flex flex-col antialiased selection:bg-accent/20">
+<header class="sticky top-0 z-40 bg-paper/95 dark:bg-paper-dark/95 backdrop-blur-sm px-6 pt-8 pb-4 border-b border-transparent transition-smooth">
+<div class="flex items-center justify-between mb-8">
+<button class="flex items-center justify-center size-10 -ml-2 rounded-full hover:bg-surface dark:hover:bg-surface-dark transition-colors group">
+<span class="material-symbols-outlined text-[24px] text-ink dark:text-white font-light group-hover:-translate-x-1 transition-transform duration-300">arrow_back</span>
+</button>
+<button class="text-ink dark:text-white font-medium text-xs tracking-widest uppercase border border-ink/20 dark:border-white/20 px-4 py-1.5 hover:bg-ink hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300">
+                Edit Trip
+            </button>
+</div>
+<div class="flex flex-col gap-3">
+<h1 class="font-serif text-[42px] font-medium print-kerning text-ink dark:text-white leading-[1.1]">
+                Tokyo &amp; Kyoto
+            </h1>
+<div class="flex items-center gap-3 text-ink-light dark:text-gray-400">
+<div class="h-[1px] w-8 bg-accent/50 dark:bg-accent/70"></div>
+<span class="font-sans text-sm tracking-wide uppercase font-medium">Oct 12 — Oct 24</span>
+</div>
+</div>
+</header>
+<nav class="sticky top-[160px] z-30 bg-paper dark:bg-paper-dark pt-2 pb-6 px-6 border-b border-line dark:border-line-dark transition-smooth">
+<div class="flex gap-3 overflow-x-auto no-scrollbar pb-1 snap-x">
+<button class="snap-start shrink-0 flex flex-col items-start justify-between min-w-[64px] h-[80px] p-3 border border-ink dark:border-white bg-ink dark:bg-white text-white dark:text-black shadow-sharp transition-transform">
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Day</span>
+<span class="font-serif text-3xl italic">01</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-start justify-between min-w-[64px] h-[80px] p-3 border border-line dark:border-zinc-700 bg-transparent text-ink-light dark:text-gray-400 hover:border-accent hover:text-accent transition-colors group">
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100">Day</span>
+<span class="font-serif text-3xl italic opacity-60 group-hover:opacity-100">02</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-start justify-between min-w-[64px] h-[80px] p-3 border border-line dark:border-zinc-700 bg-transparent text-ink-light dark:text-gray-400 hover:border-accent hover:text-accent transition-colors group">
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100">Day</span>
+<span class="font-serif text-3xl italic opacity-60 group-hover:opacity-100">03</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-start justify-between min-w-[64px] h-[80px] p-3 border border-line dark:border-zinc-700 bg-transparent text-ink-light dark:text-gray-400 hover:border-accent hover:text-accent transition-colors group">
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100">Day</span>
+<span class="font-serif text-3xl italic opacity-60 group-hover:opacity-100">04</span>
+</button>
+<button class="snap-start shrink-0 flex flex-col items-start justify-between min-w-[64px] h-[80px] p-3 border border-line dark:border-zinc-700 bg-transparent text-ink-light dark:text-gray-400 hover:border-accent hover:text-accent transition-colors group">
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-60 group-hover:opacity-100">Day</span>
+<span class="font-serif text-3xl italic opacity-60 group-hover:opacity-100">05</span>
+</button>
+</div>
+</nav>
+<main class="flex-1 px-6 pt-8 pb-32 flex flex-col gap-0">
+<div class="group relative flex items-start py-6 border-b border-dashed border-line dark:border-line-dark hover:bg-surface/30 dark:hover:bg-white/5 transition-colors">
+<div class="w-16 pt-1 flex flex-col items-start mr-4">
+<span class="font-sans text-xs font-bold text-accent tracking-wider uppercase">09:00</span>
+<span class="font-sans text-[10px] text-ink-light/60 dark:text-gray-500 uppercase mt-0.5">AM</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<h3 class="font-serif text-xl font-medium text-ink dark:text-gray-100 group-hover:text-accent transition-colors">Tsukiji Outer Market</h3>
+<p class="font-sans text-sm text-ink-light dark:text-gray-400 font-light leading-relaxed">Famous for fresh seafood breakfast and vibrant street food stalls.</p>
+</div>
+<button class="cursor-grab active:cursor-grabbing p-2 pl-4 text-line dark:text-gray-600 hover:text-ink dark:hover:text-gray-300 transition-colors self-center">
+<span class="material-symbols-outlined text-[20px]">drag_handle</span>
+</button>
+</div>
+<div class="group relative flex items-start py-6 border-b border-dashed border-line dark:border-line-dark hover:bg-surface/30 dark:hover:bg-white/5 transition-colors">
+<div class="w-16 pt-1 flex flex-col items-start mr-4">
+<span class="font-sans text-xs font-bold text-accent tracking-wider uppercase">11:30</span>
+<span class="font-sans text-[10px] text-ink-light/60 dark:text-gray-500 uppercase mt-0.5">AM</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<h3 class="font-serif text-xl font-medium text-ink dark:text-gray-100 group-hover:text-accent transition-colors">teamLab Planets</h3>
+<p class="font-sans text-sm text-ink-light dark:text-gray-400 font-light leading-relaxed">Immersive digital art museum where you walk through water.</p>
+</div>
+<button class="cursor-grab active:cursor-grabbing p-2 pl-4 text-line dark:text-gray-600 hover:text-ink dark:hover:text-gray-300 transition-colors self-center">
+<span class="material-symbols-outlined text-[20px]">drag_handle</span>
+</button>
+</div>
+<div class="group relative flex items-start py-6 border-b border-dashed border-line dark:border-line-dark hover:bg-surface/30 dark:hover:bg-white/5 transition-colors">
+<div class="w-16 pt-1 flex flex-col items-start mr-4">
+<span class="font-sans text-xs font-bold text-accent tracking-wider uppercase">02:00</span>
+<span class="font-sans text-xs text-ink-light/60 dark:text-gray-500 uppercase mt-0.5">PM</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<h3 class="font-serif text-xl font-medium text-ink dark:text-gray-100 group-hover:text-accent transition-colors">Ginza Six Shopping</h3>
+<p class="font-sans text-sm text-ink-light dark:text-gray-400 font-light leading-relaxed">Luxury shopping complex featuring a rooftop garden.</p>
+</div>
+<button class="cursor-grab active:cursor-grabbing p-2 pl-4 text-line dark:text-gray-600 hover:text-ink dark:hover:text-gray-300 transition-colors self-center">
+<span class="material-symbols-outlined text-[20px]">drag_handle</span>
+</button>
+</div>
+<div class="group relative flex items-start py-6 border-b border-dashed border-line dark:border-line-dark hover:bg-surface/30 dark:hover:bg-white/5 transition-colors">
+<div class="w-16 pt-1 flex flex-col items-start mr-4">
+<span class="font-sans text-xs font-bold text-accent tracking-wider uppercase">07:00</span>
+<span class="font-sans text-xs text-ink-light/60 dark:text-gray-500 uppercase mt-0.5">PM</span>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<h3 class="font-serif text-xl font-medium text-ink dark:text-gray-100 group-hover:text-accent transition-colors">Dinner at Gonpachi</h3>
+<p class="font-sans text-sm text-ink-light dark:text-gray-400 font-light leading-relaxed">The "Kill Bill" inspired izakaya. Reservations required.</p>
+</div>
+<button class="cursor-grab active:cursor-grabbing p-2 pl-4 text-line dark:text-gray-600 hover:text-ink dark:hover:text-gray-300 transition-colors self-center">
+<span class="material-symbols-outlined text-[20px]">drag_handle</span>
+</button>
+</div>
+<div class="flex justify-center pt-12 pb-4">
+<span class="text-2xl text-line dark:text-line-dark font-serif italic opacity-40">End of Day 01</span>
+</div>
+</main>
+<div class="fixed bottom-28 right-6 z-40">
+<button class="flex items-center justify-center size-14 bg-ink dark:bg-white text-white dark:text-black shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 transition-all duration-300 group border border-white/10 dark:border-black/10">
+<span class="material-symbols-outlined text-[24px] font-light group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+</div>
+<div class="fixed bottom-0 left-0 w-full z-50 p-6 bg-gradient-to-t from-paper via-paper to-transparent dark:from-paper-dark dark:via-paper-dark pointer-events-none flex justify-center pb-8">
+<button class="pointer-events-auto flex items-center gap-3 bg-accent hover:bg-accent-hover text-white px-8 py-3.5 shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 w-auto justify-center group">
+<span class="text-sm font-sans font-medium tracking-widest uppercase">View on Map</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">map</span>
+</button>
+</div>
+
+</body></html>

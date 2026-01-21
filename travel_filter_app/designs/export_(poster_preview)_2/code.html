@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Export (Poster Preview)</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f4f4f5", // Zinc-100 for a more paper-like feel backdrop
+                        "background-dark": "#0f1115",
+                        "paper": "#ffffff",
+                        "ink": "#1c1c1c",
+                    },
+                    fontFamily: {
+                        "sans": ["Work Sans", "sans-serif"],
+                        "serif": ["Cormorant Garamond", "serif"],
+                    },
+                    boxShadow: {
+                        "poster": "0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0,0,0,0.1)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-sans antialiased text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
+<div class="relative flex h-full min-h-[100dvh] w-full flex-col overflow-hidden">
+<header class="flex items-center justify-between px-5 pt-6 pb-2 z-20">
+<button class="group flex size-10 shrink-0 items-center justify-center rounded-full bg-white/50 dark:bg-black/20 backdrop-blur-sm border border-neutral-200/50 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-all shadow-sm">
+<span class="material-symbols-outlined text-xl text-neutral-600 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white transition-colors">close</span>
+</button>
+<div class="bg-neutral-200/50 dark:bg-neutral-800/50 backdrop-blur-md px-3 py-1 rounded-full">
+<span class="text-[10px] font-medium tracking-widest uppercase text-neutral-500 dark:text-neutral-400">Preview Mode</span>
+</div>
+<div class="size-10"></div> 
+</header>
+<main class="flex-1 flex flex-col items-center justify-center px-6 w-full max-w-md mx-auto relative z-10 pb-8">
+<div class="relative w-full aspect-[3/4.2] bg-paper shadow-poster transform transition-transform duration-500 hover:scale-[1.005] cursor-default overflow-hidden">
+<div class="absolute inset-0 border-[12px] border-white z-20 pointer-events-none"></div>
+<div class="flex flex-col h-full w-full bg-white">
+<div class="h-[62%] w-full relative overflow-hidden grayscale-[10%] contrast-[1.05]">
+<div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBThsJnRBcA7x5Wk3jjRtxRKPBw7ldnggynd4TvBpg2XKQerUfNu1m5g6pb9YiKOy_0aLscQkFKY82iToI8wGL8zM0lsVzOzm0Z0GD0NRgfDb3rYGBUigkIIxOYyJLWDW7WpQqH_gEUk2op5iRVpepkkPnMx3E9W2Hlb68iJs2vyQI1h2OspOXHukJmGEvsemckCn2M11yQGcpOjqkklylibJHM5L_fHbbO9pGx0tdFugZ7lejHAKQWfHtWA-oFyuCEuqWgbqM1cMc");'>
+</div>
+<div class="absolute inset-0 bg-neutral-50 mix-blend-multiply opacity-10"></div>
+</div>
+<div class="h-[38%] flex flex-col items-center justify-between py-8 px-6 text-center">
+<div class="flex flex-col items-center gap-1">
+<h2 class="text-neutral-400 font-sans text-[9px] font-semibold tracking-[0.3em] uppercase">Travel Log 01</h2>
+<h1 class="text-ink font-serif text-4xl leading-tight font-medium tracking-tight mt-2">
+                                Kyoto <span class="text-neutral-300 font-light">&amp;</span> Osaka
+                            </h1>
+<p class="font-serif italic text-neutral-500 text-lg mt-0.5">Japan</p>
+</div>
+<div class="w-px h-8 bg-neutral-200"></div>
+<div class="flex flex-col items-center gap-4 w-full">
+<p class="text-neutral-500 text-[10px] font-medium tracking-[0.25em] uppercase border-y border-neutral-100 py-2 w-full text-center">
+                                April 10 — April 24, 2024
+                            </p>
+<div class="flex items-center justify-center gap-6">
+<div class="flex flex-col items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600/80"></span>
+<span class="text-[8px] text-neutral-400 font-medium uppercase tracking-widest">Nature</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-600/80"></span>
+<span class="text-[8px] text-neutral-400 font-medium uppercase tracking-widest">Culture</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-indigo-600/80"></span>
+<span class="text-[8px] text-neutral-400 font-medium uppercase tracking-widest">Stay</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute -bottom-4 w-[85%] h-8 bg-black/20 blur-2xl rounded-full z-0 pointer-events-none"></div>
+</main>
+<footer class="w-full pb-8 pt-4 px-6 z-20 flex flex-col items-center gap-5 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-md bg-neutral-200/50 dark:bg-white/5 border border-black/5 dark:border-white/5">
+<span class="material-symbols-outlined text-[14px] text-neutral-500">print</span>
+<span class="text-neutral-600 dark:text-neutral-400 text-[10px] font-medium tracking-wide uppercase">
+                    A4 Poster • 300 DPI • High Quality
+                </span>
+</div>
+<button class="group relative flex w-full max-w-sm cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 bg-neutral-900 dark:bg-white hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-lg shadow-neutral-900/20 dark:shadow-white/10">
+<div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+<span class="material-symbols-outlined text-[20px] text-white dark:text-neutral-900 mr-2 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">download</span>
+<span class="text-white dark:text-neutral-900 text-sm font-semibold tracking-widest uppercase">Export Poster</span>
+</button>
+</footer>
+</div>
+
+</body></html>

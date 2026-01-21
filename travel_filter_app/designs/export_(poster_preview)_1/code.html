@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Export (Poster Preview)</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f4f4f5", 
+                        "background-dark": "#0f1115",
+                        "paper": "#ffffff",
+                        "ink": "#1c1c1c",
+                        "map-route-1": "#be123c", // Rose 700
+                        "map-route-2": "#0369a1", // Sky 700
+                        "map-route-3": "#b45309", // Amber 700
+                    },
+                    fontFamily: {
+                        "sans": ["Work Sans", "sans-serif"],
+                        "serif": ["Cormorant Garamond", "serif"],
+                    },
+                    boxShadow: {
+                        "poster": "0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 1px rgba(0,0,0,0.1)",
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-sans antialiased text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
+<div class="relative flex h-full min-h-[100dvh] w-full flex-col overflow-hidden">
+<header class="flex items-center justify-between px-5 pt-6 pb-2 z-20">
+<button class="group flex size-10 shrink-0 items-center justify-center rounded-full bg-white/50 dark:bg-black/20 backdrop-blur-sm border border-neutral-200/50 dark:border-white/10 hover:bg-white dark:hover:bg-white/10 transition-all shadow-sm">
+<span class="material-symbols-outlined text-xl text-neutral-600 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white transition-colors">close</span>
+</button>
+<div class="bg-neutral-200/50 dark:bg-neutral-800/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+<span class="text-[10px] font-medium tracking-widest uppercase text-neutral-500 dark:text-neutral-400">Preview</span>
+</div>
+<div class="size-10"></div>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center px-4 w-full max-w-md mx-auto relative z-10 pb-10">
+<div class="relative w-full aspect-[3/4.2] bg-white shadow-poster transform transition-transform duration-500 hover:scale-[1.005] overflow-hidden ring-1 ring-black/5 group">
+<div class="absolute inset-0 border-[16px] sm:border-[24px] border-white z-40 pointer-events-none"></div>
+<div class="relative h-full w-full bg-neutral-50 overflow-hidden cursor-grab active:cursor-grabbing">
+<div class="absolute inset-0 bg-cover bg-center grayscale-[10%] contrast-[1.05] opacity-90 transition-transform duration-700 ease-out scale-[1.15]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBThsJnRBcA7x5Wk3jjRtxRKPBw7ldnggynd4TvBpg2XKQerUfNu1m5g6pb9YiKOy_0aLscQkFKY82iToI8wGL8zM0lsVzOzm0Z0GD0NRgfDb3rYGBUigkIIxOYyJLWDW7WpQqH_gEUk2op5iRVpepkkPnMx3E9W2Hlb68iJs2vyQI1h2OspOXHukJmGEvsemckCn2M11yQGcpOjqkklylibJHM5L_fHbbO9pGx0tdFugZ7lejHAKQWfHtWA-oFyuCEuqWgbqM1cMc"); transform-origin: 60% 35%;'>
+</div>
+<div class="absolute inset-0 bg-neutral-100 mix-blend-multiply opacity-10 pointer-events-none"></div>
+<svg class="absolute inset-0 w-full h-full z-10 pointer-events-none" preserveAspectRatio="xMidYMid slice" viewBox="0 0 400 560">
+<path class="opacity-80 drop-shadow-sm animate-[dash_2s_linear_infinite]" d="M180 320 Q200 300 220 280 T250 240" fill="none" stroke="#be123c" stroke-dasharray="4 4" stroke-linecap="round" stroke-width="2.5"></path>
+<path class="opacity-80 drop-shadow-sm" d="M140 180 Q160 160 200 150" fill="none" stroke="#0369a1" stroke-dasharray="4 4" stroke-linecap="round" stroke-width="2.5"></path>
+<path class="opacity-80 drop-shadow-sm" d="M220 380 Q250 400 280 370" fill="none" stroke="#b45309" stroke-dasharray="4 4" stroke-linecap="round" stroke-width="2.5"></path>
+<circle class="cursor-pointer pointer-events-auto hover:r-6 transition-all" cx="200" cy="150" fill="#0369a1" r="5" stroke="white" stroke-width="2"></circle>
+<g class="cursor-pointer pointer-events-auto">
+<circle class="shadow-sm" cx="250" cy="240" fill="#be123c" r="8" stroke="white" stroke-width="3"></circle>
+<circle class="animate-ping" cx="250" cy="240" fill="transparent" opacity="0.4" r="14" stroke="#be123c" stroke-width="1"></circle>
+</g>
+<circle class="cursor-pointer pointer-events-auto hover:r-6 transition-all" cx="280" cy="370" fill="#b45309" r="5" stroke="white" stroke-width="2"></circle>
+</svg>
+<div class="absolute top-6 left-6 z-20 pointer-events-none">
+<div class="bg-white/95 backdrop-blur-md px-5 py-4 shadow-sm border border-black/5 rounded-sm max-w-[180px]">
+<p class="text-[8px] font-sans font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-1">Travel Log 04</p>
+<h1 class="font-serif text-4xl text-ink leading-[0.85] mb-1">Paris</h1>
+<p class="font-serif italic text-neutral-500 text-sm">France</p>
+<div class="w-6 h-px bg-neutral-200 my-2"></div>
+<p class="text-[9px] font-sans font-medium text-neutral-400 uppercase tracking-widest">Jun 14 — 18</p>
+</div>
+</div>
+<div class="absolute top-[34%] left-[62%] z-30 animate-in fade-in zoom-in duration-300 slide-in-from-bottom-2">
+<div class="bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-lg p-3 w-40 border border-neutral-100/50 relative ml-4 mt-2">
+<div class="absolute top-4 -left-1.5 w-3 h-3 bg-white transform rotate-45 border-l border-b border-neutral-100/50"></div>
+<div class="relative z-10 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<h3 class="font-serif text-lg font-semibold text-neutral-800 leading-none">Le Marais</h3>
+<span class="material-symbols-outlined text-[14px] text-rose-700">favorite</span>
+</div>
+<p class="text-[9px] text-neutral-400 font-medium uppercase tracking-wider border-b border-neutral-100 pb-1 mb-0.5">10:00 AM • Walk</p>
+<p class="text-[10px] text-neutral-600 leading-snug font-sans">
+                                Historic district with cobblestone streets &amp; boutiques.
+                            </p>
+<div class="mt-1.5 flex gap-1">
+<span class="px-1.5 py-0.5 bg-rose-50 text-rose-700 text-[8px] font-medium rounded-sm">Shopping</span>
+<span class="px-1.5 py-0.5 bg-neutral-100 text-neutral-600 text-[8px] font-medium rounded-sm">Photo</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 left-6 z-20 pointer-events-none">
+<div class="bg-white/90 backdrop-blur-sm px-3 py-2 rounded-sm border border-white/20 shadow-sm flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-700"></span>
+<span class="text-[9px] text-neutral-600 font-medium uppercase tracking-wider">Day 01</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-sky-700"></span>
+<span class="text-[9px] text-neutral-600 font-medium uppercase tracking-wider">Day 02</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-700"></span>
+<span class="text-[9px] text-neutral-600 font-medium uppercase tracking-wider">Day 03</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 right-6 z-30 flex flex-col gap-2">
+<button class="size-8 flex items-center justify-center bg-white text-neutral-700 shadow-md rounded-full hover:bg-neutral-50 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+<button class="size-8 flex items-center justify-center bg-white text-neutral-700 shadow-md rounded-full hover:bg-neutral-50 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<button class="size-8 flex items-center justify-center bg-white text-neutral-700 shadow-md rounded-full hover:bg-neutral-50 active:scale-95 transition-all mt-2" title="Reset View">
+<span class="material-symbols-outlined text-[18px]">center_focus_strong</span>
+</button>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 w-[80%] h-12 bg-black/30 blur-[60px] rounded-full -z-10 pointer-events-none opacity-40"></div>
+</main>
+<footer class="w-full pb-8 pt-2 px-6 z-20 flex flex-col items-center gap-4 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark">
+<div class="flex items-center gap-2 px-3 py-1.5">
+<span class="text-neutral-400 dark:text-neutral-500 text-[10px] font-medium tracking-wide uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] filled">print</span>
+                Ready for high-quality print
+            </span>
+</div>
+<button class="group relative flex w-full max-w-sm cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 bg-neutral-900 dark:bg-neutral-100 hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 shadow-xl shadow-neutral-900/10 dark:shadow-white/5">
+<span class="absolute inset-0 bg-white/10 dark:bg-black/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
+<span class="material-symbols-outlined text-[20px] text-white dark:text-neutral-900 mr-2.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">download</span>
+<span class="text-white dark:text-neutral-900 text-sm font-medium tracking-widest uppercase">Export Poster</span>
+</button>
+</footer>
+</div>
+
+</body></html>

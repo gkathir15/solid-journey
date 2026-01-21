@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Map-Centric Location Selector</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#d97706", // Updated to a warm, Tuscan amber/orange
+                        "primary-light": "#fbbf24",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111c21",
+                        "paper": "#fbfaf8", 
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "md": "0.375rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'float': '0 10px 30px -5px rgba(0, 0, 0, 0.1)',
+                        'glow': '0 0 15px rgba(217, 119, 6, 0.3)',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                },
+            },
+        }
+    </script>
+<style>@keyframes radar {
+            0% { transform: scale(0.8); opacity: 0.6; box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4); }
+            70% { transform: scale(2.2); opacity: 0; box-shadow: 0 0 0 10px rgba(217, 119, 6, 0); }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+        .animate-radar {
+            animation: radar 2.5s infinite ease-out;
+        }@keyframes breathe {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.1); filter: brightness(1.1); }
+        }
+        .animate-breathe {
+            animation: breathe 4s ease-in-out infinite;
+        }@keyframes dashFlow {
+            from { stroke-dashoffset: 24; }
+            to { stroke-dashoffset: 0; }
+        }
+        .animate-dash {
+            stroke-dasharray: 4 4;
+            animation: dashFlow 1s linear infinite;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 overflow-hidden">
+<div class="relative h-screen w-full flex flex-col group/design-root">
+<div class="absolute inset-0 z-0 bg-[#e6e3dd] dark:bg-[#1a262c]">
+<div class="w-full h-full bg-cover bg-center transition-transform duration-1000 ease-out scale-105" data-alt="Stylized topographic map of Tuscany Italy with paper texture background" data-location="Tuscany Region Map" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0oL6nucLMyMShtQNBFz3gEEvdFGfwXF7D9i76_kY1U_bmQHCcANvCqq4WZMfhj0A8rsTznf67Z1pfkLZEZRR0np4iZfN0YUr_pt1zW5zYxftvKCUym3-SpcVQJJcwjNWbevUzUjE505UY6VCdimYUN96ROv5u8UGTwF5xfkNXsl-xcuUuZrWm1xBHvigc9qhQpswoENfyp__WqUALRbczx8KTocqxO3pTk8JzqHa4XWw52ws-Fn2F9X0PS91WqEigIMtFG8kP2JI"); opacity: 0.9;'>
+<div class="absolute inset-0 bg-[#fbfaf8]/80 dark:bg-[#111c21]/80 backdrop-grayscale-[0.2]"></div>
+<div class="absolute top-[42%] left-[55%] -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-orange-200/20 dark:bg-orange-900/10 rounded-full blur-3xl pointer-events-none mix-blend-multiply dark:mix-blend-screen"></div>
+</div>
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+<defs>
+<linearGradient id="gradientLine" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:rgb(217, 119, 6);stop-opacity:0"></stop>
+<stop offset="50%" style="stop-color:rgb(217, 119, 6);stop-opacity:0.3"></stop>
+<stop offset="100%" style="stop-color:rgb(217, 119, 6);stop-opacity:0"></stop>
+</linearGradient>
+</defs>
+<path class="opacity-50" d="M 55% 42% Q 40% 40% 25% 32%" fill="none" stroke="url(#gradientLine)" stroke-width="2"></path>
+<path class="opacity-50" d="M 55% 42% Q 58% 55% 60% 65%" fill="none" stroke="url(#gradientLine)" stroke-width="2"></path>
+<path class="opacity-40" d="M 55% 42% Q 45% 35% 38% 28%" fill="none" stroke="url(#gradientLine)" stroke-width="2"></path>
+</svg>
+<button class="absolute top-[32%] left-[25%] flex flex-col items-center gap-1.5 group transition-all duration-300 hover:scale-110 z-10 animate-breathe" style="animation-delay: 0.5s;">
+<div class="relative flex items-center justify-center">
+<div class="absolute -top-6 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 dark:bg-slate-800/90 px-2 py-0.5 rounded text-[10px] font-bold text-primary shadow-sm border border-primary/20">
+                    55 min
+                </div>
+<div class="w-3.5 h-3.5 bg-amber-200 dark:bg-amber-900 rounded-full shadow-glow ring-2 ring-white dark:ring-slate-800 flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-primary rounded-full"></div>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-sm border border-amber-100 dark:border-slate-700 group-hover:text-primary transition-colors">Pisa</span>
+</button>
+<button class="absolute top-[65%] left-[60%] flex flex-col items-center gap-1.5 group transition-all duration-300 hover:scale-110 z-10 animate-breathe" style="animation-delay: 1.2s;">
+<div class="relative flex items-center justify-center">
+<div class="absolute -top-6 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 dark:bg-slate-800/90 px-2 py-0.5 rounded text-[10px] font-bold text-primary shadow-sm border border-primary/20">
+                    1h 15m
+                </div>
+<div class="w-3.5 h-3.5 bg-amber-200 dark:bg-amber-900 rounded-full shadow-glow ring-2 ring-white dark:ring-slate-800 flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-primary rounded-full"></div>
+</div>
+</div>
+<span class="px-2.5 py-1 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-sm border border-amber-100 dark:border-slate-700 group-hover:text-primary transition-colors">Siena</span>
+</button>
+<button class="absolute top-[28%] left-[38%] flex flex-col items-center gap-1.5 group transition-all duration-300 hover:scale-110 z-10">
+<div class="relative flex items-center justify-center">
+<div class="w-2.5 h-2.5 bg-slate-400 dark:bg-slate-500 rounded-full shadow-sm ring-2 ring-white dark:ring-slate-700"></div>
+</div>
+<span class="px-2 py-0.5 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded text-xs font-medium text-slate-600 dark:text-slate-400 shadow-sm border border-white/20">Lucca</span>
+</button>
+<button class="absolute top-[42%] left-[55%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3 z-20 group cursor-default">
+<div class="relative flex items-center justify-center">
+<div class="absolute w-full h-full bg-primary/30 rounded-full animate-radar"></div>
+<div class="absolute w-full h-full bg-primary/20 rounded-full animate-radar delay-150"></div>
+<div class="w-6 h-6 bg-primary rounded-full shadow-lg ring-4 ring-white dark:ring-slate-800 z-10 flex items-center justify-center relative">
+<div class="w-2 h-2 bg-white rounded-full"></div>
+<span class="absolute -right-1 -top-1 w-2.5 h-2.5 bg-green-400 border-2 border-white dark:border-slate-800 rounded-full"></span>
+</div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="px-4 py-1.5 bg-white dark:bg-slate-800 rounded-xl text-sm font-bold text-slate-900 dark:text-white shadow-soft border border-orange-100 dark:border-slate-700 transform transition-transform group-hover:-translate-y-1 flex items-center gap-1">
+                    Florence
+                    <span class="material-symbols-outlined text-[14px] text-primary">my_location</span>
+</span>
+</div>
+</button>
+<div class="absolute top-[20%] right-[10%] opacity-10 pointer-events-none rotate-12 mix-blend-overlay">
+<h1 class="text-8xl font-black text-slate-900 dark:text-white tracking-widest uppercase font-display">Tuscany</h1>
+</div>
+</div>
+<div class="absolute top-0 left-0 right-0 p-4 md:p-6 z-30 pointer-events-none flex justify-between items-start">
+<div class="pointer-events-auto flex items-center gap-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-full pl-1.5 pr-4 py-1.5 shadow-soft border border-slate-100 dark:border-slate-800 transition-all hover:shadow-md cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</div>
+<div class="flex items-center text-sm font-medium">
+<span class="text-slate-500 dark:text-slate-400 hover:text-primary hover:underline transition-colors">Europe</span>
+<span class="material-symbols-outlined text-[16px] text-slate-400 mx-1">chevron_right</span>
+<span class="text-slate-500 dark:text-slate-400 hover:text-primary hover:underline transition-colors">Italy</span>
+<span class="material-symbols-outlined text-[16px] text-slate-400 mx-1">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-semibold">Tuscany</span>
+</div>
+</div>
+<button class="pointer-events-auto w-10 h-10 rounded-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-soft flex items-center justify-center text-slate-700 dark:text-slate-300 border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-30">
+<div class="flex flex-col bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-xl shadow-float border border-slate-100 dark:border-slate-800 overflow-hidden">
+<button class="w-10 h-10 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 active:bg-slate-100 transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+<div class="h-[1px] w-full bg-slate-100 dark:bg-slate-800"></div>
+<button class="w-10 h-10 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 active:bg-slate-100 transition-colors">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+</div>
+<button class="w-10 h-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-xl shadow-float border border-slate-100 dark:border-slate-800 flex items-center justify-center text-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-[20px]">near_me</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-4 pb-6 md:p-6 md:pb-8 z-40 flex flex-col items-end gap-4 pointer-events-none">
+<button class="pointer-events-auto relative group flex items-center gap-3 bg-primary text-white rounded-full h-14 pl-5 pr-6 shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-[1.02] transition-all duration-300">
+<div class="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-[24px]">auto_awesome</span>
+<span class="font-bold text-base tracking-tight">Ask AI Planner</span>
+</button>
+<div class="pointer-events-auto w-full max-w-md bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-float p-4 border border-white/50 dark:border-slate-700/50 flex flex-col gap-4 animate-[slideUp_0.4s_ease-out] relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/80 to-primary-light/80"></div>
+<div class="flex items-start justify-between gap-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<h2 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Florence</h2>
+<span class="px-2 py-0.5 rounded-full bg-orange-100 dark:bg-orange-900/30 text-[10px] font-bold uppercase tracking-wider text-primary">Selected</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                        Capital of Italy’s Tuscany region, home to masterpieces of Renaissance art and architecture.
+                    </p>
+</div>
+<button class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-400 border border-slate-100 dark:border-slate-700">
+<span class="material-symbols-outlined text-[14px] text-primary">directions_car</span>
+                     Base for 2 nearby trips
+                </span>
+</div>
+<div class="flex items-stretch gap-3 h-20">
+<div class="w-24 shrink-0 rounded-lg overflow-hidden relative group cursor-pointer">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="View of Florence Cathedral dome at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEGLYA5VAjDXg7BJtjKsIXwGVEDDjHX8m-oMSddHNOpatU4VLQbvSp4SY5xYcpAYaQU_k9PatwxV8kkCs5zaY42sByyh7OWg_u3nwW9cWDUnk2oTQxD0gjwE8avTHzv-cpCFeRb8LjgFcksR3hTcVcmEdFrRQ8dkBP_ekdPCoS5oq9rTRzdAk8OevMU6UuQCiAV1QE1fasVm0eiOn3CD67ZRJIji9TBWT6rNQMJldHJ-w6Wap_eyTE6A3wsupJsYoie-kJHlPYzIU"/>
+<div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+</div>
+<button class="flex-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg flex items-center justify-between px-4 transition-colors group">
+<div class="flex flex-col items-start gap-0.5">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">Next Step</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">Explore Highlights</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center text-primary shadow-sm group-hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+<style>
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</div>
+
+</body></html>

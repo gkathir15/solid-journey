@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dynamic Trip Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "primary-dark": "#1a4bbd",
+                        "background-light": "#ffffff",
+                        "background-dark": "#101622",
+                        "surface-light": "#f6f6f8",
+                        "surface-dark": "#1a2130",
+                        "text-main-light": "#0d121b",
+                        "text-main-dark": "#ffffff",
+                        "text-muted-light": "#4c669a",
+                        "text-muted-dark": "#9ca3af",
+                        "accent-teal": "#20c997",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'float': '0 10px 30px -4px rgba(43, 108, 238, 0.25)',
+                        'card': '0 1px 3px rgba(0,0,0,0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .transition-smooth { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }.hierarchy-line {
+            background: linear-gradient(to bottom, #e5e7eb 50%, transparent 100%);
+        }
+        .dark .hierarchy-line {
+            background: linear-gradient(to bottom, #374151 50%, transparent 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main-light dark:text-text-main-dark overflow-x-hidden min-h-screen flex flex-col antialiased selection:bg-primary/20">
+<header class="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-xl border-b border-gray-100 dark:border-gray-800 transition-smooth">
+<div class="px-6 pt-5 pb-4">
+<div class="flex items-center justify-between mb-4">
+<button class="flex items-center justify-center size-10 -ml-2 rounded-full hover:bg-surface-light dark:hover:bg-surface-dark transition-colors group">
+<span class="material-symbols-outlined text-[24px] text-text-main-light dark:text-text-main-dark">close</span>
+</button>
+<h1 class="text-base font-semibold tracking-wide uppercase opacity-0 animate-[fadeIn_0.5s_ease-out_forwards]">Trip Builder</h1>
+<button class="text-primary hover:text-primary-dark font-medium text-sm transition-colors px-3 py-1 rounded hover:bg-primary/5">
+                    Save
+                </button>
+</div>
+<nav class="flex items-center gap-1 overflow-x-auto no-scrollbar mask-linear-fade">
+<button class="flex items-center gap-1 text-sm text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">home</span>
+<span>Home</span>
+</button>
+<span class="material-symbols-outlined text-text-muted-light/40 text-[16px]">chevron_right</span>
+<button class="flex items-center gap-1 text-sm text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors whitespace-nowrap">
+<span>Japan</span>
+</button>
+<span class="material-symbols-outlined text-text-muted-light/40 text-[16px]">chevron_right</span>
+<button class="flex items-center gap-1 text-sm text-text-muted-light dark:text-text-muted-dark hover:text-primary transition-colors whitespace-nowrap">
+<span>Kanto</span>
+</button>
+<span class="material-symbols-outlined text-text-muted-light/40 text-[16px]">chevron_right</span>
+<div class="flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px] fill">location_city</span>
+<span>Tokyo</span>
+</div>
+</nav>
+</div>
+</header>
+<main class="flex-1 px-6 py-6 pb-40 flex flex-col relative">
+<div class="relative pl-8 pb-10">
+<div class="absolute left-[11px] top-4 bottom-0 w-[2px] bg-gray-200 dark:bg-gray-700"></div>
+<div class="absolute left-0 top-0 size-6 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/20 z-10">
+<span class="material-symbols-outlined text-[14px]">calendar_month</span>
+</div>
+<div class="group cursor-pointer">
+<h2 class="text-xs font-bold text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest mb-2">Trip Essentials</h2>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-4 border border-transparent hover:border-primary/20 transition-all flex items-center justify-between">
+<div>
+<h3 class="text-xl font-bold text-text-main-light dark:text-text-main-dark">Japan 2024</h3>
+<div class="flex items-center gap-3 mt-1 text-sm text-text-muted-light dark:text-text-muted-dark font-medium">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span> 12 Days</span>
+<span class="w-1 h-1 rounded-full bg-current opacity-40"></span>
+<span>Cultural Focus</span>
+<span class="w-1 h-1 rounded-full bg-current opacity-40"></span>
+<span>2 Adults</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted-light/40 group-hover:text-primary transition-colors">edit</span>
+</div>
+</div>
+</div>
+<div class="relative pl-8 pb-10">
+<div class="absolute left-[11px] top-4 bottom-0 w-[2px] bg-gray-200 dark:bg-gray-700"></div>
+<div class="absolute left-0 top-0 size-6 rounded-full bg-white dark:bg-surface-dark border-2 border-primary text-primary flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-[14px]">public</span>
+</div>
+<div class="group cursor-pointer">
+<h2 class="text-xs font-bold text-text-muted-light dark:text-text-muted-dark uppercase tracking-widest mb-2">Region</h2>
+<div class="flex items-start gap-4">
+<div class="flex-1 bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-700 rounded-xl p-4 shadow-sm group-hover:shadow-md transition-all">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-lg font-semibold">Kanto Region</h3>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-1">Home to Tokyo, Yokohama, Hakone</p>
+</div>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative pl-8 pb-2">
+<div class="absolute left-[11px] top-4 h-full w-[2px] hierarchy-line"></div>
+<div class="absolute left-0 top-0 size-6 rounded-full bg-primary text-white flex items-center justify-center shadow-lg shadow-primary/30 z-10 ring-4 ring-background-light dark:ring-background-dark">
+<span class="material-symbols-outlined text-[14px]">location_city</span>
+</div>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xs font-bold text-primary uppercase tracking-widest">Selected City</h2>
+<button class="text-xs font-medium text-text-muted-light hover:text-primary transition-colors flex items-center gap-1">
+                    Change City <span class="material-symbols-outlined text-[14px]">swap_vert</span>
+</button>
+</div>
+<div class="bg-white dark:bg-surface-dark rounded-2xl p-1 shadow-float border border-primary/10 mb-6">
+<div class="p-5 pb-3 border-b border-gray-50 dark:border-gray-800 flex justify-between items-start">
+<div>
+<h3 class="text-2xl font-bold text-text-main-light dark:text-text-main-dark">Tokyo</h3>
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-0.5">Oct 12 — Oct 16 (5 Days)</p>
+</div>
+<button class="p-2 -mr-2 text-text-muted-light hover:text-primary transition-colors rounded-full hover:bg-gray-50 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="p-2 space-y-2">
+<div class="group flex items-center gap-3 p-3 rounded-xl hover:bg-surface-light dark:hover:bg-background-dark transition-colors cursor-pointer border border-transparent hover:border-gray-100 dark:hover:border-gray-700">
+<div class="size-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-text-muted-light shrink-0">
+<span class="text-sm font-bold">1</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-medium truncate text-text-main-light dark:text-text-main-dark">Tsukiji Outer Market</h4>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark truncate">Food &amp; Drink • 1.5 hrs</p>
+</div>
+<span class="material-symbols-outlined text-text-muted-light/30 group-hover:text-primary text-[20px]">chevron_right</span>
+</div>
+<div class="group flex items-center gap-3 p-3 rounded-xl hover:bg-surface-light dark:hover:bg-background-dark transition-colors cursor-pointer border border-transparent hover:border-gray-100 dark:hover:border-gray-700">
+<div class="size-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-text-muted-light shrink-0">
+<span class="text-sm font-bold">2</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-medium truncate text-text-main-light dark:text-text-main-dark">teamLab Planets</h4>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark truncate">Art Museum • 2.0 hrs</p>
+</div>
+<span class="material-symbols-outlined text-text-muted-light/30 group-hover:text-primary text-[20px]">chevron_right</span>
+</div>
+<div class="group flex items-center gap-3 p-3 rounded-xl hover:bg-surface-light dark:hover:bg-background-dark transition-colors cursor-pointer border border-transparent hover:border-gray-100 dark:hover:border-gray-700">
+<div class="size-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-text-muted-light shrink-0">
+<span class="text-sm font-bold">3</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-medium truncate text-text-main-light dark:text-text-main-dark">Ginza Six</h4>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark truncate">Shopping • Flexible</p>
+</div>
+<span class="material-symbols-outlined text-text-muted-light/30 group-hover:text-primary text-[20px]">chevron_right</span>
+</div>
+<div class="p-3 my-2 rounded-xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/10 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">auto_awesome</span>
+<div class="flex-1">
+<p class="text-sm text-text-main-light dark:text-text-main-dark font-medium leading-tight">Recommended: Shibuya Sky</p>
+<p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-1 leading-relaxed">Perfect for sunset views based on your schedule.</p>
+<div class="flex gap-2 mt-2">
+<button class="text-xs font-semibold text-primary bg-white dark:bg-surface-dark px-3 py-1.5 rounded-md shadow-sm border border-primary/10 hover:bg-primary hover:text-white transition-colors">Add to List</button>
+</div>
+</div>
+</div>
+<button class="w-full py-3 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl text-text-muted-light dark:text-text-muted-dark font-medium text-sm flex items-center justify-center gap-2 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">add_location</span>
+                        Add Place in Tokyo
+                    </button>
+</div>
+</div>
+<div class="opacity-60 hover:opacity-100 transition-opacity">
+<div class="flex items-center justify-between mb-2">
+<h2 class="text-xs font-bold text-text-muted-light uppercase tracking-widest">Next Stop</h2>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl p-4 border border-transparent flex justify-between items-center cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-text-muted-light">location_city</span>
+</div>
+<div>
+<h3 class="text-base font-semibold">Kyoto</h3>
+<p class="text-xs text-text-muted-light">3 Days planned</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted-light">expand_more</span>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-8 left-0 right-0 z-40 flex justify-center pointer-events-none">
+<div class="bg-text-main-light dark:bg-white text-white dark:text-background-dark rounded-full p-1.5 pl-5 pr-1.5 shadow-float flex items-center gap-3 pointer-events-auto transform hover:scale-105 transition-transform cursor-pointer group">
+<span class="font-semibold text-sm">Visualize Trip</span>
+<div class="size-10 bg-primary rounded-full flex items-center justify-center text-white group-hover:rotate-12 transition-transform">
+<span class="material-symbols-outlined text-[20px]">map</span>
+</div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trip Timeline &amp; Canvas Review</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding for cleaner canvas look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white h-screen flex flex-col overflow-hidden selection:bg-primary/20">
+<!-- Header Section -->
+<header class="flex-none bg-background-light dark:bg-background-dark pt-2 pb-0 px-4 z-20">
+<div class="flex items-center justify-between py-2">
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-white">arrow_back</span>
+</button>
+<div class="flex flex-col items-center text-center">
+<h1 class="text-lg font-bold leading-tight tracking-tight">Japan Spring Trip</h1>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Apr 10 - Apr 20</span>
+</div>
+<button class="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary dark:text-blue-400 hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined filled">spark</span>
+</button>
+</div>
+</header>
+<!-- AI Suggestion Chips -->
+<div class="flex-none px-4 py-3 overflow-x-auto no-scrollbar bg-background-light dark:bg-background-dark z-10">
+<div class="flex gap-3">
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 active:scale-95 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">alt_route</span>
+<span class="text-xs font-medium">Optimize route</span>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 active:scale-95 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+<span class="text-xs font-medium">Group by location</span>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 active:scale-95 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">schedule</span>
+<span class="text-xs font-medium">Add breaks</span>
+</button>
+</div>
+</div>
+<!-- Main Canvas Area -->
+<main class="flex-1 overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex gap-4 px-4 pb-24 pt-2 no-scrollbar items-start">
+<!-- Day 1 Column -->
+<div class="snap-center shrink-0 w-[85vw] max-w-sm h-full flex flex-col rounded-2xl bg-white dark:bg-[#1a2233] shadow-md border border-slate-100 dark:border-slate-800 overflow-hidden relative group/day">
+<!-- Day Header -->
+<div class="p-5 pb-2 flex justify-between items-center bg-white dark:bg-[#1a2233] sticky top-0 z-10">
+<div>
+<h2 class="text-sm font-bold tracking-widest text-slate-400 uppercase">Day 01</h2>
+<p class="text-xl font-bold mt-0.5">Arrival &amp; Check-in</p>
+</div>
+<button class="p-2 text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<!-- Scrollable Card List -->
+<div class="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
+<!-- Place Card 1 -->
+<div class="group relative flex flex-col gap-0 rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3 ring-1 ring-slate-200 dark:ring-slate-700 active:ring-2 active:ring-primary active:shadow-lg transition-all cursor-grab active:cursor-grabbing">
+<div class="absolute right-3 top-3 z-10 bg-white/90 dark:bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold tracking-wide uppercase text-slate-600 dark:text-slate-300">
+                        10:00 AM
+                    </div>
+<div class="w-full aspect-[21/9] bg-slate-200 rounded-lg overflow-hidden mb-3 relative">
+<img alt="Narita Airport" class="w-full h-full object-cover" data-alt="Modern glass architecture of an airport terminal interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFXePiFNI_KTM6lC5hWKi7vp9LT6DbG0EOdke9Oufg357N0u5n8BkK6RIvrgLrBgkNhkZlS_0Q9mzqWIHiPvLdjuNy1yizwDWDlhITxAmzvNfWoaus5GGvTf4nh4lUNy9EeiRlCOiQBixkieBohgVIUxDAC6ymA2NY6QjdUjqIY6SgHsnI6veaDDmokOEQRCLIHM6ZP64MuGmnt8_GQ3R7xsbPjKMi9KNYwkke-MEtj2eFc6ggRFKf2zj8FSbjpPBydm2ktlM4Eyc"/>
+</div>
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="font-bold text-base text-slate-900 dark:text-white leading-tight">Narita Airport</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">flight_land</span> Terminal 1
+                            </p>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 cursor-grab">drag_indicator</span>
+</div>
+</div>
+<!-- Connector Line / Travel Time -->
+<div class="flex justify-center items-center py-1 opacity-60">
+<div class="h-8 w-0.5 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+<div class="absolute bg-white dark:bg-[#1a2233] px-2 py-1 rounded-full border border-slate-100 dark:border-slate-700 text-[10px] font-medium text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">train</span> 1h 20m
+                    </div>
+</div>
+<!-- Place Card 2 -->
+<div class="group relative flex flex-col gap-0 rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3 ring-1 ring-slate-200 dark:ring-slate-700 active:ring-2 active:ring-primary active:shadow-lg transition-all cursor-grab active:cursor-grabbing">
+<div class="absolute right-3 top-3 z-10 bg-white/90 dark:bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold tracking-wide uppercase text-slate-600 dark:text-slate-300">
+                        12:00 PM
+                    </div>
+<div class="w-full aspect-[21/9] bg-slate-200 rounded-lg overflow-hidden mb-3 relative">
+<img alt="Hotel Check-in" class="w-full h-full object-cover" data-alt="Hotel lobby interior with modern japanese design aesthetics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXbXRFz99_yKQJyzwSW7T11PwaG8xnNtZkt3GQYMRXRvC7C6lijAe8_taGSssES2TUenAGHk6CQPw2PaPp28yjfaWc0oJjTDBgPoHovK4ANV19dubVff4Nss3YY0pRlQ5L8IXsVvrzuqCZXoYmiCj6J9AvUruX6Te5u4wcehuUU3fnrUBY0h2wTYuc1zr3vX0ChTvTt_8qKgqEOok4J-pq7aRDg7JsIVYbrQ7RxiPqc7bVQ-8WjyAr-Wfaq6JDc2HA-7vGZXLD6eI"/>
+</div>
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="font-bold text-base text-slate-900 dark:text-white leading-tight">Hotel Check-in</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">hotel</span> Shinjuku Granbell
+                            </p>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 cursor-grab">drag_indicator</span>
+</div>
+</div>
+<!-- Connector Line -->
+<div class="flex justify-center items-center py-1 opacity-60">
+<div class="h-8 w-0.5 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+</div>
+<!-- Place Card 3 -->
+<div class="group relative flex flex-col gap-0 rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3 ring-1 ring-slate-200 dark:ring-slate-700 active:ring-2 active:ring-primary active:shadow-lg transition-all cursor-grab active:cursor-grabbing">
+<div class="absolute right-3 top-3 z-10 bg-white/90 dark:bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold tracking-wide uppercase text-slate-600 dark:text-slate-300">
+                        01:30 PM
+                    </div>
+<div class="flex items-start justify-between gap-2 mt-1">
+<div class="flex gap-3 items-center">
+<div class="size-12 shrink-0 rounded-lg bg-slate-200 overflow-hidden">
+<img alt="Ramen Street" class="w-full h-full object-cover" data-alt="Close up of a bowl of ramen with chopsticks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1LIMvjbGa2SVhWpSfCdX8bKvH-vR0p-xfxInkR9M3Uu--n5SpkO5tsmc7sphMs_sx9U6PNSJ-dCihsZYucbQZ4Hd5tyzgmtlg8RFSlv_GxZew9i0uyXW_3t3Z11Bq-K48h4rSMO2KBezrbkrtC6462HWc70thAQUf_vOMGzfdpGN8CbZiBzHNX8BRaXNBmATMmFipzrSvJxf0pb9dVPWuF7ChJM5RTx-4DkaW12P04zeF8DQ5I9qId2JIe6LUwfDvCMNNEf7CfXI"/>
+</div>
+<div>
+<h3 class="font-bold text-base text-slate-900 dark:text-white leading-tight">Tokyo Ramen St.</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Lunch Break</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 cursor-grab">drag_indicator</span>
+</div>
+</div>
+<!-- Drop Zone (Empty State) -->
+<div class="h-24 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-2 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-xs font-medium">Add Place</span>
+</div>
+<!-- Spacer for scroll -->
+<div class="h-8"></div>
+</div>
+</div>
+<!-- Day 2 Column -->
+<div class="snap-center shrink-0 w-[85vw] max-w-sm h-full flex flex-col rounded-2xl bg-white dark:bg-[#1a2233] shadow-md border border-slate-100 dark:border-slate-800 overflow-hidden">
+<!-- Day Header -->
+<div class="p-5 pb-2 flex justify-between items-center bg-white dark:bg-[#1a2233] sticky top-0 z-10">
+<div>
+<h2 class="text-sm font-bold tracking-widest text-slate-400 uppercase">Day 02</h2>
+<p class="text-xl font-bold mt-0.5">Shrine Tour</p>
+</div>
+<button class="p-2 text-slate-400 hover:text-primary dark:hover:text-blue-400 transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<!-- Scrollable Card List -->
+<div class="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
+<!-- Place Card 1 -->
+<div class="group relative flex flex-col gap-0 rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3 ring-1 ring-slate-200 dark:ring-slate-700 active:ring-2 active:ring-primary active:shadow-lg transition-all cursor-grab active:cursor-grabbing">
+<div class="absolute right-3 top-3 z-10 bg-white/90 dark:bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold tracking-wide uppercase text-slate-600 dark:text-slate-300">
+                        09:00 AM
+                    </div>
+<div class="w-full aspect-[21/9] bg-slate-200 rounded-lg overflow-hidden mb-3 relative">
+<img alt="Meiji Jingu" class="w-full h-full object-cover" data-alt="Traditional japanese torii gate entrance to Meiji Jingu shrine surrounded by forest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgiDdWFohp3Jby_lvC01cmmsZE9DizeT8S6-ZURquy99fh0iJAbBJ1ADBqQi92-jcPK3IGKlMAEIAPxJ5DQ91G4AbM_c-tKadYgG8ICxPGPeP0U7H2oVD43M9KEwdzjPh0_nsIVYlXQ4mLrXaToLKJZ0Iy5ReATsedylP7j37XbCas1p07QmJRxEUtfsrMvlTZsLEqMBbxK3UMNBeRwSX0w1lqUda3kQsmqHQGxOnTco8CT6JsvnuLNPR7UO_i_UIduaFimYQWxOY"/>
+</div>
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="font-bold text-base text-slate-900 dark:text-white leading-tight">Meiji Jingu</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">temple_buddhist</span> Shibuya City
+                            </p>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 cursor-grab">drag_indicator</span>
+</div>
+</div>
+<!-- Connector Line -->
+<div class="flex justify-center items-center py-1 opacity-60">
+<div class="h-8 w-0.5 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+<div class="absolute bg-white dark:bg-[#1a2233] px-2 py-1 rounded-full border border-slate-100 dark:border-slate-700 text-[10px] font-medium text-slate-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">directions_walk</span> 15m
+                    </div>
+</div>
+<!-- Place Card 2 -->
+<div class="group relative flex flex-col gap-0 rounded-xl bg-slate-50 dark:bg-slate-800/50 p-3 ring-1 ring-slate-200 dark:ring-slate-700 active:ring-2 active:ring-primary active:shadow-lg transition-all cursor-grab active:cursor-grabbing">
+<div class="absolute right-3 top-3 z-10 bg-white/90 dark:bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold tracking-wide uppercase text-slate-600 dark:text-slate-300">
+                        11:00 AM
+                    </div>
+<div class="w-full aspect-[21/9] bg-slate-200 rounded-lg overflow-hidden mb-3 relative">
+<img alt="Harajuku Shopping" class="w-full h-full object-cover" data-alt="Colorful street entrance of Takeshita Street in Harajuku crowded with people" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDXyyaGx198w-L6kBGpTIPtqnWpWqIrF4ioXrBSG6PzvheM-Vhm7U-wvlSiJ8Gl3c7-PypKTHHvFiROjTX-ufuBcoGxFCAuFhVbnJ40mxmVc8CM2XQb0Hq50Lwi0J5wYfMkBCNE4HRfxqvAOfnVd_iTewXggxWrHvy2zuA6ocCI-e0aLCJjW4drX3gfTBFxjL7UgzEUgXESYvP0rV76mY0cJeWCamhHiSLuB1zOuNeJXanX-Y9e-o0gOBhbGv0t2ldTIrOUVf7jas"/>
+</div>
+<div class="flex items-start justify-between gap-2">
+<div>
+<h3 class="font-bold text-base text-slate-900 dark:text-white leading-tight">Harajuku Shopping</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">shopping_bag</span> Takeshita St.
+                            </p>
+</div>
+<span class="material-symbols-outlined text-slate-300 dark:text-slate-600 cursor-grab">drag_indicator</span>
+</div>
+</div>
+<!-- Drop Zone -->
+<div class="h-24 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center gap-2 text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-xs font-medium">Add Place</span>
+</div>
+<div class="h-8"></div>
+</div>
+</div>
+<!-- Add Day Column -->
+<div class="snap-center shrink-0 w-[85vw] max-w-sm h-full flex flex-col items-center justify-center rounded-2xl bg-slate-100/50 dark:bg-slate-800/20 border-2 border-dashed border-slate-200 dark:border-slate-700">
+<button class="flex flex-col items-center gap-2 group">
+<div class="size-14 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform text-primary">
+<span class="material-symbols-outlined text-[28px]">calendar_add_on</span>
+</div>
+<span class="text-sm font-bold text-slate-500 dark:text-slate-400">Add Day 03</span>
+</button>
+</div>
+</main>
+<!-- Floating Action Button -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-30">
+<button class="flex items-center gap-2 bg-primary hover:bg-blue-600 text-white rounded-full px-6 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)] active:scale-95 transition-all">
+<span class="material-symbols-outlined filled">map</span>
+<span class="font-bold text-sm tracking-wide">Map View</span>
+</button>
+</div>
+<!-- Bottom Gradient Fade for Canvas (aesthetic touch) -->
+<div class="fixed bottom-0 left-0 w-full h-8 bg-gradient-to-t from-background-light dark:from-background-dark to-transparent pointer-events-none z-20"></div>
+</body></html>

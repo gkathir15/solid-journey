@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Visual Place Selector</title>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#0d121b] dark:text-white font-display overflow-hidden select-none">
+<!-- Main Container -->
+<div class="relative flex h-screen w-full flex-col max-w-md mx-auto bg-background-light dark:bg-background-dark shadow-2xl overflow-hidden">
+<!-- Header Section -->
+<header class="flex-none pt-4 px-6 bg-background-light dark:bg-background-dark z-20">
+<!-- Top Nav -->
+<div class="flex items-center justify-between pb-2">
+<button class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-2xl text-[#0d121b] dark:text-white">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="text-xs font-semibold tracking-widest uppercase text-primary">Trip Planner</span>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Kyoto, Japan</h2>
+</div>
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-2xl text-[#0d121b] dark:text-white">more_horiz</span>
+</button>
+</div>
+<!-- Day Indicator & Progress -->
+<div class="mt-2 mb-2">
+<div class="flex justify-between items-end mb-2">
+<h1 class="text-3xl font-light tracking-tight">Day 02 <span class="text-gray-400 dark:text-gray-500 font-normal text-lg ml-1">Arashiyama</span></h1>
+<span class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">2/5 Days</span>
+</div>
+<!-- Progress Bar -->
+<div class="flex w-full gap-1 h-1">
+<div class="h-full flex-1 rounded-full bg-primary/30"></div>
+<div class="h-full flex-1 rounded-full bg-primary"></div>
+<div class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+<div class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+<div class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+</div>
+</div>
+</header>
+<!-- Discovery Deck (Main Carousel) -->
+<main class="flex-1 flex flex-col justify-center relative overflow-hidden py-4">
+<!-- AI Context Bubble (Floating Top) -->
+<div class="absolute top-4 left-0 right-0 z-10 flex justify-center px-6">
+<div class="flex items-center gap-x-2 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-md px-4 py-2 shadow-sm border border-white/20 ring-1 ring-black/5">
+<span class="material-symbols-outlined text-primary text-[20px]">auto_awesome</span>
+<p class="text-xs font-medium text-[#0d121b] dark:text-gray-200">Perfect morning light for photography here.</p>
+</div>
+</div>
+<!-- Horizontal Scroll Container -->
+<div class="flex overflow-x-auto snap-x snap-mandatory px-6 gap-5 no-scrollbar items-center h-full pb-4 pt-10">
+<!-- Card 1: Active/Center -->
+<div class="snap-center shrink-0 w-[85%] h-full max-h-[500px] flex flex-col relative group transition-transform duration-300">
+<div class="relative w-full h-full rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700">
+<!-- Image -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Bamboo grove path in Kyoto with tall green bamboo stalks" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuASwZtPXOlRon5yE9SYPMQCPrX13A99QzFbHzd2qhBQxZsExzhr55scPcAF0xZgjMHkykR1ftzxWB15yCqhZdcabsuVIeZuCzGeguf_rj_bgb1SSDQ8C8HdLMC5Je3Kpyv5yC9rrmREQna-zqdOSYbfUVFzr4dIi-CCBCBQ2fVy4SQvE5aVNWOvekCO-rV7FBQnxAc8b-Q71q8y3c0Q_QINTQRew5dOFd8yW4VzUIBpYD81fRG7QJBkPmX8it32xcINO-IYmOoN758');">
+</div>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<!-- Card Content -->
+<div class="absolute bottom-0 left-0 w-full p-6 flex flex-col gap-3 text-white">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white/20 backdrop-blur-sm border border-white/10 uppercase tracking-wider">Nature</span>
+<span class="text-xs font-medium text-gray-300">• 1 hr</span>
+</div>
+<h3 class="text-3xl font-bold leading-tight">Bamboo Grove</h3>
+<p class="text-sm text-gray-300 line-clamp-2 mt-1 font-light">A mesmerizing path through towering bamboo stalks. Listen to the wind rustling through the leaves.</p>
+</div>
+<!-- Action Row -->
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-400 text-sm">star</span>
+<span class="text-sm font-bold">4.8</span>
+<span class="text-xs text-gray-400">(2.1k)</span>
+</div>
+<button class="size-12 rounded-full bg-white text-primary flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-2xl font-bold">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Next -->
+<div class="snap-center shrink-0 w-[85%] h-full max-h-[500px] flex flex-col relative group opacity-60 scale-95 transition-all">
+<div class="relative w-full h-full rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 shadow-md border border-gray-100 dark:border-gray-700">
+<div class="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="Traditional Japanese wooden temple building near a pond with reflection" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBB9eQuNjZdOr0iI-2wLomEGnYZVsAbkvzEBpgS0mlY387hEPyTXZdm0moLinou5B5anVP0DcnEu0G33GP7pRWlHP7_xwAK-iCpCPGQJTGMHlkAbKDiK2qIhSWbMPbEtG40St61JmN06XfSLCvWZyTa4_B44vaq1aWvksf98jaulwTDQndZmFcHf1tWy6PAi19Fbo9Qh9D6C3idNOsWZ9juzDT_JX0-akEBQO8580FBSWCpxnYKO32RTmFVdrzW_jyUDI0OxLSrXVo');">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 w-full p-6 flex flex-col gap-2 text-white">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white/20 backdrop-blur-sm border border-white/10 uppercase tracking-wider">Culture</span>
+</div>
+<h3 class="text-2xl font-bold leading-tight">Tenryu-ji Temple</h3>
+</div>
+</div>
+</div>
+</div>
+<!-- Spacer for right padding -->
+<div class="snap-center shrink-0 w-1"></div>
+</div>
+</main>
+<!-- Itinerary Strip (Bottom Dock) -->
+<footer class="flex-none bg-white dark:bg-[#151c29] border-t border-gray-100 dark:border-gray-800 rounded-t-3xl shadow-[0_-8px_30px_rgba(0,0,0,0.04)] z-30 pb-6 pt-2">
+<!-- Drag Handle -->
+<div class="w-full flex justify-center py-2">
+<div class="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+</div>
+<div class="px-6 flex justify-between items-center mb-3">
+<h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider">Your Schedule</h4>
+<span class="text-xs text-primary font-medium cursor-pointer">Clear All</span>
+</div>
+<!-- Horizontal Draggable List -->
+<div class="flex overflow-x-auto px-6 gap-3 pb-4 no-scrollbar items-center">
+<!-- Item 1 -->
+<div class="relative flex-shrink-0 group">
+<div class="w-20 h-28 rounded-xl overflow-hidden relative shadow-sm border border-gray-200 dark:border-gray-700">
+<img class="w-full h-full object-cover opacity-90" data-alt="Latte art in a white cup on a wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwePaRHvI3BXBtGVT2es5rqgFjRvYLn2phgQtZxI_FYGu_ldwHHoPc31KvOX5bUJPyW77UEBd05MQ88ucb5c1p2WOxoeQg3B6nPAdkLcKHXH-dgrw6DjQhYMCamsYc1xM3rQrK9bTCRh-P4_OOVFnSDl8ul6F5PZ1wXOqy_jcIZlswAcErf7gq6o-M5y2Yalt_vnTGq1tcHS2PuUXfngMIsPGVYinNl6zv9GY2nv-kYwq_Xdfm7ZUVA8T8YmCxkeYN6coNPP4V90Y"/>
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+<span class="text-white font-bold text-xs drop-shadow-md">08:00</span>
+</div>
+</div>
+<div class="absolute -top-1 -right-1 bg-white dark:bg-gray-700 rounded-full p-0.5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[14px] text-red-500">remove</span>
+</div>
+<p class="text-[10px] font-medium text-center mt-1 truncate w-20 text-gray-600 dark:text-gray-400">% Arabica</p>
+</div>
+<!-- Connector -->
+<div class="w-4 h-[1px] bg-gray-300 dark:bg-gray-600 shrink-0"></div>
+<!-- Item 2 (Active Dragging State Simulation) -->
+<div class="relative flex-shrink-0 transform -translate-y-2 rotate-2 shadow-xl z-10 cursor-grab active:cursor-grabbing">
+<div class="w-20 h-28 rounded-xl overflow-hidden relative border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="Scenic view of Japanese landscape with mountains" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC24AN2E0tpIA9xdxm_AYb1tOCJ2voCjEyu3DJGoBe47BeNL5j4D5-l0Mduo_YGx8IaJCon4WSTL0tv7WAN8tYtDQK4F7I_4En0omdjh1_T05W3-TPCPml5HpTbqyA42YyYaFxqMjBdiMBX8D0cDKCbp3uK32zVhNkPfrJa92IvsuzS_1jF7xPgXthn0qGgZeaqxxKmcr94RZAT5_auyb7JvGlNeYiPRZ5xgeUc4Au5Kvy10PPYPatu9W3yYSJ-4hnEyXBhO8EbqD4"/>
+<div class="absolute inset-0 bg-primary/20"></div>
+<div class="absolute bottom-1 right-1 bg-primary text-white text-[10px] px-1.5 py-0.5 rounded font-bold">New</div>
+</div>
+<p class="text-[10px] font-bold text-center mt-1 truncate w-20 text-primary">Arashiyama</p>
+</div>
+<!-- Connector -->
+<div class="w-4 h-[1px] bg-gray-300 dark:bg-gray-600 shrink-0"></div>
+<!-- Empty Slot / Drop Zone -->
+<div class="flex-shrink-0">
+<div class="w-20 h-28 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 flex flex-col items-center justify-center gap-1 bg-gray-50 dark:bg-gray-800/50 text-gray-400">
+<span class="material-symbols-outlined text-xl">add_location</span>
+<span class="text-[9px] font-medium uppercase">Drop Here</span>
+</div>
+</div>
+</div>
+<!-- Confirm Button -->
+<div class="px-6 mt-2">
+<button class="w-full h-12 bg-primary hover:bg-primary/90 text-white rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 transition-all">
+<span>Confirm Schedule</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>

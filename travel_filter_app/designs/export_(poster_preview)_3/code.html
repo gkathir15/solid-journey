@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Export (Poster Preview)</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased transition-colors duration-200">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="flex items-center p-4 justify-between sticky top-0 z-10 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-md">
+<button class="text-neutral-900 dark:text-white flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+<h2 class="text-neutral-900 dark:text-white text-lg font-semibold leading-tight tracking-tight flex-1 text-center pr-10">Preview</h2>
+</header>
+<!-- Main Content: Poster Showcase -->
+<main class="flex-1 flex flex-col items-center justify-center px-6 py-4 w-full max-w-md mx-auto">
+<!-- Poster Container (The Artifact) -->
+<!-- Note: Keeps a white background regardless of dark mode to simulate physical paper -->
+<div class="relative group w-full aspect-[3/4] bg-white shadow-2xl dark:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)] rounded-sm overflow-hidden transform transition-transform duration-300 hover:scale-[1.01]">
+<!-- Poster Content Wrapper -->
+<div class="flex flex-col h-full w-full">
+<!-- Map Visual (Top 65%) -->
+<div class="h-[65%] w-full bg-neutral-100 relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Minimalist street map of Kyoto and Osaka with route lines" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBThsJnRBcA7x5Wk3jjRtxRKPBw7ldnggynd4TvBpg2XKQerUfNu1m5g6pb9YiKOy_0aLscQkFKY82iToI8wGL8zM0lsVzOzm0Z0GD0NRgfDb3rYGBUigkIIxOYyJLWDW7WpQqH_gEUk2op5iRVpepkkPnMx3E9W2Hlb68iJs2vyQI1h2OspOXHukJmGEvsemckCn2M11yQGcpOjqkklylibJHM5L_fHbbO9pGx0tdFugZ7lejHAKQWfHtWA-oFyuCEuqWgbqM1cMc");'>
+</div>
+<!-- Map Overlay Gradient (Subtle bottom fade for transition) -->
+<div class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent opacity-80"></div>
+</div>
+<!-- Editorial Content (Bottom 35%) -->
+<div class="h-[35%] flex flex-col items-center justify-center text-center px-6 pb-2">
+<!-- Trip Title -->
+<h1 class="text-neutral-900 text-3xl font-bold tracking-tight uppercase mb-2">Kyoto &amp; Osaka</h1>
+<!-- Decorative Divider -->
+<div class="w-8 h-0.5 bg-neutral-300 mb-3"></div>
+<!-- Date Range -->
+<p class="text-neutral-500 text-xs font-medium tracking-[0.2em] uppercase mb-5">
+                            April 10 — April 24, 2024
+                        </p>
+<!-- Legend -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-[10px] text-neutral-400 font-medium uppercase tracking-wider">Nature</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-orange-500"></span>
+<span class="text-[10px] text-neutral-400 font-medium uppercase tracking-wider">Culture</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-[10px] text-neutral-400 font-medium uppercase tracking-wider">Stay</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Actions -->
+<footer class="w-full pb-8 pt-2 px-4 bg-background-light dark:bg-background-dark z-10 flex flex-col items-center gap-4">
+<!-- Meta Text / Quality Indicator -->
+<div class="flex flex-col items-center gap-1 opacity-80">
+<p class="text-neutral-500 dark:text-neutral-400 text-xs font-normal leading-normal text-center">
+                    High-Res • 300 DPI • A4 Size
+                </p>
+<p class="text-primary text-xs font-medium leading-normal text-center">
+                    Print-ready format (PNG)
+                </p>
+</div>
+<!-- SingleButton -->
+<button class="flex w-full max-w-md cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-6 bg-primary hover:bg-blue-600 active:bg-blue-700 transition-colors text-white gap-2 shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined text-[20px]">ios_share</span>
+<span class="text-base font-bold leading-normal tracking-wide">Export Poster</span>
+</button>
+</footer>
+</div>
+</body></html>

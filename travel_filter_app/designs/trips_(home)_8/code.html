@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trips</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1c1917","background-light": "#FDFCF8","background-dark": "#0c0a09","text-main": "#292524","text-muted": "#78716c","paper-border": "#e7e5e4",},
+                    fontFamily: {
+                        "sans": ["DM Sans", "sans-serif"],
+                        "serif": ["Lora", "serif"],
+                    },
+                    borderRadius: {
+                        "none": "0",
+                        "sm": "0.125rem",
+                        DEFAULT: "0.25rem",
+                        "md": "0.375rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        body { min-height: 100dvh; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark antialiased selection:bg-stone-200 selection:text-stone-900">
+<div class="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden max-w-md mx-auto shadow-2xl border-x border-stone-100 dark:border-stone-900">
+<header class="pt-20 pb-6 px-8 sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md transition-colors duration-300">
+<h1 class="font-serif text-text-main dark:text-stone-100 text-[42px] font-medium tracking-tight leading-none">Trips</h1>
+<div class="h-[2px] w-12 bg-text-main dark:bg-stone-100 mt-6 mb-2"></div>
+</header>
+<main class="flex flex-col px-8 gap-16 pb-40 pt-4">
+<article class="group relative flex flex-col gap-6 cursor-pointer">
+<div class="relative w-full aspect-[4/3] bg-white dark:bg-stone-800 p-2 shadow-sm border border-paper-border dark:border-stone-800 transition-transform duration-500 hover:scale-[1.01]">
+<div class="w-full h-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center grayscale-[15%] group-hover:grayscale-0 transition-all duration-700 ease-out" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCh00S9gUi-l0f0UfiHOGf5rwnN4Ydg_XN7xvo7G4ivq85xP4dpMxq2VUH9YKGp7bbrgsEnWfXvmufsVljrYqVdeg5faY46b0su28m5Z35GDkzGQFEFQJyDql_88xJUqaJkaEe-VLhAw6J0hE-N4ux7HjPw9bn8EpcX1MtOK4dKKe0d58Ru7eBZ0v2ucsYReLw7UM0pxBJbXcyt4-2pSE6BXTd_GNcdrtvJ8DB9pyEkL6RgviNufcxpeqCVGc1Vgfdsi1Khk1Sog5g');">
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 px-1">
+<div class="flex flex-col border-b border-paper-border dark:border-stone-800 pb-4">
+<h2 class="font-serif text-text-main dark:text-stone-100 text-3xl font-normal leading-tight group-hover:text-stone-600 transition-colors">Patagonia Expedition</h2>
+<div class="flex items-center justify-between mt-3">
+<span class="font-sans text-text-muted dark:text-stone-400 text-xs font-bold tracking-[0.15em] uppercase">South America</span>
+<span class="font-sans text-text-main dark:text-stone-300 text-xs tracking-widest font-medium">Oct 4 — Oct 18</span>
+</div>
+</div>
+</div>
+</article>
+<article class="group relative flex flex-col gap-6 cursor-pointer">
+<div class="relative w-full aspect-[4/3] bg-white dark:bg-stone-800 p-2 shadow-sm border border-paper-border dark:border-stone-800 transition-transform duration-500 hover:scale-[1.01]">
+<div class="w-full h-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center grayscale-[15%] group-hover:grayscale-0 transition-all duration-700 ease-out" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBziM37if2RBJjL3eMb9KrOnRO9GeYr2DkqN_eYwm7s1Ugi4kMB8RZeXo00T4WfnZ0-UxOIFqHD7q5KUgflOBBB-Zg4AbMaeOaMe-GDxCc0frynEx37mTKuuCb1h2PoMnDYSXM2ITjC_MJArUGDCdb780MDVbExhD-KtQGJOyIZIOLfKwk-wITAF-4F3Weu50b5E_dC4zdsBGFMZNshsMICImWlC6ywqbAFnK3XdtXbKlR0NykovxtamDx9sLwuslzRSi3Eil1th7Y');">
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 px-1">
+<div class="flex flex-col border-b border-paper-border dark:border-stone-800 pb-4">
+<h2 class="font-serif text-text-main dark:text-stone-100 text-3xl font-normal leading-tight group-hover:text-stone-600 transition-colors">Weekend in Rome</h2>
+<div class="flex items-center justify-between mt-3">
+<span class="font-sans text-text-muted dark:text-stone-400 text-xs font-bold tracking-[0.15em] uppercase">Italy</span>
+<span class="font-sans text-text-main dark:text-stone-300 text-xs tracking-widest font-medium">Dec 10 — Dec 12</span>
+</div>
+</div>
+</div>
+</article>
+<article class="group relative flex flex-col gap-6 cursor-pointer">
+<div class="relative w-full aspect-[4/3] bg-white dark:bg-stone-800 p-2 shadow-sm border border-paper-border dark:border-stone-800 transition-transform duration-500 hover:scale-[1.01]">
+<div class="w-full h-full overflow-hidden">
+<div class="w-full h-full bg-cover bg-center grayscale-[15%] group-hover:grayscale-0 transition-all duration-700 ease-out" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxbaVnhLlfQJw0ha-p3CVpA_uUETNNwWCVKdc4UYStcEws4Phw3HJ46m_1pj7_KcBaJYnNkirToARnu33ONdaqQc46hUNMpP7ph-FvEsJh-t3qSSyJ9KRwRvSP_bxuV7iHZ_o3Mce0SvkweCccntAkuX7b77zHGW_Horm6mqQt_JbWO2dyeYRuvbaDGiXP-w9E72g9JMuohvZN-lDuB_NROrzVjEgqB9rRff_IcDEZTvT0F2XOmioVKB1ASwgXUDpzz1mxMws9oqE');">
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 px-1">
+<div class="flex flex-col border-b border-paper-border dark:border-stone-800 pb-4">
+<h2 class="font-serif text-text-main dark:text-stone-100 text-3xl font-normal leading-tight group-hover:text-stone-600 transition-colors">Tokyo Spring</h2>
+<div class="flex items-center justify-between mt-3">
+<span class="font-sans text-text-muted dark:text-stone-400 text-xs font-bold tracking-[0.15em] uppercase">Japan</span>
+<span class="font-sans text-text-main dark:text-stone-300 text-xs tracking-widest font-medium">Mar 20 — Apr 05</span>
+</div>
+</div>
+</div>
+</article>
+</main>
+<div class="fixed bottom-10 left-0 right-0 z-30 flex justify-center w-full max-w-md mx-auto pointer-events-none">
+<button class="pointer-events-auto bg-primary dark:bg-stone-100 text-white dark:text-stone-900 font-sans font-bold text-sm tracking-[0.2em] uppercase px-12 py-5 rounded-full shadow-[0_10px_30px_-5px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:-translate-y-1 transition-all duration-300">
+                Create Trip
+            </button>
+</div>
+<div class="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/60 dark:via-background-dark/60 to-transparent pointer-events-none z-20 max-w-md mx-auto"></div>
+</div>
+
+</body></html>
