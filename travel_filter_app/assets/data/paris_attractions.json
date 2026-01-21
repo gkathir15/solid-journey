@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Eiffel Tower",
+    "category": "Landmark",
+    "description": "Iconic wrought-iron lattice tower on the Champ de Mars."
+  },
+  {
+    "name": "Louvre Museum",
+    "category": "Museum",
+    "description": "World's largest art museum and a historic monument in Paris."
+  },
+  {
+    "name": "Cathédrale Notre-Dame de Paris",
+    "category": "Church",
+    "description": "Medieval Catholic cathedral on the Île de la Cité."
+  },
+  {
+    "name": "Musée d'Orsay",
+    "category": "Museum",
+    "description": "Museum housed in the former Gare d'Orsay, a Beaux-Arts railway station."
+  },
+  {
+    "name": "Sainte-Chapelle",
+    "category": "Church",
+    "description": "Royal chapel in the Gothic style, within the medieval Palais de la Cité."
+  },
+  {
+    "name": "Luxembourg Gardens",
+    "category": "Park",
+    "description": "Gardens created in 1612 by Marie de' Medici, the widow of King Henry IV."
+  },
+  {
+    "name": "Tuileries Garden",
+    "category": "Park",
+    "description": "Public garden located between the Louvre and the Place de la Concorde."
+  },
+  {
+    "name": "Shakespeare and Company",
+    "category": "Bookstore",
+    "description": "Iconic English-language bookstore on the Left Bank."
+  },
+  {
+    "name": "Les Deux Magots",
+    "category": "Cafe",
+    "description": "Famous café in the Saint-Germain-des-Prés area of Paris."
+  },
+  {
+    "name": "Café de Flore",
+    "category": "Cafe",
+    "description": "One of the oldest coffeehouses in Paris, celebrated for its famous clientele."
+  },
+  {
+    "name": "Centre Pompidou",
+    "category": "Museum",
+    "description": "Complex building in the Beaubourg area of the 4th arrondissement."
+  },
+  {
+    "name": "Sacré-Cœur Basilica",
+    "category": "Church",
+    "description": "Roman Catholic church and minor basilica, dedicated to the Sacred Heart of Jesus."
+  },
+  {
+    "name": "Moulin Rouge",
+    "category": "Entertainment",
+    "description": "Cabaret in Paris, France."
+  },
+  {
+    "name": "Palace of Versailles",
+    "category": "Palace",
+    "description": "Former royal residence located in Versailles, about 12 miles west of Paris."
+  },
+  {
+    "name": "Disneyland Paris",
+    "category": "Amusement Park",
+    "description": "Entertainment resort in Chessy, a town located 32 km (20 mi) from the centre of Paris."
+  },
+  {
+    "name": "Jardin des Plantes",
+    "category": "Park",
+    "description": "The main botanical garden in France."
+  },
+  {
+    "name": "La Villette",
+    "category": "Park",
+    "description": "The third-largest park in Paris, 55.5 hectares in area, located at the northeastern edge of the city."
+  },
+  {
+    "name": "Le Procope",
+    "category": "Cafe",
+    "description": "The oldest café in Paris in continuous operation."
+  },
+  {
+    "name": "Musée Rodin",
+    "category": "Museum",
+    "description": "A museum that was opened in 1919, primarily dedicated to the works of the French sculptor Auguste Rodin."
+  },
+  {
+    "name": "Musée de l'Orangerie",
+    "category": "Museum",
+    "description": "An art gallery of impressionist and post-impressionist paintings located in the west corner of the Tuileries Gardens."
+  },
+  {
+    "name": "Parc des Buttes-Chaumont",
+    "category": "Park",
+    "description": "A public park situated in northeastern Paris, France, in the 19th arrondissement."
+  }
+]
