@@ -184,13 +184,17 @@ Output format:
       if (signature.contains(keyword)) score += 2.0;
 
       // Semantic matches
-      if (keyword.contains('quiet') && signature.contains('n:nature')) score += 1.5;
-      if (keyword.contains('history') && signature.contains('h:')) score += 1.5;
-      if (keyword.contains('local') && signature.contains('l:local')) score += 1.5;
-      if (keyword.contains('art') && signature.contains('a:art')) score += 1.5;
-      if (keyword.contains('craft') && signature.contains('a:craft')) score += 1.5;
-      if (keyword.contains('nature') && signature.contains('n:nature')) score += 1.5;
+      if (keyword.contains('quiet') && signature.contains('n:')) score += 1.5;
+      if (keyword.contains('hist') && signature.contains('h:')) score += 1.5;
+      if (keyword.contains('local') && signature.contains('l:')) score += 1.5;
+      if (keyword.contains('art') && signature.contains('a:')) score += 1.5;
+      if (keyword.contains('craft') && signature.contains('a:')) score += 1.5;
+      if (keyword.contains('nature') && signature.contains('n:')) score += 1.5;
       if (keyword.contains('free') && signature.contains('s:free')) score += 1.0;
+      if (keyword.contains('cultural') && (signature.contains('h:') || signature.contains('a:'))) score += 1.5;
+      if (keyword.contains('spiritual') && signature.contains('h:')) score += 1.5;
+      if (keyword.contains('budget') && signature.contains('s:free')) score += 1.5;
+      if (keyword.contains('budget') && signature.contains('s:cheap')) score += 1.0;
     }
 
     return score;
