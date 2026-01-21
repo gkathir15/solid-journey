@@ -2,6 +2,7 @@ import 'package:logging/logging.dart';
 import 'universal_tag_harvester.dart';
 import 'semantic_discovery_engine.dart';
 import 'llm_discovery_reasoner.dart';
+import 'spatial_clustering_service.dart';
 
 /// Discovery Orchestrator - Coordinates the entire discovery pipeline
 /// 
@@ -9,13 +10,15 @@ import 'llm_discovery_reasoner.dart';
 /// 1. Harvest → Extract all OSM tags
 /// 2. Process → Create vibe signatures
 /// 3. Reason → LLM analyzes signatures for patterns
-/// 4. Deliver → Return curated recommendations
+/// 4. Cluster → Group into day-based itineraries
+/// 5. Deliver → Return curated recommendations with GenUI format
 class DiscoveryOrchestrator {
   final _log = Logger('DiscoveryOrchestrator');
   
   final harvester = UniversalTagHarvester();
   final discoveryEngine = SemanticDiscoveryEngine();
   final reasoner = LLMDiscoveryReasoner();
+  final clusteringService = SpatialClusteringService();
 
   /// Main discovery pipeline
   Future<DiscoveryOutput> discover({
@@ -101,6 +104,128 @@ class DiscoveryOrchestrator {
       _log.severe('❌ Discovery failed: $e');
       rethrow;
     }
+  }
+
+  /// GenUI-integrated orchestration - Used by the UI layer
+  /// Returns a complete itinerary ready for GenUI rendering
+  Future<Map<String, dynamic>> orchestrate({
+    required String city,
+    required String country,
+    required List<String> selectedVibes,
+    int durationDays = 3,
+  }) async {
+    _log.info('🎯 ORCHESTRATE: Planning ${country}/${city} - Vibes: $selectedVibes');
+
+    try {
+      // Fetch all categories as default
+      final categories = ['tourism', 'amenity', 'leisure'];
+      
+      // Run discovery pipeline
+      final output = await discover(
+        city: city,
+        categories: categories,
+        userVibe: selectedVibes.join(', '),
+        userContext: 'Trip planning for $country',
+      );
+
+      // Prepare attractions for clustering
+      final attractionsList = output.discoveryResult.primaryRecommendations
+          .map((rec) {
+            return {
+              'name': rec['name'] ?? 'Unknown',
+              'lat': rec['lat'] ?? 0.0,
+              'lon': rec['lon'] ?? 0.0,
+              'category': rec['category'] ?? 'other',
+              'vibe': (rec['vibe'] as List<dynamic>? ?? []).cast<String>(),
+              'rating': rec['rating'] ?? 3.0,
+              'description': rec['description'] ?? '',
+            };
+          })
+          .toList();
+
+      // Create day clusters
+      _log.info('Creating ${durationDays}-day itinerary...');
+      final dayClusters = await clusteringService.createDayClustersByCount(
+        attractionsList,
+        durationDays: durationDays,
+      );
+
+      // Build response for GenUI
+      final days = dayClusters.asMap().entries.map((e) {
+        final cluster = e.value;
+        
+        return {
+          'dayNumber': cluster.dayNumber,
+          'theme': _generateDayTheme(cluster, selectedVibes),
+          'places': cluster.attractions
+              .asMap()
+              .entries
+              .map((pe) {
+                final place = pe.value;
+                return {
+                  'name': place['name'] ?? 'Unknown',
+                  'order': pe.key + 1,
+                  'vibe': place['vibe'] ?? [],
+                  'reason': _generatePlaceReason(place, selectedVibes),
+                };
+              })
+              .toList(),
+          'totalDistance': cluster.distanceCovered,
+        };
+      }).toList();
+
+      final itinerary = {
+        'days': days,
+        'tripSummary': _generateTripSummary(city, country, selectedVibes, days.length),
+      };
+
+      _log.info('✅ Itinerary generated: ${days.length} days');
+
+      return {
+        'success': true,
+        'itinerary': itinerary,
+        'metadata': {
+          'city': city,
+          'country': country,
+          'vibes': selectedVibes,
+          'duration': durationDays,
+          'attractionsAnalyzed': output.totalAnalyzed,
+        },
+      };
+    } catch (e) {
+      _log.severe('❌ Orchestration failed: $e');
+      return {
+        'success': false,
+        'error': e.toString(),
+      };
+    }
+  }
+
+  String _generateDayTheme(DayCluster cluster, List<String> vibes) {
+    if (vibes.contains('nature')) return 'Nature Exploration';
+    if (vibes.contains('historic')) return 'Historical Journey';
+    if (vibes.contains('vibrant')) return 'Urban Adventure';
+    if (vibes.contains('quiet')) return 'Peaceful Discovery';
+    return 'Local Exploration';
+  }
+
+  String _generatePlaceReason(Map<String, dynamic> place, List<String> vibes) {
+    final category = place['category'] ?? 'attraction';
+    final placeVibes = (place['vibe'] as List<dynamic>? ?? []).cast<String>();
+    
+    final matchedVibes = vibes
+        .where((v) => placeVibes.contains(v))
+        .toList();
+    
+    if (matchedVibes.isNotEmpty) {
+      return 'Perfect match for your "${matchedVibes.join(', ')}" preference';
+    }
+    return 'Great $category matching your travel style';
+  }
+
+  String _generateTripSummary(String city, String country, List<String> vibes, int days) {
+    return 'Your $days-day journey through ${city}, $country focused on: ${vibes.join(", ")}. '
+        'This itinerary highlights local gems, cultural treasures, and hidden attractions.';
   }
 }
 

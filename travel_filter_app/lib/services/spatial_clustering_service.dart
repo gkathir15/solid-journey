@@ -1,15 +1,16 @@
+import 'dart:math' as math;
 import 'package:logging/logging.dart';
 
 /// Spatial Clustering Service - Groups attractions into "Day Clusters"
 class SpatialClusteringService {
   final _log = Logger('SpatialClustering');
 
-  /// Group attractions into day clusters based on proximity
+  /// Group attractions into day clusters based on proximity (with distance matrix)
   Future<List<DayCluster>> createDayClusters(
     List<Map<String, dynamic>> attractions,
     Map<String, Map<String, double>> distanceMatrix,
   ) async {
-    _log.info('��️ Creating day clusters from ${attractions.length} attractions');
+    _log.info('📍 Creating day clusters from ${attractions.length} attractions');
 
     final clusters = <DayCluster>[];
     final visited = <int>{};
@@ -55,6 +56,47 @@ class SpatialClusteringService {
     _log.info('✅ Created ${clusters.length} day clusters');
     return clusters;
   }
+
+  /// Group attractions into day clusters (without distance matrix)
+  /// Used by orchestrate flow - calculates distances on-the-fly
+  Future<List<DayCluster>> createDayClustersByCount(
+    List<Map<String, dynamic>> attractions, {
+    required int durationDays,
+  }) async {
+    _log.info('📍 Creating $durationDays day clusters from ${attractions.length} attractions');
+
+    final clusters = <DayCluster>[];
+    
+    // Sort by rating and distance diversity
+    final sorted = List<Map<String, dynamic>>.from(attractions)
+      ..sort((a, b) {
+        final ratingA = (a['rating'] as num?)?.toDouble() ?? 0;
+        final ratingB = (b['rating'] as num?)?.toDouble() ?? 0;
+        return ratingB.compareTo(ratingA);
+      });
+
+    final itemsPerDay = (sorted.length / durationDays).ceil();
+    
+    for (int day = 0; day < durationDays && day * itemsPerDay < sorted.length; day++) {
+      final dayCluster = DayCluster(dayNumber: day + 1);
+      final startIdx = day * itemsPerDay;
+      final endIdx = ((day + 1) * itemsPerDay).clamp(0, sorted.length);
+
+      for (int i = startIdx; i < endIdx && i < sorted.length; i++) {
+        dayCluster.addAttraction(
+          sorted[i],
+          isAnchor: i == startIdx,
+        );
+      }
+
+      if (dayCluster.attractions.isNotEmpty) {
+        clusters.add(dayCluster);
+      }
+    }
+
+    _log.info('✅ Created ${clusters.length} day clusters');
+    return clusters;
+  }
 }
 
 /// Represents a single day's itinerary
@@ -62,14 +104,19 @@ class DayCluster {
   final int dayNumber;
   final List<Map<String, dynamic>> attractions = [];
   late Map<String, dynamic> anchorPoint;
+  late double distanceCovered;
 
-  DayCluster({required this.dayNumber});
+  DayCluster({required this.dayNumber}) {
+    distanceCovered = 0.0;
+  }
 
   void addAttraction(Map<String, dynamic> attraction, {bool isAnchor = false}) {
     attractions.add(attraction);
     if (isAnchor) {
       anchorPoint = attraction;
     }
+    // Recalculate total distance
+    distanceCovered = _calculateTotalDistance();
   }
 
   /// Get day summary
@@ -83,7 +130,7 @@ class DayCluster {
       'dayNumber': dayNumber,
       'anchorPoint': anchorPoint,
       'attractions': attractions,
-      'totalDistance': _calculateTotalDistance(),
+      'totalDistance': distanceCovered,
       'estimatedTime': '${attractions.length * 45} minutes',
     };
   }
@@ -92,10 +139,10 @@ class DayCluster {
     double total = 0;
     for (int i = 0; i < attractions.length - 1; i++) {
       final dist = _haversine(
-        attractions[i]['lat'],
-        attractions[i]['lon'],
-        attractions[i + 1]['lat'],
-        attractions[i + 1]['lon'],
+        attractions[i]['lat'] ?? 0.0,
+        attractions[i]['lon'] ?? 0.0,
+        attractions[i + 1]['lat'] ?? 0.0,
+        attractions[i + 1]['lon'] ?? 0.0,
       );
       total += dist;
     }
@@ -103,14 +150,15 @@ class DayCluster {
   }
 
   double _haversine(double lat1, double lon1, double lat2, double lon2) {
-    const R = 6371;
-    final dLat = (lat2 - lat1) * 3.141592653589793 / 180;
-    final dLon = (lon2 - lon1) * 3.141592653589793 / 180;
-    final a = 0.5 - 0.5 * ((lat2 - lat1) / 180).abs().cos() +
-        0.5 *
-            (lat1 * 3.141592653589793 / 180).cos() *
-            (lat2 * 3.141592653589793 / 180).cos() *
-            (1 - (dLon).cos());
-    return R * 2 * a.asin();
+    const R = 6371.0;
+    final dLat = (lat2 - lat1) * math.pi / 180;
+    final dLon = (lon2 - lon1) * math.pi / 180;
+    final a = 0.5 - 
+        0.5 * math.cos((lat2 - lat1) * math.pi / 180) +
+        0.5 * 
+            math.cos(lat1 * math.pi / 180) *
+            math.cos(lat2 * math.pi / 180) *
+            (1 - math.cos(dLon));
+    return R * 2 * math.asin(math.sqrt(a));
   }
 }

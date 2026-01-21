@@ -1,49 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:travel_filter_app/gemma_llm_service.dart';
-import 'package:travel_filter_app/home_screen.dart';
+import 'phase5_home.dart';
 
 void main() {
-  // Initialize logger
+  // Initialize logger with detailed formatting
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-    debugPrint('${record.level.name}: ${record.time}: ${record.message}');
+    final time = record.time.toString().split('.')[0];
+    debugPrint('[${record.level.name}] $time: ${record.loggerName}: ${record.message}');
   });
 
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  late final GemmaLLMService _gemmaService;
-
-  @override
-  void initState() {
-    super.initState();
-    _gemmaService = GemmaLLMService();
-  }
-
-  @override
-  void dispose() {
-    _gemmaService.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Travel Filter App - Gemma LLM',
+      title: 'Travel Planner - AI-First GenUI',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 0,
+        ),
       ),
-      home: HomeScreen(gemmaService: _gemmaService),
+      home: const Phase5Home(),
     );
   }
 }
