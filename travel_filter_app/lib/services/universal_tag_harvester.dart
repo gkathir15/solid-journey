@@ -33,12 +33,18 @@ class UniversalTagHarvester {
       ).timeout(const Duration(seconds: 90));
 
       if (response.statusCode != 200) {
-        _log.warning('⚠️ Overpass API error: ${response.statusCode}, using mock data');
+        _log.warning('⚠️ Overpass API error: ${response.statusCode}, body: ${response.body.substring(0, 200)}');
+        _log.warning('Using mock data for development');
         return _getMockData(city);
       }
 
       final data = jsonDecode(response.body);
-      final elements = (data['elements'] as List).cast<Map<String, dynamic>>();
+      final elements = (data['elements'] as List?)?.cast<Map<String, dynamic>>() ?? [];
+      
+      if (elements.isEmpty) {
+        _log.warning('⚠️ Overpass returned no elements, using mock data');
+        return _getMockData(city);
+      }
 
       _log.info('✅ Harvested ${elements.length} elements with full metadata');
 
@@ -46,33 +52,27 @@ class UniversalTagHarvester {
       return _enrichWithMetadata(elements);
     } catch (e) {
       _log.warning('⚠️ Harvesting error: $e, using mock data');
+      _log.warning('Stack trace: $e');
       return _getMockData(city);
     }
   }
 
   /// Build comprehensive Overpass query
   String _buildComprehensiveQuery(String city, List<String> categories) {
-    // Use bbox for Chennai instead of geocoding for reliability
-    // Chennai bounds: 12.57°N to 13.25°N, 79.75°E to 80.30°E
+    // Use bbox for cities - more reliable than geocoding
     final bbox = _getCityBbox(city);
     
+    // Simplified query with proper formatting
     return '''[out:json][timeout:90];
-($bbox
-  node["tourism"~"attraction|museum|gallery|viewpoint|historic|artwork|theme_park"];
-  way["tourism"~"attraction|museum|gallery|viewpoint|historic|artwork|theme_park"];
-  relation["tourism"~"attraction|museum|gallery|viewpoint|historic|artwork|theme_park"];
-  node["amenity"~"cafe|restaurant|bar|pub|library|cinema|theatre|museum|art_gallery|community_centre"];
-  way["amenity"~"cafe|restaurant|bar|pub|library|cinema|theatre|museum|art_gallery|community_centre"];
-  node["leisure"~"park|garden|playground|recreation_ground|nature_reserve|common|hackerspace|escape_game"];
-  way["leisure"~"park|garden|playground|recreation_ground|nature_reserve|common|hackerspace|escape_game"];
-  node["historic"~"archaeological_site|castle|church|ruins|memorial|monument|wayside_shrine"];
-  way["historic"~"archaeological_site|castle|church|ruins|memorial|monument|wayside_shrine"];
-  node["shop"~"antique|art|book|craft|museum|second_hand|vintage"];
-  way["shop"~"antique|art|book|craft|museum|second_hand|vintage"];
-  node["craft"~"brewery|winery|distillery|coffee|chocolate|baker|pottery"];
-  way["craft"~"brewery|winery|distillery|coffee|chocolate|baker|pottery"];
-  node["natural"~"wood|water|peak|cave|beach|viewpoint"];
-  way["natural"~"wood|water|peak|cave|beach|viewpoint"];
+(
+  node["tourism"~"attraction|museum|gallery|viewpoint|historic|artwork"](${bbox.replaceAll(RegExp(r'[()]'), '')});
+  way["tourism"~"attraction|museum|gallery|viewpoint|historic|artwork"](${bbox.replaceAll(RegExp(r'[()]'), '')});
+  node["amenity"~"cafe|restaurant|library|cinema|theatre|museum"](${bbox.replaceAll(RegExp(r'[()]'), '')});
+  way["amenity"~"cafe|restaurant|library|cinema|theatre|museum"](${bbox.replaceAll(RegExp(r'[()]'), '')});
+  node["leisure"~"park|garden|playground|nature_reserve"](${bbox.replaceAll(RegExp(r'[()]'), '')});
+  way["leisure"~"park|garden|playground|nature_reserve"](${bbox.replaceAll(RegExp(r'[()]'), '')});
+  node["historic"](${bbox.replaceAll(RegExp(r'[()]'), '')});
+  way["historic"](${bbox.replaceAll(RegExp(r'[()]'), '')});
 );
 out center;''';
   }
