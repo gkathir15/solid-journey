@@ -248,3 +248,190 @@ dependencies:
 **Privacy**: Maximum (100% local)  
 **Quality**: Excellent (comprehensive logging)  
 **Ready to Deploy**: YES  
+
+---
+
+## Phase 5: GenUI-Driven AI Travel Agent (Latest Architecture)
+
+**Status**: 🎯 **DOCUMENTED & READY FOR IMPLEMENTATION**
+
+### Overview
+Complete redesign to use GenUI (flutter_genui) with A2UI protocol for dynamic UI generation driven entirely by a local Gemini Nano LLM with spatial reasoning capabilities.
+
+### Key Components
+
+#### 1. Data Discovery Layer
+- **OSMService**: Universal tag harvesting from Overpass API
+  - Queries amenity, tourism, historic, leisure, heritage, shop, craft, man_made, natural
+  - Extracts secondary metadata: cuisine, operator, opening_hours, fee, wheelchair, architecture
+  - Returns comprehensive place data
+
+- **DiscoveryProcessor**: Semantic tag transformation
+  - Converts raw OSM tags → Vibe Signatures (minified JSON)
+  - Example: "v:history,quiet;h:18thC;l:local;f:yes;w:limited"
+  - Token-efficient representation for LLM analysis
+
+#### 2. Spatial Intelligence Layer
+- **SpatialClusterer**: Geographic grouping algorithm
+  - Groups places within 1km radius for same-day visits
+  - Identifies "anchor points" (central, highly-connected places)
+  - Creates Day Clusters with themes and routing
+
+- **DistanceMatrixCalculator**: Haversine-based proximity analysis
+  - Computes all-pairs distances for optimal routing
+  - Identifies clustering opportunities
+
+#### 3. Local LLM Reasoning Engine
+- **LocalLLMService**: Gemini Nano inference
+  - System prompt: "You are a Spatial Planner"
+  - Tools: [OSMSlimmer, DistanceMatrix, VibeAnalyzer, ClusterBuilder]
+  - Reasons about vibe patterns and geographic constraints
+  - Outputs A2UI-formatted UI component instructions
+
+#### 4. GenUI Rendering Layer
+- **A2uiMessageProcessor**: Parses LLM output into widget tree
+- **DiscoverySurface**: Container for dynamically generated UI
+
+#### 5. Component Catalog
+- **PlaceDiscoveryCard**: Individual place display with vibe metadata
+- **SmartMapSurface**: OSM-powered map with vibe filters
+- **RouteItinerary**: Day-by-day itinerary with themes and distances
+
+### LLM Tool Definitions
+
+```
+1. OSMSlimmer(city, categories) → [VibeSignature]
+   - Fetches attractions with minified vibe signatures
+   - Input: city name + activity categories
+   - Output: Places with signatures like "v:history,quiet;h:14thC;l:local"
+
+2. DistanceMatrix(placeIds) → Map[id, Map[id, distance]]
+   - Calculates distances between discovered places
+   - Used for clustering algorithm
+
+3. VibeAnalyzer(userVibes, places) → [ScoreMatch]
+   - Scores places against user preferences
+   - Provides reasoning for matches
+
+4. ClusterBuilder(places, distanceMatrix, tripDays) → [DayCluster]
+   - Groups places into day-long routes
+   - Optimizes for proximity and experience flow
+```
+
+### Vibe Signature Format
+Minified format to reduce token usage while preserving semantic richness:
+
+```
+Base format: "v:vibe1,vibe2;attribute:value;..."
+
+Common patterns:
+- Quiet History: "v:history,quiet;h:18thC;l:local;f:yes;w:limited"
+- Hidden Gem Cafe: "v:social,quiet,artsy;l:local;c:specialty_coffee;f:paid;w:yes"
+- Nature Spot: "v:nature,serene;natural:peak;f:no"
+- Street Art Hub: "v:artsy,social;l:local;shop:craft;f:free"
+
+Key mappings:
+v = vibes (history, nature, social, culture, quiet, artsy, adventurous, romantic)
+h = heritage (14thC, medieval, baroque, roman, etc.)
+l = localness (local or chain)
+f = fee (yes, no, donation)
+w = wheelchair (yes, limited, no)
+c = cuisine type
+d = distance category
+```
+
+### A2UI Protocol
+LLM emits JSON-formatted UI instructions wrapped in ```a2ui ... ``` blocks:
+
+```json
+[
+  {
+    "type": "SmartMapSurface",
+    "payload": {
+      "places": [{"name": "...", "lat": 0.0, "lng": 0.0, "vibeFilter": "..."}],
+      "centerLat": 0.0,
+      "centerLng": 0.0,
+      "zoom": 14
+    }
+  },
+  {
+    "type": "RouteItinerary",
+    "payload": {
+      "days": [
+        {"dayNumber": 1, "theme": "...", "places": [...], "totalDistanceKm": 2.3}
+      ]
+    }
+  }
+]
+```
+
+### Communication Loop
+1. User Input → DiscoverySurface
+2. OSMService fetches attractions with tags
+3. DiscoveryProcessor creates vibe signatures
+4. SpatialClusterer analyzes distances
+5. LocalLLMService reasons about patterns
+6. A2uiMessageProcessor renders widgets
+7. User interacts → DataModelUpdate sent to LLM
+8. LLM re-thinks → New A2UI emitted → UI re-renders
+
+### Transparency Logging Points
+
+```
+[OSM] Fetching attractions for {city} with categories: {categories}
+[OSM] Fetched {N} places
+[OSM_ERROR] {error}
+
+[DISCOVERY] Processing: {place_name}
+[DISCOVERY] Signature: {vibe_signature}
+
+[CLUSTER] Creating {N}-day clusters for {M} places
+[CLUSTER] Day {N}: {places}
+
+[LLM_INPUT] User: {input}
+[LLM_INPUT] Places: {count}
+[LLM_INPUT] Clusters: {count}
+[LLM_OUTPUT] Length: {chars}
+[LLM_ERROR] {error}
+
+[A2UI] Parsing response of {chars} chars
+[A2UI] Parsed {N} messages
+
+[WIDGET_INTERACTION] Widget: {id}, Data: {data}
+```
+
+### Documentation Files
+
+New Phase 5 documentation (stored in this directory):
+- **PHASE_5_GENUI_ARCHITECTURE.md**: Complete architecture overview with diagrams and data flows
+- **PHASE_5_IMPLEMENTATION_REFERENCE.md**: Copy-paste ready code snippets for all components
+- **PHASE_5_LLM_TOOLS_AND_PROMPTS.md**: Tool definitions, system prompts, and example outputs
+
+### Implementation Status
+
+**Ready to Start**:
+- ✅ Architecture designed
+- ✅ Tool specifications complete
+- ✅ System prompts written
+- ✅ Code templates provided
+- ⏳ Service implementations pending
+- ⏳ Widget implementations pending
+- ⏳ Integration testing pending
+
+### Next Steps
+
+1. **Phase 5a**: Implement data services (OSMService, DiscoveryProcessor, SpatialClusterer)
+2. **Phase 5b**: Implement LocalLLMService with tool calling
+3. **Phase 5c**: Build GenUI widgets and A2UI processing
+4. **Phase 5d**: Integration testing and optimization
+5. **Phase 5e**: Offline map caching and performance tuning
+
+### Key Principles
+
+1. **Local-First**: All inference on-device, no cloud APIs
+2. **Token-Efficient**: Minified vibe signatures reduce context size by 70%
+3. **Spatial-Aware**: Distance and clustering logic drives recommendations
+4. **Transparent**: Every input/output logged and inspectable
+5. **GenUI-Driven**: UI is generated by AI, not hard-coded
+6. **Tool-Enabled**: LLM invokes data discovery tools and reasons about results
+
