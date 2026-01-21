@@ -2,9 +2,17 @@
 
 ## 📋 Project Overview
 
-Building a **Flutter-based AI travel planning agent** where a local LLM (Gemma/MediaPipe) is the decision-making engine. The LLM controls the UI, discovery logic, and itinerary creation using a semantic understanding of OpenStreetMap data.
+Building a **Flutter-based AI travel planning agent** where a local LLM (Gemini Nano/Gemma) is the decision-making engine. The LLM controls the UI, discovery logic, and itinerary creation using a semantic understanding of OpenStreetMap data.
 
 **Status**: Phase 5 Implementation Complete ✅
+
+### Latest Updates (2026-01-22):
+- ✅ Fixed OSM data harvesting with bbox queries (Overpass API)
+- ✅ Implemented fallback mock data for development
+- ✅ Improved LLM discovery scoring algorithm for all vibe types
+- ✅ Full transparency logging at each pipeline stage
+- ✅ Ready for Gemini Nano integration
+- ✅ Ready for GenUI component rendering
 
 ## 🎯 Core Architecture
 
