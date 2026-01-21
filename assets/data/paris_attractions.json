@@ -1,0 +1,14 @@
+[
+  {"n": "Louvre Museum", "c": "museum", "d": "World's largest art museum, home to the Mona Lisa."},
+  {"n": "Musée d'Orsay", "c": "museum", "d": "Famous for Impressionist masterpieces in a former train station."},
+  {"n": "Centre Pompidou", "c": "museum", "d": "High-tech architectural landmark with modern art collections."},
+  {"n": "Sacre-Coeur", "c": "church", "d": "White marble basilica offering panoramic views of Paris."},
+  {"n": "Notre Dame", "c": "church", "d": "Iconic Gothic cathedral on the Île de la Cité."},
+  {"n": "Sainte-Chapelle", "c": "church", "d": "Known for its stunning 13th-century stained glass windows."},
+  {"n": "Café de Flore", "c": "cafe", "d": "Historic coffeehouse famous for its celebrity and literary history."},
+  {"n": "Les Deux Magots", "c": "cafe", "d": "Classic Parisian cafe once frequented by Hemingway and Sartre."},
+  {"n": "Angelina", "c": "cafe", "d": "Sophisticated tea house famous for its thick hot chocolate."},
+  {"n": "Luxembourg Gardens", "c": "park", "d": "Elegant 17th-century gardens with fountains and statues."},
+  {"n": "Tuileries Garden", "c": "park", "d": "Formal gardens connecting the Louvre to the Place de la Concorde."},
+  {"n": "Parc Monceau", "c": "park", "d": "A picturesque, English-style park with ruins and rotunda."}
+]
