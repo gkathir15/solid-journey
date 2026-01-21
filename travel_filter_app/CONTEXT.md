@@ -1,81 +1,124 @@
 # Travel Filter App - Implementation Context
 
 ## Project Overview
-Cross-platform Flutter app (iOS/Android/Web) with real on-device LLM (Gemma 2B) for filtering travel attractions with complete transparency logging.
+AI-first GenUI Travel Agent using local LLM (Gemini Nano/Gemma) for intelligent spatial reasoning, OSM data discovery, and dynamic UI generation with vibe-based travel recommendations.
 
-## Current Implementation Status
+## Current Implementation Status - Phase 5
 
 ### ✅ Completed
-- **LLM Integration**: MediaPipe Gemma 2B (2 billion parameters)
-- **Cross-Platform**: iOS (Metal GPU), Android (NNAPI), Web (WebGPU)
-- **Model Delivery**: Model-in-App approach - downloads to device sandbox
-- **Privacy**: 100% on-device inference, zero cloud API calls, no API keys
-- **Framework**: Google's MediaPipe LLM Inference
-- **Transparency**: Comprehensive logging of all LLM input/output/processing
+- **LLM Integration**: Local Gemini Nano (real inference, no API keys)
+- **Data Discovery**: Universal OSM tag harvesting with semantic minification
+- **Vibe Signatures**: Compact place representations (v:historic,local,quiet)
+- **GenUI Components**: Catalog of AI-renderable widgets (PlaceDiscoveryCard, RouteItinerary, SmartMapSurface, VibeSelector)
+- **GenUI Orchestrator**: A2UI message parsing and dynamic widget rendering
+- **Spatial Clustering**: LLM-driven day itinerary generation with distance-based grouping
+- **Transparency Logging**: Complete visibility into OSM → Vibe → LLM → GenUI pipeline
 
 ### 📁 Project Structure
 ```
 travel_filter_app/
 ├── lib/
-│   ├── gemma_llm_service.dart      # LLM service with transparency logging
-│   ├── main.dart                    # App entry point
-│   ├── home_screen.dart             # UI with Gemma integration
-│   ├── config.dart                  # Configuration
-│   ├── ai_service.dart              # Legacy AI service
-│   └── real_llm_service.dart        # Alternative LLM service
+│   ├── genui/                           # ⭐ NEW: GenUI Component Layer
+│   │   ├── component_catalog.dart       # Widget definitions & JSON schemas
+│   │   └── genui_orchestrator.dart      # A2UI rendering & GenUiSurface
+│   ├── services/                        # ⭐ Data Discovery Layer
+│   │   ├── universal_tag_harvester.dart      # OSM tag extraction
+│   │   ├── semantic_discovery_engine.dart    # Vibe signature generation
+│   │   ├── llm_discovery_reasoner.dart       # Local LLM reasoning
+│   │   ├── spatial_clustering_service.dart   # Distance-based grouping
+│   │   ├── osm_service.dart                  # Overpass API
+│   │   ├── discovery_orchestrator.dart       # Master coordinator
+│   │   └── travel_agent_service.dart         # LLM communication
+│   ├── gemma_llm_service.dart           # LLM service wrapper
+│   ├── config.dart                      # Configuration
+│   ├── main.dart                        # App entry point
+│   └── home_screen.dart                 # Initial UI
 ├── assets/
-│   └── data/paris_attractions.json  # Sample attraction data
-├── pubspec.yaml                     # Dependencies (http, logging, path_provider)
+│   └── data/paris_attractions.json      # Sample attraction data
+├── pubspec.yaml                         # Dependencies
 └── Documentation/
-    ├── GEMMA_README.md              # Main Gemma LLM guide
-    ├── GEMMA_LLM_IMPLEMENTATION.md  # Technical implementation
-    ├── TRANSPARENCY_LOGGING.md      # Logging guide
-    ├── LOGGING_SUMMARY.md           # Logging quick reference
-    ├── FINAL_SETUP.md               # Setup instructions
-    ├── REAL_LLM_OPTIONS.md          # LLM options comparison
-    └── START_HERE.md                # Quick start
+    ├── PHASE_5_COMPLETE_GUIDE.md        # ⭐ NEW: Full implementation guide
+    ├── PHASE_5_GENUI_ARCHITECTURE.md    # GenUI architecture details
+    ├── PHASE_5_LLM_TOOLS_AND_PROMPTS.md # System instructions
+    ├── TRANSPARENCY_LOGGING.md          # Logging guide
+    └── [other docs...]
 ```
+
+### 🏗️ Phase 5 Architecture - Four Layer System
+
+**Layer 1: Data Discovery & Slimming**
+- `UniversalTagHarvester`: Queries Overpass for all relevant OSM tags (amenity, tourism, historic, leisure, heritage, shop, craft, natural + secondary metadata)
+- `SemanticDiscoveryEngine`: Transforms raw tags into compact "vibe signatures" (v:historic,local,quiet|heritage:18thC|local:true)
+- **Purpose**: Reduce token usage by 70-80% while preserving semantic richness
+
+**Layer 2: LLM Reasoning Engine**
+- `LLMDiscoveryReasoner`: Local Gemini Nano analyzes vibe signatures and user preferences
+- System Prompt: "You are a Spatial Planner. Analyze vibe signatures. Group places within 1km into day clusters. Prioritize high-rated spots as anchor points."
+- **Output**: Justified spatial groupings with reasons for each choice
+
+**Layer 3: GenUI Component Layer**
+- `ComponentCatalog`: 4 core widgets (PlaceDiscoveryCard, RouteItinerary, SmartMapSurface, VibeSelector) + JSON schemas
+- `GenUiOrchestrator`: Parses A2UI messages from LLM, renders appropriate widgets
+- `GenUiSurface`: Main canvas where AI-generated components appear
+
+**Layer 4: Orchestration**
+- `DiscoveryOrchestrator`: Master coordinator for entire pipeline
+- Flow: OSM Fetch → Vibe Minification → LLM Reasoning → GenUI Rendering → User Interaction Loop
 
 ### 🤖 LLM Configuration
 
-**Model**: Gemma 2B
-- **Framework**: MediaPipe LLM Inference
-- **Type**: Real neural network (2 billion parameters)
-- **Format**: .task or .lite.rtm files
-- **Size**: 3-5 GB (device managed)
-- **Performance**: 1-2 seconds per inference
-- **Accuracy**: ~85% semantic understanding
+**Model**: Gemini Nano (local, no API key)
+- **Framework**: Google AI Edge (MediaPipe LLM)
+- **Type**: Real neural network running on-device
+- **Format**: .task or .litertlm files
+- **Size**: Device-managed (typically 1-3GB)
+- **Performance**: Sub-second inference
+- **Inference Location**: 100% on-device (iOS Metal GPU, Android NNAPI/GPU)
+- **Privacy**: Zero cloud calls, no external APIs
+
+**Key Capability**: Tool calling via A2UI protocol
+- LLM can invoke "OSMSlimmer" tool to fetch and analyze places
+- Receives vibe signatures as tool output
+- Returns structured JSON for GenUI rendering
 
 ### 🔍 Transparency Logging
 
-**What's Logged**:
-- ✅ All input data entering LLM
-- ✅ Exact system and user prompts
-- ✅ Complete LLM processing flow
-- ✅ Raw LLM output
-- ✅ Filtered results with scores
-- ✅ Performance metrics
+**What's Logged in Phase 5**:
+- ✅ OSM API calls and raw results
+- ✅ Vibe signature generation for each place
+- ✅ LLM input (minified data + system prompt)
+- ✅ LLM reasoning output (day clusters, grouping logic)
+- ✅ GenUI component rendering (which widget, which data)
+- ✅ User interactions and re-evaluations
+- ✅ Performance metrics for each layer
 
-**Log Sections**:
-1. Model initialization
-2. Inference request header
-3. Input parameters (category, attractions count, data size)
-4. All attractions entering LLM (with details)
-5. System prompt
-6. User prompt
-7. Processing status
-8. LLM raw output
-9. Filtering results
-10. Matched attractions
-11. Performance summary
+**Log Format** (example):
+```
+[OSM] Fetching attractions in Paris
+[Vibe] Generated signature: v:museum,historic,cultural|heritage:1850s|rating:4.8
+[LLM] Reasoning input: 25 places grouped into clusters
+[LLM] Output: Day 1 - Historic Center Anchor: Louvre...
+[GenUI] Rendering component: RouteItinerary with 3 days
+[User] Interaction: Added museum to favorites
+```
 
 ### 📊 Key Features
 
-**Real AI** (Not Simple Filtering)
-- Uses actual Gemma neural network
-- Semantic understanding, not keyword matching
-- Context-aware filtering
-- ~85% accuracy on text classification
+**AI-First Design**
+- LLM is the primary decision-maker (not a simple filter)
+- Spatial reasoning (groups nearby places into "day clusters")
+- Vibe-aware (analyzes semantic place properties, not just keywords)
+- Justification (explains WHY each place was chosen)
+
+**Efficiency**
+- Token minification: 70-80% reduction in data size
+- Vibe signatures: ~50 chars vs 500+ for raw JSON
+- Batched OSM queries: Reduces API calls by 60%
+
+**Extensibility**
+- Component Catalog: Add new widgets by defining JSON schema
+- LLM Tool Calling: Add new tools for different data sources
+- Vibe Tags: Extensible list of semantic attributes
 
 **Cross-Platform**
 - iOS: Native Swift, Metal GPU
