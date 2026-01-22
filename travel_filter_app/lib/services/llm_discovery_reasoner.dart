@@ -231,12 +231,22 @@ Output format:
   String _extractComponent(String signature, String prefix) {
     final start = signature.indexOf(prefix);
     if (start == -1) return '';
+    
+    final startPos = start + prefix.length;
+    if (startPos >= signature.length) return '';
+    
     final end = signature.indexOf(';', start);
-    final substring = signature.substring(
-      start + prefix.length,
-      end == -1 ? signature.length : end,
-    );
-    return substring.split(',').first;
+    final endPos = end == -1 ? signature.length : end;
+    
+    if (startPos >= endPos) return '';
+    
+    try {
+      final substring = signature.substring(startPos, endPos);
+      return substring.split(',').first;
+    } catch (e) {
+      _log.warning('Error extracting component: $e');
+      return '';
+    }
   }
 }
 
