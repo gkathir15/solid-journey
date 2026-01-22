@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'a2ui_message_processor.dart';
@@ -76,7 +77,10 @@ class _GenUiSurfaceState extends State<GenUiSurface> {
 
   Future<void> _generateInitialUI(Map<String, dynamic> planningResult) async {
     // This would normally come from LLM reasoning
-    // For now, we'll create a default flow
+    // For now, we'll create a default flow with properly quoted JSON
+    final vibesJson = jsonEncode(widget.userVibes);
+    final availableVibesJson = jsonEncode(["historic", "local", "quiet", "vibrant", "nature", "urban", "cultural", "hidden_gem", "family_friendly", "budget", "luxury", "instagram_worthy", "off_the_beaten_path", "street_art", "cafe_culture", "nightlife", "adventure", "relaxation", "educational", "spiritual"]);
+    
     final initialMessages = '''
     {
       "messages": [
@@ -84,8 +88,8 @@ class _GenUiSurfaceState extends State<GenUiSurface> {
           "type": "component_render",
           "componentType": "VibeSelector",
           "data": {
-            "selectedVibes": ${widget.userVibes},
-            "availableVibes": ["historic", "local", "quiet", "vibrant", "nature", "urban", "cultural", "hidden_gem", "family_friendly", "budget", "luxury", "instagram_worthy", "off_the_beaten_path", "street_art", "cafe_culture", "nightlife", "adventure", "relaxation", "educational", "spiritual"]
+            "selectedVibes": $vibesJson,
+            "availableVibes": $availableVibesJson
           }
         },
         {
@@ -93,7 +97,7 @@ class _GenUiSurfaceState extends State<GenUiSurface> {
           "componentType": "SmartMapSurface",
           "data": {
             "places": [],
-            "vibeFilter": ${widget.userVibes},
+            "vibeFilter": $vibesJson,
             "centerLat": 0,
             "centerLon": 0,
             "zoomLevel": 13
