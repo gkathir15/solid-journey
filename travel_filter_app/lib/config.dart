@@ -34,4 +34,27 @@ for SDK authentication. The API key is used only for authorization,
 not for sending your data to cloud servers.
 ''';
   }
+
+  static const List<String> commonVibes = [
+    'historic',
+    'local',
+    'quiet',
+    'vibrant',
+    'nature',
+    'urban',
+    'cultural',
+    'hidden_gem',
+    'family_friendly',
+    'budget',
+    'luxury',
+    'instagram_worthy',
+    'off_the_beaten_path',
+    'street_art',
+    'cafe_culture',
+    'nightlife',
+    'adventure',
+    'relaxation',
+    'educational',
+    'spiritual',
+  ];
 }

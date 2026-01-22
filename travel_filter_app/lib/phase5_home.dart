@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'genui/genui_orchestrator.dart';
+import 'genui/genui_surface.dart';
 import 'genui/component_catalog.dart';
 import 'services/discovery_orchestrator.dart';
 
@@ -17,9 +17,6 @@ class Phase5Home extends StatefulWidget {
 
 class _Phase5HomeState extends State<Phase5Home> {
   final _log = Logger('Phase5Home');
-  
-  late GenUiOrchestrator _genUiOrchestrator;
-  late DiscoveryOrchestrator _discoveryOrchestrator;
 
   // State for the planning flow
   String _selectedCountry = 'France';
@@ -32,10 +29,6 @@ class _Phase5HomeState extends State<Phase5Home> {
   @override
   void initState() {
     super.initState();
-    _discoveryOrchestrator = DiscoveryOrchestrator();
-    _genUiOrchestrator = GenUiOrchestrator(
-      discoveryOrchestrator: _discoveryOrchestrator,
-    );
   }
 
   Future<void> _startPlanning() async {
@@ -56,13 +49,17 @@ class _Phase5HomeState extends State<Phase5Home> {
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => GenUiSurface(
-            orchestrator: _genUiOrchestrator,
             city: _selectedCity,
             country: _selectedCountry,
-            selectedVibes: _selectedVibes,
+            userVibes: _selectedVibes,
+            tripDays: _selectedDuration,
           ),
         ),
       );
+      
+      setState(() {
+        _isPlanning = false;
+      });
     } catch (e) {
       _log.severe('Planning failed: $e');
       if (!mounted) return;
